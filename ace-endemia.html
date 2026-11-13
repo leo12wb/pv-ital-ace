@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACE – Agente de Combate às Endemias</title>
+<style>
+:root{
+  --ace-primary:#15803d;--ace-secondary:#16a34a;--ciano:#0d9488;--azul:#22c55e;
+  --bg:#f0fdf4;--card:#fff;--text:#1a1a1a;--muted:#6b7280;--border:#d1fae5;
+  --shadow:0 2px 8px rgba(0,0,0,.08);--radius:12px;
+}
+[data-dark]{
+  --bg:#0a0a0a;--card:#111;--text:#f0f0f0;--muted:#9ca3af;--border:#1f2937;
+  --shadow:0 2px 8px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+/* HEADER */
+header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.hdr-row{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto}
+.badge{background:#fff2;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid #fff4;letter-spacing:.5px}
+.hdr-titles h1{font-size:1.1rem;font-weight:700;color:#fff;line-height:1.2}
+.hdr-titles p{font-size:.72rem;color:#bbf7d0;margin-top:2px}
+.hdr-actions{margin-left:auto;display:flex;gap:8px}
+.hdr-btn{background:#fff2;border:1px solid #fff3;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.75rem;transition:background .2s}
+.hdr-btn:hover{background:#fff3}
+.speed-group{display:flex;border:1px solid #fff3;border-radius:8px;overflow:hidden}
+.speed-btn{background:#fff2;border:none;border-right:1px solid #fff3;color:#fff;padding:6px 9px;cursor:pointer;font-size:.72rem;font-weight:600;transition:background .2s}
+.speed-btn:last-child{border-right:none}
+.speed-btn:hover{background:#fff3}
+.speed-btn.ativo{background:#fff4;font-weight:800}
+/* TABS */
+.tabs-wrap{background:var(--card);border-bottom:2px solid var(--border);position:sticky;top:72px;z-index:90}
+.tabs{display:flex;gap:0;max-width:900px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:12px 16px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab.ativo{color:var(--ace-primary);border-bottom-color:var(--ace-primary)}
+.tab:hover:not(.ativo){color:var(--ace-secondary)}
+/* CONTENT */
+.content{max-width:900px;margin:0 auto;padding:16px}
+.secao{display:none}.secao.ativa{display:block}
+/* RESUMO */
+.disc-bloco{background:var(--card);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.disc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--ace-primary);color:#fff;font-weight:600;font-size:.9rem;user-select:none}
+.disc-header:hover{opacity:.92}
+.disc-header .arrow{transition:transform .3s;font-size:.8rem}
+.disc-header.open .arrow{transform:rotate(180deg)}
+.disc-topicos{display:none;padding:0}
+.disc-topicos.open{display:block}
+.topico-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
+.topico-item:last-child{border-bottom:none}
+.freq-badge{font-size:.65rem;padding:2px 7px;border-radius:10px;font-weight:700;white-space:nowrap;margin-top:2px}
+.freq-alto{background:#fef2f2;color:#dc2626}
+.freq-medio{background:#fffbeb;color:#d97706}
+.freq-baixo{background:#f0fdf4;color:#15803d}
+.topico-nome{font-weight:600;font-size:.85rem;margin-bottom:3px}
+.topico-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+/* FLASHCARDS */
+.flash-ctrl{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.flash-ctrl select,.flash-ctrl button{padding:8px 14px;border-radius:8px;border:1px solid var(--border);font-size:.82rem;cursor:pointer;background:var(--card);color:var(--text)}
+.flash-ctrl button{background:var(--ace-primary);color:#fff;border:none;font-weight:600}
+.flash-ctrl button:hover{background:var(--ace-secondary)}
+.flash-prog{font-size:.8rem;color:var(--muted);margin-left:auto}
+.flash-box{perspective:1000px;margin:0 auto 16px}
+.flash-inner{position:relative;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.flash-inner.virado{transform:rotateY(180deg)}
+.flash-frente,.flash-verso{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backface-visibility:hidden;padding:32px 24px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.flash-verso{position:absolute;top:0;left:0;width:100%;transform:rotateY(180deg);background:linear-gradient(135deg,#052e16,#15803d)}
+.flash-frente .label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.flash-frente .termo{font-size:1.4rem;font-weight:700;color:var(--ace-primary)}
+.flash-verso .label{font-size:.7rem;color:#bbf7d0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.flash-verso .def{font-size:.88rem;color:#fff;line-height:1.6}
+.flash-nav{display:flex;justify-content:center;gap:12px}
+.flash-nav button{padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:.82rem}
+.btn-ant{background:var(--border);color:var(--text)}
+.btn-prox{background:var(--ace-primary);color:#fff}
+.btn-prox:hover{background:var(--ace-secondary)}
+/* MAPA */
+.mapa-filtros{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.mapa-filtros button{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.78rem;cursor:pointer}
+.mapa-filtros button.ativo{background:var(--ace-primary);color:#fff;border-color:var(--ace-primary)}
+.mapa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.mapa-card{background:var(--card);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);border-left:4px solid var(--ace-primary);cursor:pointer;transition:transform .15s}
+.mapa-card:hover{transform:translateY(-2px)}
+.mapa-card .mc-disc{font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.mapa-card .mc-nome{font-size:.82rem;font-weight:600;margin-bottom:4px}
+.mapa-card .mc-freq{font-size:.65rem}
+/* QUIZ */
+.quiz-ctrl{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.quiz-ctrl select{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.82rem}
+.quiz-ctrl button{padding:8px 18px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer;font-size:.82rem}
+.quiz-ctrl button:hover{background:var(--ace-secondary)}
+.quiz-box{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.quiz-info{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.quiz-badge{padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:700}
+.qbadge-disc{background:#dcfce7;color:#15803d}
+.qbadge-num{background:#f0fdf4;color:#166534;border:1px solid var(--border)}
+[data-dark] .qbadge-disc{background:#052e16;color:#86efac}
+[data-dark] .qbadge-num{background:#052e16;color:#86efac}
+.quiz-pergunta{font-size:.95rem;font-weight:600;line-height:1.6;margin-bottom:16px}
+.quiz-ops{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.quiz-op{padding:11px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.84rem;text-align:left;transition:background .15s,border-color .15s;display:flex;align-items:flex-start;gap:8px}
+.quiz-op:hover:not(:disabled){background:#dcfce7;border-color:var(--ace-primary)}
+.quiz-op.correta{background:#dcfce7;border-color:#15803d;font-weight:600}
+.quiz-op.errada{background:#fee2e2;border-color:#dc2626}
+.quiz-explicacao{background:#f0fdf4;border-left:4px solid var(--ace-primary);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.82rem;line-height:1.6;margin-bottom:14px;display:none}
+[data-dark] .quiz-explicacao{background:#052e16}
+.quiz-explicacao.show{display:block}
+.quiz-nav{display:flex;gap:8px;flex-wrap:wrap}
+.quiz-nav button{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.82rem;font-weight:600}
+.btn-prox-q{background:var(--ace-primary);color:#fff}
+.btn-prox-q:hover{background:var(--ace-secondary)}
+.quiz-placar{text-align:center;padding:24px;display:none}
+.quiz-placar.show{display:block}
+.placar-num{font-size:3rem;font-weight:800;color:var(--ace-primary)}
+.placar-label{color:var(--muted);font-size:.88rem;margin-bottom:16px}
+/* SIMULADOS */
+.exames-lista{display:grid;gap:10px}
+.exame-card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.exame-info h3{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.exame-info p{font-size:.75rem;color:var(--muted)}
+.btn-iniciar{padding:8px 18px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer;font-size:.82rem}
+.btn-iniciar:hover{background:var(--ace-secondary)}
+.exame-ativo{display:none}
+.exame-ativo.show{display:block}
+.ex-header{background:var(--ace-primary);color:#fff;border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
+.ex-header h2{font-size:.95rem;font-weight:700}
+.ex-header p{font-size:.75rem;color:#bbf7d0;margin-top:3px}
+.ex-secao-label{font-size:.78rem;font-weight:700;color:var(--ace-primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.ex-pergunta{font-size:.9rem;font-weight:600;line-height:1.6;margin-bottom:14px}
+.ex-ops{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.ex-op{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.82rem;text-align:left;transition:all .15s;display:flex;gap:8px;align-items:flex-start}
+.ex-op:hover:not(:disabled){background:#dcfce7;border-color:var(--ace-primary)}
+.ex-op.selecionada{background:#dcfce7;border-color:var(--ace-primary);font-weight:600}
+.ex-op.correta{background:#dcfce7;border-color:#15803d}
+.ex-op.errada{background:#fee2e2;border-color:#dc2626}
+.ex-explicacao{background:#f0fdf4;border-left:4px solid var(--ace-primary);padding:12px;border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.6;margin-bottom:12px;display:none}
+[data-dark] .ex-explicacao{background:#052e16}
+.ex-explicacao.show{display:block}
+.ex-nav{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
+.ex-nav button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:.8rem;font-weight:600}
+.audio-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 7px;cursor:pointer;font-size:.82rem;color:var(--ace-primary);flex-shrink:0;transition:background .15s}
+.audio-btn:hover{background:var(--border)}
+.audio-btn-op{background:none;border:none;cursor:pointer;font-size:.78rem;padding:0 2px;opacity:.5;flex-shrink:0;transition:opacity .15s}
+.audio-btn-op:hover{opacity:1}
+.btn-ex-prox{background:var(--ace-primary);color:#fff}
+.btn-ex-prox:hover{background:var(--ace-secondary)}
+.btn-ex-voltar{background:var(--border);color:var(--text)}
+.ex-resultado{display:none;text-align:center;padding:28px}
+.ex-resultado.show{display:block}
+.ex-res-num{font-size:3.5rem;font-weight:800;color:var(--ace-primary)}
+.ex-res-label{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+/* RELATÓRIO */
+.relatorio-box{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.relatorio-box h3{font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--ace-primary)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.stat-card{background:var(--bg);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border)}
+.stat-num{font-size:1.8rem;font-weight:800;color:var(--ace-primary)}
+.stat-label{font-size:.72rem;color:var(--muted);margin-top:2px}
+.btn-exportar{padding:10px 20px;border-radius:8px;border:none;background:var(--ciano);color:#fff;font-weight:600;cursor:pointer;font-size:.84rem}
+.btn-exportar:hover{opacity:.88}
+.btn-limpar{padding:10px 20px;border-radius:8px;border:none;background:#dc2626;color:#fff;font-weight:600;cursor:pointer;font-size:.84rem;margin-left:8px}
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:10px;font-size:.82rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999;max-width:280px}
+#toast.show{opacity:1}
+/* DARK */
+[data-dark] .disc-topicos,.disc-topicos{background:var(--card)}
+[data-dark] .quiz-op,[data-dark] .ex-op{background:var(--bg);color:var(--text)}
+[data-dark] .freq-alto{background:#2a0808;color:#fca5a5}
+[data-dark] .freq-medio{background:#2a1a00;color:#fcd34d}
+[data-dark] .freq-baixo{background:#052e16;color:#86efac}
+/* RESPONSIVE */
+@media(max-width:600px){
+  .flash-frente .termo{font-size:1.1rem}
+  .hdr-titles h1{font-size:.95rem}
+  .tab{padding:10px 12px;font-size:.76rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-row">
+    <span class="badge">ACE</span>
+    <div class="hdr-titles">
+      <h1>Agente de Combate às Endemias</h1>
+      <p>Língua Portuguesa · Matemática · Conhecimentos Específicos</p>
+    </div>
+    <div class="hdr-actions">
+      <div class="speed-group">
+        <button class="speed-btn ativo" onclick="setSpeed(1,this)">1×</button>
+        <button class="speed-btn" onclick="setSpeed(1.5,this)">1.5×</button>
+        <button class="speed-btn" onclick="setSpeed(2,this)">2×</button>
+      </div>
+      <button class="hdr-btn" onclick="toggleDark()">🌙</button>
+      <button class="hdr-btn" onclick="falarCard()">🔊</button>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab ativo" onclick="mudarTab('resumo',this)">📚 Resumo</div>
+    <div class="tab" onclick="mudarTab('flash',this)">🃏 Flashcards</div>
+    <div class="tab" onclick="mudarTab('mapa',this)">🗺️ Mapa</div>
+    <div class="tab" onclick="mudarTab('quiz',this)">❓ Quiz</div>
+    <div class="tab" onclick="mudarTab('simulados',this)">📝 Simulados</div>
+    <div class="tab" onclick="mudarTab('relatorio',this)">📊 Relatório</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- RESUMO -->
+  <div id="sec-resumo" class="secao ativa"></div>
+
+  <!-- FLASHCARDS -->
+  <div id="sec-flash" class="secao">
+    <div class="flash-ctrl">
+      <select id="flash-filtro" onchange="filtrarFlash()">
+        <option value="todos">Todas as disciplinas</option>
+      </select>
+      <button onclick="shuffleFlash()">🔀 Embaralhar</button>
+      <span class="flash-prog" id="flash-prog"></span>
+    </div>
+    <div class="flash-box" style="width:100%">
+      <div class="flash-inner" id="flash-inner" onclick="virarCard()">
+        <div class="flash-frente" id="flash-frente">
+          <div class="label">TERMO</div>
+          <div class="termo" id="flash-termo"></div>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:16px">Clique para ver a definição</div>
+        </div>
+        <div class="flash-verso" id="flash-verso">
+          <div class="label">DEFINIÇÃO</div>
+          <div class="def" id="flash-def"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flash-nav">
+      <button class="btn-ant" onclick="navFlash(-1)">← Anterior</button>
+      <button class="btn-prox" onclick="navFlash(1)">Próximo →</button>
+    </div>
+  </div>
+
+  <!-- MAPA -->
+  <div id="sec-mapa" class="secao">
+    <div class="mapa-filtros" id="mapa-filtros"></div>
+    <div class="mapa-grid" id="mapa-grid"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="sec-quiz" class="secao">
+    <div class="quiz-ctrl">
+      <select id="quiz-filtro">
+        <option value="todos">Todas as disciplinas</option>
+        <option value="Português">Língua Portuguesa</option>
+        <option value="Matemática">Matemática</option>
+        <option value="SUS">Saúde Pública / SUS</option>
+        <option value="Visitas">Visitas e Fiscalização</option>
+        <option value="Endemias">Endemias e Doenças</option>
+      </select>
+      <button onclick="iniciarQuiz()">▶ Iniciar Quiz</button>
+    </div>
+    <div class="quiz-box" id="quiz-box" style="display:none">
+      <div class="quiz-info">
+        <span class="quiz-badge qbadge-disc" id="q-disc"></span>
+        <span class="quiz-badge qbadge-num" id="q-num"></span>
+      </div>
+      <div class="quiz-pergunta" id="q-pergunta"></div>
+      <div class="quiz-ops" id="q-ops"></div>
+      <div class="quiz-explicacao" id="q-exp"></div>
+      <div class="quiz-nav">
+        <button class="btn-prox-q" id="btn-prox-q" onclick="proximaQuestao()" style="display:none">Próxima →</button>
+      </div>
+    </div>
+    <div class="quiz-placar" id="quiz-placar">
+      <div class="placar-num" id="placar-num"></div>
+      <div class="placar-label" id="placar-label"></div>
+      <button onclick="iniciarQuiz()" style="padding:10px 24px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer;font-size:.85rem">Novo Quiz</button>
+    </div>
+  </div>
+
+  <!-- SIMULADOS -->
+  <div id="sec-simulados" class="secao">
+    <div id="exames-lista" class="exames-lista"></div>
+    <div id="exame-ativo" class="exame-ativo">
+      <div class="ex-header">
+        <h2 id="ex-titulo"></h2>
+        <p id="ex-info"></p>
+      </div>
+      <div id="ex-corpo">
+        <div class="ex-secao-label" id="ex-sec-label"></div>
+        <div class="ex-pergunta" id="ex-pergunta"></div>
+        <div class="ex-ops" id="ex-ops"></div>
+        <div class="ex-explicacao" id="ex-exp"></div>
+        <div class="ex-nav">
+          <button class="btn-ex-voltar" onclick="voltarExames()">← Sair</button>
+          <button class="btn-ex-prox" id="btn-ex-prox" onclick="avancarExame()">Próxima →</button>
+        </div>
+      </div>
+      <div class="ex-resultado" id="ex-resultado">
+        <div class="ex-res-num" id="ex-res-num"></div>
+        <div class="ex-res-label" id="ex-res-label"></div>
+        <button onclick="voltarExames()" style="padding:10px 24px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer">Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATÓRIO -->
+  <div id="sec-relatorio" class="secao">
+    <div class="relatorio-box">
+      <h3>📊 Estatísticas Gerais</h3>
+      <div class="stats-grid" id="stats-grid"></div>
+      <button class="btn-exportar" onclick="exportarTXT()">⬇ Exportar TXT</button>
+      <button class="btn-limpar" onclick="limparDados()">🗑 Limpar Dados</button>
+    </div>
+    <div class="relatorio-box" id="horario-box"></div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ===================== DADOS =====================
+
+const disciplinas = [
+  {
+    nome:"📖 Língua Portuguesa",
+    cor:"linear-gradient(135deg,#15803d,#16a34a)",
+    topicos:[
+      {t:"Interpretação de Texto",d:"Leitura e compreensão de textos variados. Identificar tema, ideia central, inferências e recursos argumentativos do autor.",freq:"alto"},
+      {t:"Ortografia e Acentuação",d:"Uso do acento agudo, circunflexo e til. Regras do novo acordo ortográfico (2009). Uso correto de maiúsculas e hifens.",freq:"alto"},
+      {t:"Classes de Palavras",d:"Substantivo, adjetivo, verbo, advérbio, preposição, conjunção, interjeição, numeral e artigo. Funções e flexões de cada classe.",freq:"medio"},
+      {t:"Sintaxe e Concordância",d:"Concordância nominal e verbal. Sujeito simples, composto, oculto. Regras especiais: coletivos, pronomes de tratamento, percentagem.",freq:"alto"},
+      {t:"Verbos e Conjugação",d:"Modos indicativo, subjuntivo e imperativo. Tempos verbais, verbos irregulares e defectivos. Vozes verbal: ativa, passiva e reflexiva.",freq:"medio"},
+      {t:"Pronomes e Colocação",d:"Pronomes pessoais do caso reto e oblíquo. Colocação pronominal: próclise, mesóclise e ênclise. Pronomes de tratamento.",freq:"medio"},
+      {t:"Pontuação",d:"Uso da vírgula (separação de adjunto adverbial, aposto, orações subordinadas). Ponto, ponto e vírgula, dois pontos, travessão e reticências.",freq:"medio"},
+      {t:"Semântica e Figuras de Linguagem",d:"Sinonímia, antonímia, polissemia, homonímia. Figuras: metáfora, metonímia, comparação, hipérbole, eufemismo, ironia.",freq:"baixo"},
+    ]
+  },
+  {
+    nome:"🔢 Matemática",
+    cor:"linear-gradient(135deg,#0d9488,#0f766e)",
+    topicos:[
+      {t:"Números e Operações",d:"Operações com números naturais, inteiros e racionais. Propriedades da adição, subtração, multiplicação e divisão. Ordem de operações.",freq:"alto"},
+      {t:"Frações e Porcentagem",d:"Simplificação, operações com frações. Porcentagem: calcular parte, todo e taxa. Acréscimo e descréscimo percentual.",freq:"alto"},
+      {t:"Regra de Três",d:"Regra de três simples direta e inversa. Regra de três composta: identificar grandezas direta/inversamente proporcionais.",freq:"alto"},
+      {t:"Razão e Proporção",d:"Conceito de razão. Propriedades das proporções. Grandezas proporcionais. Escala em mapas e plantas.",freq:"medio"},
+      {t:"Grandezas e Medidas",d:"Unidades de comprimento, massa, capacidade, tempo e área. Conversões entre unidades do SI.",freq:"medio"},
+      {t:"Geometria Básica",d:"Perímetro e área de figuras planas (quadrado, retângulo, triângulo, círculo). Volume de paralelepípedo e cubo.",freq:"medio"},
+      {t:"Raciocínio Lógico",d:"Proposições, negação, conjunção, disjunção, condicional e bicondicional. Tabelas-verdade. Sentenças abertas e fechadas.",freq:"baixo"},
+    ]
+  },
+  {
+    nome:"🏥 Saúde Pública e SUS",
+    cor:"linear-gradient(135deg,#15803d,#0d9488)",
+    topicos:[
+      {t:"Princípios do SUS",d:"Universalidade, integralidade e equidade (princípios doutrinários). Descentralização, hierarquização e participação social (princípios organizativos). Lei 8.080/1990.",freq:"alto"},
+      {t:"Vigilância em Saúde",d:"Vigilância epidemiológica, sanitária, ambiental e do trabalhador. Notificação compulsória (SINAN). Investigação de surtos e agravos.",freq:"alto"},
+      {t:"Atenção Básica",d:"Estratégia Saúde da Família (ESF). Composição das equipes de saúde. PNAB. Território adscrito e cadastro familiar.",freq:"medio"},
+      {t:"Epidemiologia",d:"Incidência, prevalência, mortalidade, morbidade. Cadeia epidemiológica: agente, hospedeiro e ambiente. Medidas de prevenção primária, secundária e terciária.",freq:"alto"},
+      {t:"Promoção da Saúde",d:"Carta de Ottawa (1986). Determinantes sociais da saúde. Educação em saúde. Intersetorialidade e empoderamento comunitário.",freq:"medio"},
+    ]
+  },
+  {
+    nome:"🏠 Visitas e Fiscalização",
+    cor:"linear-gradient(135deg,#16a34a,#15803d)",
+    topicos:[
+      {t:"Visita Domiciliar do ACE",d:"Objetivo: inspecionar imóveis para eliminação de criadouros. Roteiro de visita: área interna, externa, quintal e caixa d'água. Periodicidade dos ciclos.",freq:"alto"},
+      {t:"Ciclo de Trabalho do ACE",d:"Ciclo de 60 dias (LIRAa) ou definido pela gestão municipal. Estratificação de risco. Uso do mapa de quarteirões e boletim de campo.",freq:"alto"},
+      {t:"Notificação e Registro",d:"Preenchimento do Boletim de Acompanhamento de Campo (BAC). Registro de pendências, imóveis fechados e recusas. SINAN e formulários de campo.",freq:"medio"},
+      {t:"Educação em Saúde",d:"Orientações aos moradores sobre eliminação de criadouros. Comunicação eficaz e abordagem comunitária. Materiais educativos e ações coletivas.",freq:"medio"},
+    ]
+  },
+  {
+    nome:"🦟 Endemias e Doenças",
+    cor:"linear-gradient(135deg,#0d9488,#15803d)",
+    topicos:[
+      {t:"Dengue",d:"Transmissão pelo Aedes aegypti. Sintomas: febre alta, dor muscular e articular, exantema. Classificação: dengue, dengue com sinais de alarme e grave. Tratamento sintomático.",freq:"alto"},
+      {t:"Zika e Chikungunya",d:"Zika: pode causar microcefalia fetal (gestantes). Chikungunya: artralgia intensa e prolongada. Ambas transmitidas pelo Aedes aegypti.",freq:"alto"},
+      {t:"Malária",d:"Causada por Plasmodium (falciparum, vivax, malariae). Transmitida pela fêmea do Anopheles. Sintomas: febre periódica, calafrios, sudorese. Endêmica na Amazônia.",freq:"medio"},
+      {t:"Leishmaniose",d:"Leishmaniose tegumentar (úlceras na pele) e visceral (calazar). Transmitida pelo flebotomíneo (mosquito-palha). Reservatório: cão doméstico.",freq:"medio"},
+      {t:"Doença de Chagas",d:"Causada pelo Trypanosoma cruzi. Transmissão pelo barbeiro (Triatoma). Fase aguda: febre, edema de Romaña. Fase crônica: cardiopatia chagásica.",freq:"medio"},
+      {t:"Leptospirose",d:"Causada por Leptospira. Transmissão pela urina de ratos em águas de enchentes. Sintomas: febre, dor muscular (panturrilha), icterícia. Síndrome de Weil em casos graves.",freq:"alto"},
+    ]
+  },
+];
+
+const questoes = [
+  // Português
+  {disc:"Português",p:"Qual recurso linguístico é usado em 'O tempo passou como um raio'?",ops:["Metáfora","Comparação","Metonímia","Hipérbole"],c:1,exp:"'Como um raio' é uma comparação explícita (uso do 'como'), diferente da metáfora que é implícita."},
+  {disc:"Português",p:"Em qual alternativa o uso da vírgula está CORRETO?",ops:["Comprei, pão leite e manteiga.","Comprei pão, leite e manteiga.","Comprei pão leite, e manteiga.","Comprei, pão, leite e, manteiga."],c:1,exp:"A vírgula separa os itens de uma enumeração, mas não antes do último elemento quando há 'e'."},
+  {disc:"Português",p:"Na frase 'Os alunos foram premiados pela professora', a voz verbal é:",ops:["Ativa","Reflexiva","Passiva analítica","Passiva sintética"],c:2,exp:"Voz passiva analítica: o sujeito recebe a ação. Formada com verbo auxiliar (foram) + particípio (premiados) + agente da passiva (pela professora)."},
+  {disc:"Português",p:"Qual é o antônimo de 'benevolente'?",ops:["Bondoso","Generoso","Malevolente","Tolerante"],c:2,exp:"Benevolente = que tem boa vontade. Malevolente = que tem má intenção. Prefixo mal- indica oposição."},
+  {disc:"Português",p:"Assinale a alternativa com ERRO de concordância verbal:",ops:["Os alunos estudaram muito.","Faz dois anos que não o vejo.","Haviam muitas pessoas na festa.","A maioria dos alunos foi aprovada."],c:2,exp:"'Haver' no sentido de existir é impessoal e fica no singular: 'Havia muitas pessoas na festa'."},
+  // Matemática
+  {disc:"Matemática",p:"Qual é 15% de 80?",ops:["10","12","15","18"],c:1,exp:"15% de 80 = 80 × 0,15 = 12. Ou: 10% de 80 = 8; 5% = 4; total = 12."},
+  {disc:"Matemática",p:"Se 3 operários fazem um serviço em 12 dias, 6 operários fariam em:",ops:["24 dias","6 dias","4 dias","8 dias"],c:1,exp:"Grandezas inversamente proporcionais. 3 × 12 = 6 × x → x = 6 dias."},
+  {disc:"Matemática",p:"A área de um retângulo de base 8 m e altura 5 m é:",ops:["26 m²","13 m²","40 m²","80 m²"],c:2,exp:"Área do retângulo = base × altura = 8 × 5 = 40 m²."},
+  {disc:"Matemática",p:"Simplifique a fração 24/36:",ops:["3/4","2/3","4/6","6/9"],c:1,exp:"MDC(24,36) = 12. 24÷12 = 2 e 36÷12 = 3. Resultado: 2/3."},
+  {disc:"Matemática",p:"Numa turma, 60% são mulheres. Se há 18 mulheres, quantos alunos há no total?",ops:["30","24","36","28"],c:0,exp:"60% = 18 → 100% = 18 ÷ 0,6 = 30 alunos."},
+  // SUS
+  {disc:"SUS",p:"Qual é o princípio do SUS que garante atendimento a todos, independente de contribuição?",ops:["Integralidade","Universalidade","Equidade","Descentralização"],c:1,exp:"Universalidade: o SUS deve atender a todos os cidadãos, sem distinção. É um direito garantido pela CF/88."},
+  {disc:"SUS",p:"A Lei Orgânica da Saúde que regulamenta o SUS é a:",ops:["Lei 8.142/1990","Lei 8.080/1990","Lei 7.498/1986","Lei 9.656/1998"],c:1,exp:"A Lei 8.080/1990 dispõe sobre as condições para a promoção, proteção e recuperação da saúde e organiza o SUS."},
+  {disc:"SUS",p:"Qual é o documento fundador da Promoção da Saúde no mundo?",ops:["Declaração de Alma-Ata","Carta de Ottawa","Declaração de Bogotá","Relatório Lalonde"],c:1,exp:"A Carta de Ottawa (1986) define os cinco campos de ação da promoção da saúde e é referência mundial."},
+  {disc:"SUS",p:"A vigilância epidemiológica tem como função principal:",ops:["Fiscalizar alimentos","Monitorar e controlar doenças e agravos","Realizar cirurgias","Fabricar medicamentos"],c:1,exp:"Vigiar, monitorar e controlar doenças é o papel da vigilância epidemiológica. Ela usa o SINAN para notificações."},
+  // Visitas
+  {disc:"Visitas",p:"O principal objetivo da visita domiciliar do ACE é:",ops:["Vacinar moradores","Eliminar criadouros do Aedes aegypti","Realizar consultas médicas","Distribuir remédios"],c:1,exp:"O ACE inspeciona imóveis em busca de recipientes com água parada que possam servir de criadouro para o mosquito."},
+  {disc:"Visitas",p:"Quando um imóvel está fechado durante a visita, o ACE deve:",ops:["Registrar como visitado normalmente","Registrar como pendência e fazer nova visita","Pular e não registrar","Notificar a polícia"],c:1,exp:"Imóveis fechados são registrados como pendência no boletim de campo e são visitados novamente na próxima rodada."},
+  // Endemias
+  {disc:"Endemias",p:"Qual mosquito transmite a dengue, zika e chikungunya?",ops:["Anopheles darlingi","Aedes albopictus","Aedes aegypti","Culex quinquefasciatus"],c:2,exp:"O Aedes aegypti é o principal vetor da dengue, zika e chikungunya no Brasil."},
+  {disc:"Endemias",p:"A leptospirose é transmitida principalmente por:",ops:["Picada de mosquito","Contato com urina de rato em água de enchente","Contato com barbeiro","Picada de flebotomíneo"],c:1,exp:"A Leptospira penetra pela pele em contato com água ou solo contaminados pela urina de ratos, especialmente em enchentes."},
+  {disc:"Endemias",p:"A doença de Chagas é causada por qual parasita?",ops:["Plasmodium falciparum","Leishmania chagasi","Trypanosoma cruzi","Wuchereria bancrofti"],c:2,exp:"O Trypanosoma cruzi é o agente etiológico da doença de Chagas, transmitido pelo barbeiro (Triatoma)."},
+  {disc:"Endemias",p:"Qual fase da dengue apresenta risco de evolução grave?",ops:["Fase febril","Fase crítica","Fase de recuperação","Fase assintomática"],c:1,exp:"A fase crítica (após queda da febre) é quando pode haver extravasamento de plasma, levando à dengue grave."},
+  {disc:"Endemias",p:"A malária é endêmica principalmente em qual região do Brasil?",ops:["Nordeste","Sul","Região Amazônica","Centro-Oeste"],c:2,exp:"A região Amazônica concentra mais de 99% dos casos de malária no Brasil, onde o Anopheles é prevalente."},
+  {disc:"Endemias",p:"O sinal de Romaña é característico da fase aguda de qual doença?",ops:["Dengue","Leishmaniose visceral","Malária","Doença de Chagas"],c:3,exp:"O sinal de Romaña é o edema bipalpebral unilateral indolor, ocorre quando o Trypanosoma cruzi entra pela conjuntiva."},
+];
+
+const EXAMES_DATA = [
+  {
+    id:'sim1',titulo:'Simulado 1 – Língua Portuguesa e Matemática',banca:'VUNESP',ano:2024,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q5)',qs:[
+        {n:1,q:"No trecho 'O agente de saúde percorreu cada rua do bairro', o sujeito da oração é:",ops:["cada rua do bairro","O agente de saúde","percorreu","do bairro"],g:1,exp:"O agente de saúde é o sujeito simples (quem pratica a ação de percorrer)."},
+        {n:2,q:"Assinale a alternativa em que a palavra destacada é um ADVÉRBIO:",ops:["Ele é muito dedicado.","A água fresca é boa.","Trabalho aqui diariamente.","Comprei livros novos."],g:2,exp:"'Aqui' (advérbio de lugar) e 'diariamente' (advérbio de modo) modificam o verbo."},
+        {n:3,q:"'Preciso que você venha logo.' O modo verbal de 'venha' é:",ops:["Indicativo","Subjuntivo","Imperativo afirmativo","Imperativo negativo"],g:1,exp:"O subjuntivo (presente) é usado em orações subordinadas que expressam desejo, dúvida ou hipótese."},
+        {n:4,q:"Qual das alternativas apresenta uso CORRETO do acento?",ops:["pára (verbo parar)","vôo","idéia","área"],g:3,exp:"Pelo acordo ortográfico de 2009, 'para', 'voo' e 'ideia' não são acentuados. 'Área' conserva o acento por ser proparoxítona."},
+        {n:5,q:"'Muitos alunos faltaram à aula.' A classe gramatical de 'Muitos' é:",ops:["Adjetivo","Pronome indefinido","Numeral","Artigo"],g:1,exp:"'Muitos' é pronome indefinido quando acompanha substantivo indicando quantidade imprecisa."},
+      ]},
+      {nome:'Matemática (Q6–Q10)',qs:[
+        {n:6,q:"Um ACE percorre 3/5 de uma rua em um turno. Que fração ainda falta percorrer?",ops:["1/5","2/5","3/10","1/2"],g:1,exp:"Falta: 1 – 3/5 = 5/5 – 3/5 = 2/5 da rua."},
+        {n:7,q:"Um depósito tem 500 L de água. 20% foram consumidos. Quantos litros restaram?",ops:["100 L","400 L","450 L","350 L"],g:1,exp:"20% de 500 = 100 L consumidos. Restaram 500 – 100 = 400 L."},
+        {n:8,q:"Se 4 agentes visitam 120 imóveis em 1 dia, quantos imóveis 6 agentes visitariam no mesmo tempo?",ops:["150","180","160","200"],g:1,exp:"4 agentes → 120 imóveis. 1 agente → 30. 6 agentes → 6 × 30 = 180 imóveis."},
+        {n:9,q:"A área de um terreno retangular de 15 m × 8 m é:",ops:["46 m²","23 m²","120 m²","180 m²"],g:2,exp:"Área = base × altura = 15 × 8 = 120 m²."},
+        {n:10,q:"Qual é o valor de 3² + 4²?",ops:["49","25","14","7"],g:1,exp:"3² = 9; 4² = 16; 9 + 16 = 25."},
+      ]},
+    ]
+  },
+  {
+    id:'sim2',titulo:'Simulado 2 – Saúde Pública e SUS',banca:'FCC',ano:2024,
+    edital:'ACE Estadual',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Saúde Pública e SUS (Q1–Q5)',qs:[
+        {n:1,q:"Qual princípio do SUS determina que as ações devem focar nas necessidades de cada grupo?",ops:["Universalidade","Integralidade","Equidade","Descentralização"],g:2,exp:"Equidade: tratar desigualmente os desiguais, priorizando quem mais necessita para reduzir desigualdades."},
+        {n:2,q:"O SINAN é o sistema de informação utilizado para:",ops:["Registrar internações hospitalares","Notificações compulsórias de doenças","Controle de estoque de medicamentos","Pagamento de servidores da saúde"],g:1,exp:"SINAN = Sistema de Informação de Agravos de Notificação. Registra casos de doenças de notificação compulsória."},
+        {n:3,q:"A Estratégia Saúde da Família (ESF) está inserida em qual nível de atenção?",ops:["Atenção terciária","Atenção secundária","Atenção básica (primária)","Alta complexidade"],g:2,exp:"A ESF é a principal estratégia da Atenção Básica/Primária, sendo a porta de entrada preferencial do SUS."},
+        {n:4,q:"Qual é a principal característica da prevenção secundária?",ops:["Eliminar a causa da doença","Diagnóstico precoce e tratamento imediato","Reabilitação do paciente","Vacinação em massa"],g:1,exp:"Prevenção secundária: detectar a doença em estágio inicial para tratá-la e evitar agravamento (ex: rastreios)."},
+        {n:5,q:"O conceito ampliado de saúde definido pela OMS inclui:",ops:["Apenas ausência de doenças","Bem-estar físico, mental e social","Ter plano de saúde privado","Realizar exames regulares"],g:1,exp:"OMS (1946): saúde é 'completo bem-estar físico, mental e social, e não apenas ausência de doença.'"},
+      ]},
+      {nome:'Endemias (Q6–Q10)',qs:[
+        {n:6,q:"Qual é o período de incubação médio da dengue após a picada do mosquito infectado?",ops:["1 a 2 dias","4 a 10 dias","15 a 20 dias","30 dias"],g:1,exp:"O período de incubação da dengue no ser humano é de 4 a 10 dias após a picada do Aedes aegypti infectado."},
+        {n:7,q:"O vetor da leishmaniose visceral no Brasil é:",ops:["Aedes aegypti","Anopheles darlingi","Lutzomyia longipalpis (mosquito-palha)","Triatoma infestans (barbeiro)"],g:2,exp:"O Lutzomyia longipalpis (flebotomíneo) é o principal vetor da leishmaniose visceral no Brasil."},
+        {n:8,q:"Na malária, qual espécie de Plasmodium causa a forma mais grave da doença?",ops:["P. vivax","P. malariae","P. ovale","P. falciparum"],g:3,exp:"P. falciparum é o mais virulento, podendo causar malária cerebral, insuficiência renal e morte."},
+        {n:9,q:"Qual medida é MAIS eficaz para prevenir a dengue?",ops:["Uso de repelente","Eliminar depósitos de água parada","Usar mosquiteiro","Tomar antibióticos"],g:1,exp:"O controle vetorial — eliminar criadouros com água parada — é a medida mais eficaz, pois reduz a população do mosquito."},
+        {n:10,q:"A transmissão congênita do Zika vírus pode causar:",ops:["Hidrocefalia","Microcefalia","Macrossomia","Icterícia neonatal"],g:1,exp:"A infecção pelo Zika vírus durante a gestação está associada à microcefalia e outras malformações do sistema nervoso central do feto."},
+      ]},
+    ]
+  },
+  {
+    id:'sim3',titulo:'Simulado 3 – Conhecimentos Específicos ACE',banca:'IBFC',ano:2025,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Visitas e Fiscalização (Q1–Q5)',qs:[
+        {n:1,q:"Durante uma visita domiciliar, o ACE encontra um pneu com água no quintal. Qual é a conduta correta?",ops:["Registrar e seguir para o próximo imóvel","Eliminar o criadouro (esvaziar/virar o pneu) e orientar o morador","Multar o morador","Acionar a vigilância sanitária"],g:1,exp:"O ACE deve eliminar o criadouro no ato da visita (esvaziar, tampar, descartar) e educar o morador sobre prevenção."},
+        {n:2,q:"O LIRAa (Levantamento de Índice Rápido para Aedes aegypti) é realizado com qual periodicidade?",ops:["Mensal","Anual","Quadrimestral (3 vezes ao ano)","Semanal"],g:2,exp:"O LIRAa é realizado 3 vezes ao ano (quadrimestral), nos meses de fevereiro, maio/junho e outubro."},
+        {n:3,q:"Qual tipo de recipiente é considerado o principal criadouro do Aedes aegypti no Brasil?",ops:["Calhas entupidas","Caixas d'água sem tampa","Pneus","Vasos de plantas"],g:1,exp:"Caixas d'água sem tampa são o principal criadouro por armazenar grande volume de água limpa e parada — condição ideal para o Aedes."},
+        {n:4,q:"Quando o morador recusa a entrada do ACE em seu imóvel, o agente deve:",ops:["Forçar a entrada","Registrar a recusa no boletim e comunicar o supervisor","Abandonar a visita sem registro","Chamar a polícia"],g:1,exp:"O ACE deve registrar a recusa no BAC, informar ao supervisor e, se necessário, buscar apoio jurídico para acesso ao imóvel."},
+        {n:5,q:"O que é um imóvel 'B' na classificação do LIRAa?",ops:["Imóvel vistoriado sem foco","Imóvel com foco de Aedes","Imóvel fechado","Imóvel demolido"],g:1,exp:"Na classificação do LIRAa: A = visitado sem foco, B = visitado com foco, F = fechado, R = recusa, T = terreno baldio."},
+      ]},
+      {nome:'Endemias Avançado (Q6–Q10)',qs:[
+        {n:6,q:"Qual é o reservatório animal mais importante da leishmaniose visceral no ambiente urbano?",ops:["Rato","Gato","Cão doméstico","Gambá"],g:2,exp:"O cão doméstico é o principal reservatório urbano de Leishmania chagasi, sendo fundamental seu controle para prevenir a doença humana."},
+        {n:7,q:"A síndrome de Weil, forma grave da leptospirose, é caracterizada por:",ops:["Artralgia e rash cutâneo","Icterícia, insuficiência renal e hemorragia","Febre periódica e anemia","Edema e hipertensão"],g:1,exp:"Síndrome de Weil: tríade de icterícia intensa, insuficiência renal aguda e fenômenos hemorrágicos. Alta letalidade se não tratada."},
+        {n:8,q:"Na doença de Chagas, a cardiopatia é a manifestação mais frequente da fase:",ops:["Aguda","Indeterminada","Crônica","Pré-patente"],g:2,exp:"Na fase crônica, a cardiomiopatia chagásica (arritmias, insuficiência cardíaca) é a complicação mais grave e comum."},
+        {n:9,q:"Qual a principal diferença entre dengue clássica e dengue grave?",ops:["A grave tem mais febre","A grave apresenta extravasamento de plasma e choque","A clássica tem erupção cutânea","A grave dura menos tempo"],g:1,exp:"A dengue grave ocorre na fase crítica com extravasamento plasmático, levando a hemoconcentração, derrame e choque hipovolêmico."},
+        {n:10,q:"O Plasmodium vivax se diferencia do P. falciparum porque:",ops:["É mais letal","Pode causar recaídas (hipnozoítas no fígado)","Não tem tratamento","Transmite-se pelo Aedes"],g:1,exp:"P. vivax forma hipnozoítas (formas dormente no fígado), causando recaídas semanas ou meses após o tratamento. Por isso usa-se primaquina."},
+      ]},
+    ]
+  },
+  {
+    id:'sim4',titulo:'Simulado 4 – Língua Portuguesa e Endemias',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q5)',qs:[
+        {n:1,q:"Assinale a alternativa em que a palavra destacada é um SUBSTANTIVO COLETIVO:",ops:["Bando de pássaros","Vários pássaros","Pássaro cantor","Pássaro raro"],g:0,exp:"'Bando' é o substantivo coletivo de pássaros, indicando um conjunto deles com um único termo."},
+        {n:2,q:"Na frase 'Espero que todos compareçam à reunião', o verbo destacado está no modo:",ops:["Indicativo","Subjuntivo","Imperativo","Infinitivo"],g:1,exp:"'Compareçam' está no presente do subjuntivo, usado em orações subordinadas após verbos de desejo ou esperança."},
+        {n:3,q:"Qual alternativa apresenta uma ORAÇÃO SUBORDINADA ADVERBIAL CAUSAL?",ops:["Ele saiu porque estava doente.","Ele saiu para descansar.","Ele saiu quando terminou.","Ele saiu embora estivesse cansado."],g:0,exp:"Oração causal indica a causa do fato. 'Porque estava doente' explica o motivo da saída. Conjunção causal: porque, pois, já que."},
+        {n:4,q:"'Os agentes de saúde trabalharam arduamente.' O advérbio modifica:",ops:["O substantivo agentes","O adjetivo saúde","O verbo trabalharam","O artigo Os"],g:2,exp:"Advérbios modificam verbos, adjetivos ou outros advérbios. 'Arduamente' modifica o verbo 'trabalharam', indicando modo."},
+        {n:5,q:"Em qual alternativa há erro de REGÊNCIA VERBAL?",ops:["Preciso de ajuda.","Aspirei ao cargo.","Assisti ao filme.","Obedeci o regulamento."],g:3,exp:"'Obedecer' é verbo transitivo indireto: exige preposição 'a'. O correto é 'obedeci ao regulamento'."},
+      ]},
+      {nome:'Endemias (Q6–Q10)',qs:[
+        {n:6,q:"O Aedes aegypti se desenvolve preferencialmente em água:",ops:["Salgada e quente","Limpa e parada","Corrente e fria","Turva e quente"],g:1,exp:"O Aedes aegypti deposita seus ovos em água limpa e parada, como a encontrada em caixas d'água, pneus e vasos de planta."},
+        {n:7,q:"Qual é o nome do exame laboratorial utilizado para confirmar dengue nos primeiros 5 dias de sintomas?",ops:["Sorologia IgM","NS1 (antígeno não estrutural)","PCR de fezes","Hemocultura"],g:1,exp:"O antígeno NS1 é detectável nos primeiros dias de infecção (fase aguda). A sorologia IgM só aparece após o 5.º dia."},
+        {n:8,q:"A chikungunya se diferencia da dengue principalmente pela:",ops:["Ausência de febre","Artralgia intensa e prolongada","Presença de manchas hemorrágicas","Maior taxa de mortalidade"],g:1,exp:"A artralgia (dor articular) intensa e que pode persistir por meses é a marca registrada da chikungunya, diferenciando-a da dengue."},
+        {n:9,q:"Na leishmaniose tegumentar, a lesão mais característica é:",ops:["Vesículas na pele","Úlcera com bordas elevadas (aspecto vulcânico)","Manchas avermelhadas sem ulceração","Nódulos subcutâneos"],g:1,exp:"A úlcera leishmaniótica tem bordas bem delimitadas e elevadas (aspecto de cratera de vulcão), geralmente indolor."},
+        {n:10,q:"Qual medida é indicada para controle do barbeiro transmissor da doença de Chagas?",ops:["Aplicação de larvicida na água","Borrifação de inseticida nas residências","Uso de repelente corporal","Drenagem de charcos"],g:1,exp:"O controle do barbeiro (Triatoma) é feito pela borrifação de inseticidas residuais no interior e exterior das habitações, especialmente rurais."},
+      ]},
+    ]
+  },
+  {
+    id:'sim5',titulo:'Simulado 5 – Matemática e Saúde Pública',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Matemática (Q1–Q5)',qs:[
+        {n:1,q:"Um ACE percorre 240 imóveis em 6 dias. Quantos imóveis percorrerá em 10 dias, mantendo o mesmo ritmo?",ops:["360","400","420","480"],g:1,exp:"240 ÷ 6 = 40 imóveis/dia. 40 × 10 = 400 imóveis."},
+        {n:2,q:"Numa sala, 30% dos alunos foram aprovados. Se a sala tem 40 alunos, quantos foram aprovados?",ops:["10","12","14","15"],g:1,exp:"30% de 40 = 40 × 0,30 = 12 alunos aprovados."},
+        {n:3,q:"Qual é o valor de 2³ × 3²?",ops:["36","48","72","96"],g:2,exp:"2³ = 8 e 3² = 9. 8 × 9 = 72."},
+        {n:4,q:"Uma caixa d'água tem capacidade de 500 L. Já está com 3/5 do volume. Quantos litros faltam para encher?",ops:["150 L","200 L","250 L","300 L"],g:1,exp:"3/5 de 500 = 300 L (cheio). Faltam 500 – 300 = 200 L."},
+        {n:5,q:"Se a taxa de incidência de dengue numa cidade foi de 150 casos por 100.000 habitantes e a população é 200.000, quantos casos ocorreram?",ops:["150","250","300","350"],g:2,exp:"150/100.000 × 200.000 = 300 casos."},
+      ]},
+      {nome:'Saúde Pública (Q6–Q10)',qs:[
+        {n:6,q:"Qual é a principal diferença entre incidência e prevalência?",ops:["Incidência mede casos antigos; prevalência mede casos novos","Incidência mede casos novos num período; prevalência mede total de casos existentes","São sinônimos na epidemiologia","Incidência aplica-se só a doenças crônicas"],g:1,exp:"Incidência: número de casos NOVOS num período. Prevalência: total de casos existentes (novos + antigos) num momento."},
+        {n:7,q:"O controle vetorial é classificado como qual nível de prevenção?",ops:["Prevenção primária","Prevenção secundária","Prevenção terciária","Reabilitação"],g:0,exp:"Prevenção primária age antes da doença se instalar, eliminando o risco. O controle vetorial evita a transmissão."},
+        {n:8,q:"A descentralização no SUS significa que:",ops:["O Ministério da Saúde concentra todas as decisões","Municípios e estados assumem responsabilidades na gestão da saúde","Apenas hospitais privados prestam serviços","Os usuários pagam pelos serviços"],g:1,exp:"Descentralização: redistribuição de poder e responsabilidades para estados e municípios, aproximando a gestão da realidade local."},
+        {n:9,q:"O que é a 'Cadeia Epidemiológica'?",ops:["Lista de vacinas disponíveis no SUS","Sequência agente etiológico → mecanismo de transmissão → hospedeiro suscetível","Conjunto de hospitais de referência","Protocolo de atendimento de urgência"],g:1,exp:"A cadeia epidemiológica descreve o processo de transmissão: agente causador, fonte de infecção, via de transmissão e hospedeiro suscetível."},
+        {n:10,q:"Qual documento estabelece os princípios do SUS na Constituição Federal?",ops:["Lei 8.142/1990","Decreto 7.508/2011","Constituição Federal de 1988, Art. 196–200","Lei 9.961/2000"],g:2,exp:"Os artigos 196 a 200 da CF/1988 estabelecem a saúde como direito de todos e dever do Estado, fundando o SUS."},
+      ]},
+    ]
+  },
+  {
+    id:'sim6',titulo:'Simulado 6 – Completo ACE',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q4)',qs:[
+        {n:1,q:"'O agente realizou as visitas conforme o planejado.' A palavra 'conforme' exerce a função de:",ops:["Preposição","Conjunção conformativa","Advérbio de modo","Pronome relativo"],g:1,exp:"'Conforme' introduz oração subordinada adverbial conformativa, indicando que a ação foi feita de acordo com algo."},
+        {n:2,q:"Qual alternativa está correta quanto ao uso do hífen?",ops:["Anti-inflamatório","Antiinflamatório","Anti inflamatório","Antiinflamatorio"],g:0,exp:"Usa-se hífen quando o segundo elemento começa com vogal igual à última do prefixo (anti + inflamatório = anti-inflamatório)."},
+        {n:3,q:"'Ninguém fez nada.' Esta frase apresenta:",ops:["Pleonasmo vicioso","Dupla negação enfática (correta em português)","Erro de concordância","Ambiguidade"],g:1,exp:"Em português, a dupla negação (ninguém... nada) é recurso enfático correto, diferente do inglês onde seria erro."},
+        {n:4,q:"O sujeito da oração 'Chove muito no inverno baiano' é:",ops:["muito","inverno baiano","Chove","Sujeito inexistente (oração impessoal)"],g:3,exp:"Verbos meteorológicos (chover, nevar, trovejar) são impessoais — não têm sujeito."},
+      ]},
+      {nome:'Matemática (Q5–Q7)',qs:[
+        {n:5,q:"Qual é o MDC de 36 e 48?",ops:["6","12","18","24"],g:1,exp:"Fatores de 36: 1,2,3,4,6,9,12,18,36. Fatores de 48: 1,2,3,4,6,8,12,16,24,48. MDC = 12."},
+        {n:6,q:"Uma solução larvicida cobre 500 m². Quantas aplicações são necessárias para cobrir 3.500 m²?",ops:["5","6","7","8"],g:2,exp:"3.500 ÷ 500 = 7 aplicações."},
+        {n:7,q:"Em um ciclo de 60 dias, um ACE visitou 420 imóveis. Qual a média diária?",ops:["6","7","8","9"],g:1,exp:"420 ÷ 60 = 7 imóveis por dia."},
+      ]},
+      {nome:'Endemias e SUS (Q8–Q10)',qs:[
+        {n:8,q:"A forma de transmissão da leptospirose mais comum em surtos urbanos é:",ops:["Picada de inseto","Contato com água/lama contaminada pela urina de roedores","Transfusão de sangue","Contato com saliva de animais"],g:1,exp:"Em enchentes urbanas, o solo e a água ficam contaminados pela urina de ratos, e o contato com mucosas ou pele com ferimentos permite a infecção."},
+        {n:9,q:"Qual é o papel do ACE na vigilância entomológica?",ops:["Realizar diagnóstico clínico de doenças","Monitorar e controlar a densidade de vetores como o Aedes aegypti","Prescrever medicamentos para pacientes","Realizar exames laboratoriais"],g:1,exp:"O ACE atua na vigilância entomológica monitorando índices vetoriais, identificando criadouros e aplicando medidas de controle."},
+        {n:10,q:"O princípio da INTEGRALIDADE no SUS significa:",ops:["Atender somente casos urgentes","Oferecer atenção completa ao indivíduo, da prevenção à reabilitação","Integrar serviços públicos e privados","Garantir atendimento apenas em hospitais"],g:1,exp:"Integralidade: o cuidado deve abranger todas as necessidades do indivíduo — promoção, prevenção, tratamento e reabilitação — de forma contínua."},
+      ]},
+    ]
+  },
+];
+
+// ===================== GLOBAIS =====================
+const STORAGE_KEY = 'aceRespostas';
+let flashDados=[], flashDeck=[], flashIdx=0;
+let quizPerguntas=[], quizIdx=0, quizCertas=0, quizErradas=0, respondeu=false;
+let exAtual=null, exSecAtual=0, exQAtual=0, exRespostas={}, exStarted=false;
+let _speechRate=1;
+
+// ===================== INIT =====================
+window.addEventListener('DOMContentLoaded',()=>{
+  buildFlashDados();
+  renderResumo();
+  renderFlashFiltro();
+  renderFlash();
+  renderMapa();
+  renderExamesList();
+  mostrarRelatorio();
+  const dark = localStorage.getItem('aceDark');
+  if(dark==='1') document.body.setAttribute('data-dark','');
+});
+
+// ===================== RESUMO =====================
+function renderResumo(){
+  const el = document.getElementById('sec-resumo');
+  el.innerHTML = disciplinas.map((d,i)=>`
+    <div class="disc-bloco">
+      <div class="disc-header" onclick="toggleDisc(${i},this)" style="background:${d.cor}">
+        ${d.nome} <span class="arrow">▼</span>
+      </div>
+      <div class="disc-topicos" id="disc-${i}">
+        ${d.topicos.map(t=>`
+          <div class="topico-item">
+            <div style="flex:1">
+              <div class="topico-nome">${t.t}</div>
+              <div class="topico-desc">${t.d}</div>
+            </div>
+            <span class="freq-badge freq-${t.freq}">${t.freq.toUpperCase()}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleDisc(i,hdr){
+  const el = document.getElementById('disc-'+i);
+  const open = el.classList.toggle('open');
+  hdr.classList.toggle('open',open);
+}
+
+// ===================== FLASHCARDS =====================
+function buildFlashDados(){
+  flashDados=[];
+  disciplinas.forEach(d=>{
+    d.topicos.forEach(t=>{
+      flashDados.push({disc:d.nome, termo:t.t, def:t.d, freq:t.freq});
+    });
+  });
+  flashDeck=[...flashDados];
+}
+
+function renderFlashFiltro(){
+  const sel = document.getElementById('flash-filtro');
+  disciplinas.forEach(d=>{
+    const op = document.createElement('option');
+    op.value = d.nome;
+    op.textContent = d.nome.replace(/^.{2}/,'');
+    sel.appendChild(op);
+  });
+}
+
+function filtrarFlash(){
+  const v = document.getElementById('flash-filtro').value;
+  flashDeck = v==='todos' ? [...flashDados] : flashDados.filter(f=>f.disc===v);
+  flashIdx=0;
+  renderFlash();
+}
+
+function shuffleFlash(){
+  for(let i=flashDeck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [flashDeck[i],flashDeck[j]]=[flashDeck[j],flashDeck[i]];
+  }
+  flashIdx=0;
+  document.getElementById('flash-inner').classList.remove('virado');
+  renderFlash();
+  toast('Embaralhado!');
+}
+
+function renderFlash(){
+  if(!flashDeck.length) return;
+  const c = flashDeck[flashIdx];
+  document.getElementById('flash-termo').textContent = c.termo;
+  document.getElementById('flash-def').textContent = c.def;
+  document.getElementById('flash-prog').textContent = `${flashIdx+1} / ${flashDeck.length}`;
+  document.getElementById('flash-inner').classList.remove('virado');
+}
+
+function virarCard(){
+  document.getElementById('flash-inner').classList.toggle('virado');
+}
+
+function navFlash(d){
+  flashIdx = (flashIdx+d+flashDeck.length)%flashDeck.length;
+  renderFlash();
+}
+
+function falarCard(){
+  const virado = document.getElementById('flash-inner').classList.contains('virado');
+  const txt = virado ? document.getElementById('flash-def').textContent : document.getElementById('flash-termo').textContent;
+  falar(txt);
+}
+
+function falar(txt){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang='pt-BR'; u.rate=_speechRate;
+  speechSynthesis.speak(u);
+}
+
+// ===================== MAPA =====================
+function renderMapa(){
+  const filtros = document.getElementById('mapa-filtros');
+  const grid = document.getElementById('mapa-grid');
+  const nomes = ['Todos',...disciplinas.map(d=>d.nome)];
+  filtros.innerHTML = nomes.map((n,i)=>`<button class="${i===0?'ativo':''}" onclick="filtrarMapa(this,'${n}')">${n}</button>`).join('');
+  _renderMapaGrid('Todos');
+}
+
+function filtrarMapa(btn,disc){
+  document.querySelectorAll('.mapa-filtros button').forEach(b=>b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  _renderMapaGrid(disc);
+}
+
+function _renderMapaGrid(disc){
+  const grid = document.getElementById('mapa-grid');
+  let items=[];
+  disciplinas.forEach(d=>{
+    if(disc==='Todos'||d.nome===disc){
+      d.topicos.forEach(t=>items.push({disc:d.nome,t}));
+    }
+  });
+  grid.innerHTML = items.map(({disc,t})=>`
+    <div class="mapa-card" onclick="toast('${t.t}')">
+      <div class="mc-disc">${disc.replace(/^.{2}/,'')}</div>
+      <div class="mc-nome">${t.t}</div>
+      <span class="freq-badge freq-${t.freq} mc-freq">${t.freq.toUpperCase()}</span>
+    </div>
+  `).join('');
+}
+
+// ===================== QUIZ =====================
+function iniciarQuiz(){
+  const filtro = document.getElementById('quiz-filtro').value;
+  let banco = filtro==='todos' ? [...questoes] : questoes.filter(q=>q.disc===filtro);
+  for(let i=banco.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[banco[i],banco[j]]=[banco[j],banco[i]];}
+  quizPerguntas = banco.slice(0,Math.min(10,banco.length));
+  quizIdx=0; quizCertas=0; quizErradas=0; respondeu=false;
+  document.getElementById('quiz-placar').classList.remove('show');
+  document.getElementById('quiz-box').style.display='block';
+  renderQuestao();
+}
+
+function renderQuestao(){
+  if(quizIdx>=quizPerguntas.length){encerrarQuiz();return;}
+  respondeu=false;
+  const q = quizPerguntas[quizIdx];
+  document.getElementById('q-disc').textContent = q.disc;
+  document.getElementById('q-num').textContent = `${quizIdx+1}/${quizPerguntas.length}`;
+  document.getElementById('q-pergunta').textContent = q.p;
+  document.getElementById('q-exp').classList.remove('show');
+  document.getElementById('btn-prox-q').style.display='none';
+  const ops = document.getElementById('q-ops');
+  ops.innerHTML = q.ops.map((o,i)=>`
+    <button class="quiz-op" onclick="verificarResposta(${i})">
+      <span style="font-weight:700;min-width:18px">${String.fromCharCode(65+i)})</span> ${o}
+    </button>
+  `).join('');
+}
+
+function verificarResposta(idx){
+  if(respondeu) return;
+  respondeu=true;
+  const q = quizPerguntas[quizIdx];
+  const btns = document.querySelectorAll('.quiz-op');
+  btns.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.c) b.classList.add('correta');
+    else if(i===idx) b.classList.add('errada');
+  });
+  if(idx===q.c) quizCertas++; else quizErradas++;
+  salvarRespostaQuiz(idx===q.c);
+  document.getElementById('q-exp').textContent = q.exp;
+  document.getElementById('q-exp').classList.add('show');
+  document.getElementById('btn-prox-q').style.display='inline-block';
+}
+
+function proximaQuestao(){
+  quizIdx++;
+  renderQuestao();
+}
+
+function encerrarQuiz(){
+  document.getElementById('quiz-box').style.display='none';
+  const placar = document.getElementById('quiz-placar');
+  placar.classList.add('show');
+  const total = quizCertas+quizErradas;
+  document.getElementById('placar-num').textContent = `${quizCertas}/${total}`;
+  const pct = total?Math.round(quizCertas/total*100):0;
+  document.getElementById('placar-label').textContent = `${pct}% de aproveitamento – ${quizCertas} certa(s), ${quizErradas} errada(s)`;
+}
+
+function salvarRespostaQuiz(acertou){
+  const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+  dados.quizTotal = (dados.quizTotal||0)+1;
+  dados.quizCertas = (dados.quizCertas||0)+(acertou?1:0);
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(dados));
+}
+
+// ===================== SIMULADOS =====================
+function renderExamesList(){
+  const el = document.getElementById('exames-lista');
+  el.innerHTML = EXAMES_DATA.map(e=>`
+    <div class="exame-card">
+      <div class="exame-info">
+        <h3>${e.titulo}</h3>
+        <p>${e.banca} · ${e.ano} · ${e.cargo}</p>
+      </div>
+      <button class="btn-iniciar" onclick="iniciarExame('${e.id}')">▶ Iniciar</button>
+    </div>
+  `).join('');
+}
+
+function iniciarExame(id){
+  exAtual = EXAMES_DATA.find(e=>e.id===id);
+  exSecAtual=0; exQAtual=0; exRespostas={}; exStarted=true;
+  document.getElementById('exames-lista').style.display='none';
+  const ativo = document.getElementById('exame-ativo');
+  ativo.classList.add('show');
+  document.getElementById('ex-titulo').textContent = exAtual.titulo;
+  document.getElementById('ex-info').textContent = `${exAtual.banca} · ${exAtual.ano}`;
+  document.getElementById('ex-resultado').classList.remove('show');
+  document.getElementById('ex-corpo').style.display='block';
+  renderQuestaoExame();
+}
+
+function renderQuestaoExame(){
+  const sec = exAtual.secoes[exSecAtual];
+  const q = sec.qs[exQAtual];
+  document.getElementById('ex-sec-label').textContent = sec.nome;
+
+  // pergunta
+  const pergEl = document.getElementById('ex-pergunta');
+  pergEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px"><span style="flex:1"></span><button class="audio-btn" title="Ouvir pergunta">🔊</button></div>`;
+  pergEl.querySelector('span').textContent = `Q${q.n}. ${q.q}`;
+  pergEl.querySelector('.audio-btn').addEventListener('click', ()=>falar(`Q${q.n}. ${q.q}`));
+
+  document.getElementById('ex-exp').classList.remove('show');
+  document.getElementById('btn-ex-prox').style.display='none';
+
+  // alternativas
+  const ops = document.getElementById('ex-ops');
+  ops.innerHTML = q.ops.map((o,i)=>`
+    <button class="ex-op" data-idx="${i}">
+      <span style="font-weight:700;min-width:18px">${String.fromCharCode(65+i)})</span>
+      <span style="flex:1"></span>
+      <span class="audio-btn-op" data-audio="${i}" title="Ouvir alternativa">🔊</span>
+    </button>
+  `).join('');
+
+  // preenche texto e listeners sem risco de escape
+  ops.querySelectorAll('.ex-op').forEach((btn, i)=>{
+    btn.querySelector('span:nth-child(2)').textContent = q.ops[i];
+    btn.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('audio-btn-op')) return;
+      responderExame(i);
+    });
+    btn.querySelector('.audio-btn-op').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      falar(q.ops[i]);
+    });
+  });
+}
+
+function responderExame(idx){
+  const sec = exAtual.secoes[exSecAtual];
+  const q = sec.qs[exQAtual];
+  const key = `${exSecAtual}_${exQAtual}`;
+  if(exRespostas[key]!==undefined) return;
+  exRespostas[key]=idx;
+  const btns = document.querySelectorAll('.ex-op');
+  btns.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.g) b.classList.add('correta');
+    else if(i===idx) b.classList.add('errada');
+  });
+  document.getElementById('ex-exp').textContent = q.exp;
+  document.getElementById('ex-exp').classList.add('show');
+  document.getElementById('btn-ex-prox').style.display='inline-block';
+}
+
+function avancarExame(){
+  const sec = exAtual.secoes[exSecAtual];
+  exQAtual++;
+  if(exQAtual>=sec.qs.length){
+    exSecAtual++;
+    exQAtual=0;
+    if(exSecAtual>=exAtual.secoes.length){finalizarExame();return;}
+  }
+  renderQuestaoExame();
+}
+
+function finalizarExame(){
+  document.getElementById('ex-corpo').style.display='none';
+  let total=0,certas=0;
+  exAtual.secoes.forEach((s,si)=>{
+    s.qs.forEach((q,qi)=>{
+      total++;
+      if(exRespostas[`${si}_${qi}`]===q.g) certas++;
+    });
+  });
+  document.getElementById('ex-res-num').textContent = `${certas}/${total}`;
+  const pct=Math.round(certas/total*100);
+  document.getElementById('ex-res-label').textContent = `${pct}% de aproveitamento`;
+  document.getElementById('ex-resultado').classList.add('show');
+  salvarResultadoSimulado(certas,total);
+}
+
+function salvarResultadoSimulado(certas,total){
+  const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+  dados.simTotal = (dados.simTotal||0)+1;
+  dados.simCertas = (dados.simCertas||0)+certas;
+  dados.simQuestoes = (dados.simQuestoes||0)+total;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(dados));
+}
+
+function voltarExames(){
+  document.getElementById('exame-ativo').classList.remove('show');
+  document.getElementById('exames-lista').style.display='grid';
+  exAtual=null; exStarted=false;
+}
+
+// ===================== RELATÓRIO =====================
+function mostrarRelatorio(){
+  const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+  const qT=dados.quizTotal||0, qC=dados.quizCertas||0;
+  const sT=dados.simTotal||0, sC=dados.simCertas||0, sQ=dados.simQuestoes||0;
+  const grid = document.getElementById('stats-grid');
+  grid.innerHTML = `
+    <div class="stat-card"><div class="stat-num">${qT}</div><div class="stat-label">Quiz respondidas</div></div>
+    <div class="stat-card"><div class="stat-num">${qT?Math.round(qC/qT*100):0}%</div><div class="stat-label">Acerto no Quiz</div></div>
+    <div class="stat-card"><div class="stat-num">${sT}</div><div class="stat-label">Simulados feitos</div></div>
+    <div class="stat-card"><div class="stat-num">${sQ?Math.round(sC/sQ*100):0}%</div><div class="stat-label">Acerto Simulados</div></div>
+  `;
+}
+
+function exportarTXT(){
+  const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+  const qT=dados.quizTotal||0,qC=dados.quizCertas||0;
+  const sT=dados.simTotal||0,sC=dados.simCertas||0,sQ=dados.simQuestoes||0;
+  const txt=`RELATÓRIO ACE – Agente de Combate às Endemias
+Gerado em: ${new Date().toLocaleString('pt-BR')}
+
+QUIZ
+  Questões respondidas: ${qT}
+  Acertos: ${qC} (${qT?Math.round(qC/qT*100):0}%)
+  Erros: ${qT-qC}
+
+SIMULADOS
+  Simulados realizados: ${sT}
+  Questões respondidas: ${sQ}
+  Acertos: ${sC} (${sQ?Math.round(sC/sQ*100):0}%)
+
+---
+Bons estudos! 🌿
+`;
+  const a=document.createElement('a');
+  a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(txt);
+  a.download='relatorio-ace.txt';
+  a.click();
+  toast('Exportado com sucesso!');
+}
+
+function limparDados(){
+  if(!confirm('Limpar todo o histórico de respostas?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  mostrarRelatorio();
+  toast('Dados apagados!');
+}
+
+// ===================== UTILS =====================
+function mudarTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('ativo'));
+  el.classList.add('ativo');
+  document.querySelectorAll('.secao').forEach(s=>s.classList.remove('ativa'));
+  document.getElementById('sec-'+id).classList.add('ativa');
+  if(id==='relatorio') mostrarRelatorio();
+}
+
+function setSpeed(v, btn){
+  _speechRate = v;
+  document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+}
+
+function toggleDark(){
+  const dark = document.body.hasAttribute('data-dark');
+  dark ? document.body.removeAttribute('data-dark') : document.body.setAttribute('data-dark','');
+  localStorage.setItem('aceDark', dark?'0':'1');
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
