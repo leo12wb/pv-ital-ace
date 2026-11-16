@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Orientador Educacional – Estudo para Concurso</title>
+<title>ACE – Agente de Combate às Endemias</title>
 <style>
 :root{
-  --ace-primary:#9d174d;--ace-secondary:#be185d;--ciano:#ec4899;--azul:#f472b6;
-  --bg:#fdf2f8;--card:#fff;--text:#1a1a1a;--muted:#6b7280;--border:#fce7f3;
+  --ace-primary:#15803d;--ace-secondary:#16a34a;--ciano:#0d9488;--azul:#22c55e;
+  --bg:#f0fdf4;--card:#fff;--text:#1a1a1a;--muted:#6b7280;--border:#d1fae5;
   --shadow:0 2px 8px rgba(0,0,0,.08);--radius:12px;
 }
 [data-dark]{
@@ -16,11 +16,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
-header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+/* HEADER */
+header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .hdr-row{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto}
 .badge{background:#fff2;color:#fff;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid #fff4;letter-spacing:.5px}
 .hdr-titles h1{font-size:1.1rem;font-weight:700;color:#fff;line-height:1.2}
-.hdr-titles p{font-size:.72rem;color:#fbcfe8;margin-top:2px}
+.hdr-titles p{font-size:.72rem;color:#bbf7d0;margin-top:2px}
 .hdr-actions{margin-left:auto;display:flex;gap:8px}
 .hdr-btn{background:#fff2;border:1px solid #fff3;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.75rem;transition:background .2s}
 .hdr-btn:hover{background:#fff3}
@@ -29,14 +30,17 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .speed-btn:last-child{border-right:none}
 .speed-btn:hover{background:#fff3}
 .speed-btn.ativo{background:#fff4;font-weight:800}
+/* TABS */
 .tabs-wrap{background:var(--card);border-bottom:2px solid var(--border);position:sticky;top:72px;z-index:90}
 .tabs{display:flex;gap:0;max-width:900px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:12px 16px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
 .tab.ativo{color:var(--ace-primary);border-bottom-color:var(--ace-primary)}
 .tab:hover:not(.ativo){color:var(--ace-secondary)}
+/* CONTENT */
 .content{max-width:900px;margin:0 auto;padding:16px}
 .secao{display:none}.secao.ativa{display:block}
+/* RESUMO */
 .disc-bloco{background:var(--card);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
 .disc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--ace-primary);color:#fff;font-weight:600;font-size:.9rem;user-select:none}
 .disc-header:hover{opacity:.92}
@@ -47,11 +51,12 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .topico-item{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
 .topico-item:last-child{border-bottom:none}
 .freq-badge{font-size:.65rem;padding:2px 7px;border-radius:10px;font-weight:700;white-space:nowrap;margin-top:2px}
-.freq-alto{background:#fce7f3;color:#9d174d}
-.freq-medio{background:#fff7ed;color:#c2410c}
-.freq-baixo{background:#fdf2f8;color:#be185d}
+.freq-alto{background:#fef2f2;color:#dc2626}
+.freq-medio{background:#fffbeb;color:#d97706}
+.freq-baixo{background:#f0fdf4;color:#15803d}
 .topico-nome{font-weight:600;font-size:.85rem;margin-bottom:3px}
 .topico-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+/* FLASHCARDS */
 .flash-ctrl{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .flash-ctrl select,.flash-ctrl button{padding:8px 14px;border-radius:8px;border:1px solid var(--border);font-size:.82rem;cursor:pointer;background:var(--card);color:var(--text)}
 .flash-ctrl button{background:var(--ace-primary);color:#fff;border:none;font-weight:600}
@@ -61,16 +66,17 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .flash-inner{position:relative;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
 .flash-inner.virado{transform:rotateY(180deg)}
 .flash-frente,.flash-verso{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backface-visibility:hidden;padding:32px 24px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.flash-verso{position:absolute;top:0;left:0;width:100%;transform:rotateY(180deg);background:linear-gradient(135deg,#500724,#9d174d)}
+.flash-verso{position:absolute;top:0;left:0;width:100%;transform:rotateY(180deg);background:linear-gradient(135deg,#052e16,#15803d)}
 .flash-frente .label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .flash-frente .termo{font-size:1.4rem;font-weight:700;color:var(--ace-primary)}
-.flash-verso .label{font-size:.7rem;color:#fbcfe8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.flash-verso .label{font-size:.7rem;color:#bbf7d0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .flash-verso .def{font-size:.88rem;color:#fff;line-height:1.6}
 .flash-nav{display:flex;justify-content:center;gap:12px}
 .flash-nav button{padding:9px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:.82rem}
 .btn-ant{background:var(--border);color:var(--text)}
 .btn-prox{background:var(--ace-primary);color:#fff}
 .btn-prox:hover{background:var(--ace-secondary)}
+/* MAPA */
 .mapa-filtros{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .mapa-filtros button{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.78rem;cursor:pointer}
 .mapa-filtros button.ativo{background:var(--ace-primary);color:#fff;border-color:var(--ace-primary)}
@@ -80,6 +86,7 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .mapa-card .mc-disc{font-size:.65rem;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
 .mapa-card .mc-nome{font-size:.82rem;font-weight:600;margin-bottom:4px}
 .mapa-card .mc-freq{font-size:.65rem}
+/* QUIZ */
 .quiz-ctrl{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .quiz-ctrl select{padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.82rem}
 .quiz-ctrl button{padding:8px 18px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer;font-size:.82rem}
@@ -87,35 +94,32 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .quiz-box{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 .quiz-info{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .quiz-badge{padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:700}
-.qbadge-disc{background:#fce7f3;color:#9d174d}
-.qbadge-num{background:#fdf2f8;color:#831843;border:1px solid var(--border)}
+.qbadge-disc{background:#dcfce7;color:#15803d}
+.qbadge-num{background:#f0fdf4;color:#166534;border:1px solid var(--border)}
+[data-dark] .qbadge-disc{background:#052e16;color:#86efac}
+[data-dark] .qbadge-num{background:#052e16;color:#86efac}
 .qbadge-tema{background:#1b766c;color:#fff}
-[data-dark] .qbadge-disc{background:#500724;color:#f9a8d4}
-[data-dark] .qbadge-num{background:#500724;color:#f9a8d4}
 [data-dark] .qbadge-tema{background:#0f4a44;color:#5eead4}
+.quiz-video{margin-top:14px}
+.qvid-iframe{width:100%;height:315px;border:none;display:block;border-radius:12px;margin-top:10px}
 .quiz-pergunta{font-size:.95rem;font-weight:600;line-height:1.6;margin-bottom:16px}
 .quiz-ops{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
 .quiz-op{padding:11px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.84rem;text-align:left;transition:background .15s,border-color .15s;display:flex;align-items:flex-start;gap:8px}
-.quiz-op:hover:not(:disabled){background:#fce7f3;border-color:var(--ace-primary)}
-.quiz-op.correta{background:#fce7f3;border-color:#9d174d;font-weight:600}
+.quiz-op:hover:not(:disabled){background:#dcfce7;border-color:var(--ace-primary)}
+.quiz-op.correta{background:#dcfce7;border-color:#15803d;font-weight:600}
 .quiz-op.errada{background:#fee2e2;border-color:#dc2626}
-.quiz-explicacao{background:#fdf2f8;border-left:4px solid var(--ace-primary);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.82rem;line-height:1.6;margin-bottom:14px;display:none}
-[data-dark] .quiz-explicacao{background:#500724}
+.quiz-explicacao{background:#f0fdf4;border-left:4px solid var(--ace-primary);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.82rem;line-height:1.6;margin-bottom:14px;display:none}
+[data-dark] .quiz-explicacao{background:#052e16}
 .quiz-explicacao.show{display:block}
 .quiz-nav{display:flex;gap:8px;flex-wrap:wrap}
 .quiz-nav button{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.82rem;font-weight:600}
 .btn-prox-q{background:var(--ace-primary);color:#fff}
 .btn-prox-q:hover{background:var(--ace-secondary)}
-.quiz-video{margin-top:14px}
-.qvid-btn{background:#1b766c;color:#fff;border:none;border-radius:8px;padding:9px 16px;cursor:pointer;font-size:.82rem;font-weight:600;margin-right:8px}
-.qvid-btn:hover{background:#155e59}
-.qvid-yt{font-size:.78rem;color:var(--muted);text-decoration:none}
-.qvid-yt:hover{color:var(--ace-primary)}
-.qvid-iframe{width:100%;height:280px;border:none;display:block;border-radius:12px;margin-top:10px}
 .quiz-placar{text-align:center;padding:24px;display:none}
 .quiz-placar.show{display:block}
 .placar-num{font-size:3rem;font-weight:800;color:var(--ace-primary)}
 .placar-label{color:var(--muted);font-size:.88rem;margin-bottom:16px}
+/* SIMULADOS */
 .exames-lista{display:grid;gap:10px}
 .exame-card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .exame-info h3{font-size:.9rem;font-weight:700;margin-bottom:4px}
@@ -126,17 +130,17 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .exame-ativo.show{display:block}
 .ex-header{background:var(--ace-primary);color:#fff;border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
 .ex-header h2{font-size:.95rem;font-weight:700}
-.ex-header p{font-size:.75rem;color:#fbcfe8;margin-top:3px}
+.ex-header p{font-size:.75rem;color:#bbf7d0;margin-top:3px}
 .ex-secao-label{font-size:.78rem;font-weight:700;color:var(--ace-primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .ex-pergunta{font-size:.9rem;font-weight:600;line-height:1.6;margin-bottom:14px}
 .ex-ops{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .ex-op{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.82rem;text-align:left;transition:all .15s;display:flex;gap:8px;align-items:flex-start}
-.ex-op:hover:not(:disabled){background:#fce7f3;border-color:var(--ace-primary)}
-.ex-op.selecionada{background:#fce7f3;border-color:var(--ace-primary);font-weight:600}
-.ex-op.correta{background:#fce7f3;border-color:#9d174d}
+.ex-op:hover:not(:disabled){background:#dcfce7;border-color:var(--ace-primary)}
+.ex-op.selecionada{background:#dcfce7;border-color:var(--ace-primary);font-weight:600}
+.ex-op.correta{background:#dcfce7;border-color:#15803d}
 .ex-op.errada{background:#fee2e2;border-color:#dc2626}
-.ex-explicacao{background:#fdf2f8;border-left:4px solid var(--ace-primary);padding:12px;border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.6;margin-bottom:12px;display:none}
-[data-dark] .ex-explicacao{background:#500724}
+.ex-explicacao{background:#f0fdf4;border-left:4px solid var(--ace-primary);padding:12px;border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.6;margin-bottom:12px;display:none}
+[data-dark] .ex-explicacao{background:#052e16}
 .ex-explicacao.show{display:block}
 .ex-nav{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
 .ex-nav button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:.8rem;font-weight:600}
@@ -151,6 +155,7 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .ex-resultado.show{display:block}
 .ex-res-num{font-size:3.5rem;font-weight:800;color:var(--ace-primary)}
 .ex-res-label{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+/* RELATÓRIO */
 .relatorio-box{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
 .relatorio-box h3{font-size:.9rem;font-weight:700;margin-bottom:14px;color:var(--ace-primary)}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
@@ -160,13 +165,16 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 .btn-exportar{padding:10px 20px;border-radius:8px;border:none;background:var(--ciano);color:#fff;font-weight:600;cursor:pointer;font-size:.84rem}
 .btn-exportar:hover{opacity:.88}
 .btn-limpar{padding:10px 20px;border-radius:8px;border:none;background:#dc2626;color:#fff;font-weight:600;cursor:pointer;font-size:.84rem;margin-left:8px}
+/* TOAST */
 #toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:10px;font-size:.82rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999;max-width:280px}
 #toast.show{opacity:1}
+/* DARK */
 [data-dark] .disc-topicos,.disc-topicos{background:var(--card)}
 [data-dark] .quiz-op,[data-dark] .ex-op{background:var(--bg);color:var(--text)}
-[data-dark] .freq-alto{background:#500724;color:#f9a8d4}
-[data-dark] .freq-medio{background:#431407;color:#fdba74}
-[data-dark] .freq-baixo{background:#500724;color:#f9a8d4}
+[data-dark] .freq-alto{background:#2a0808;color:#fca5a5}
+[data-dark] .freq-medio{background:#2a1a00;color:#fcd34d}
+[data-dark] .freq-baixo{background:#052e16;color:#86efac}
+/* RESPONSIVE */
 @media(max-width:600px){
   .flash-frente .termo{font-size:1.1rem}
   .hdr-titles h1{font-size:.95rem}
@@ -178,10 +186,10 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 
 <header>
   <div class="hdr-row">
-    <span class="badge">OE</span>
+    <span class="badge">ACE</span>
     <div class="hdr-titles">
-      <h1>Orientador Educacional</h1>
-      <p>Língua Portuguesa · Informática · Conhecimentos Específicos</p>
+      <h1>Agente de Combate às Endemias</h1>
+      <p>Língua Portuguesa · Matemática · Conhecimentos Específicos</p>
     </div>
     <div class="hdr-actions">
       <div class="speed-group">
@@ -208,8 +216,10 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 
 <div class="content">
 
+  <!-- RESUMO -->
   <div id="sec-resumo" class="secao ativa"></div>
 
+  <!-- FLASHCARDS -->
   <div id="sec-flash" class="secao">
     <div class="flash-ctrl">
       <select id="flash-filtro" onchange="filtrarFlash()">
@@ -237,18 +247,23 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
     </div>
   </div>
 
+  <!-- MAPA -->
   <div id="sec-mapa" class="secao">
     <div class="mapa-filtros" id="mapa-filtros"></div>
     <div class="mapa-grid" id="mapa-grid"></div>
   </div>
 
+  <!-- QUIZ -->
   <div id="sec-quiz" class="secao">
     <div class="quiz-ctrl">
       <select id="quiz-filtro">
         <option value="todos">Todas as disciplinas</option>
         <option value="Português">Língua Portuguesa</option>
+        <option value="Matemática">Matemática</option>
+        <option value="SUS">Saúde Pública / SUS</option>
+        <option value="Visitas">Visitas e Fiscalização</option>
+        <option value="Endemias">Endemias e Doenças</option>
         <option value="Informática">Conhecimentos em Informática</option>
-        <option value="Específicos">Conhecimentos Específicos</option>
       </select>
       <button onclick="iniciarQuiz()">▶ Iniciar Quiz</button>
     </div>
@@ -259,9 +274,9 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
         <span class="quiz-badge qbadge-num" id="q-num"></span>
       </div>
       <div class="quiz-pergunta" id="q-pergunta"></div>
+      <div class="quiz-video" id="q-video-wrap" style="display:none"></div>
       <div class="quiz-ops" id="q-ops"></div>
       <div class="quiz-explicacao" id="q-exp"></div>
-      <div class="quiz-video" id="q-video-wrap" style="display:none"></div>
       <div class="quiz-nav">
         <button class="btn-prox-q" id="btn-prox-q" onclick="proximaQuestao()" style="display:none">Próxima →</button>
       </div>
@@ -273,6 +288,7 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
     </div>
   </div>
 
+  <!-- SIMULADOS -->
   <div id="sec-simulados" class="secao">
     <div id="exames-lista" class="exames-lista"></div>
     <div id="exame-ativo" class="exame-ativo">
@@ -298,6 +314,7 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
     </div>
   </div>
 
+  <!-- RELATÓRIO -->
   <div id="sec-relatorio" class="secao">
     <div class="relatorio-box">
       <h3>📊 Estatísticas Gerais</h3>
@@ -313,273 +330,441 @@ header{background:linear-gradient(135deg,#500724,#9d174d,#be185d);padding:18px 2
 <div id="toast"></div>
 
 <script>
+// ===================== DADOS =====================
+
 const disciplinas = [
   {
     nome:"📖 Língua Portuguesa",
-    cor:"linear-gradient(135deg,#9d174d,#be185d)",
+    cor:"linear-gradient(135deg,#15803d,#16a34a)",
     topicos:[
-      {t:"Interpretação de Texto",d:"Intelecção de textos denotativos e/ou conotativos. Intertextualidade: diálogo entre textos distintos. Identificar tema, ideia central, inferências e recursos argumentativos.",freq:"alto"},
-      {t:"Ortografia e Acentuação",d:"Acentuação gráfica e prosódica. Ortografia segundo o novo acordo ortográfico (2009). Regras de acentuação de oxítonas, paroxítonas e proparoxítonas.",freq:"alto"},
-      {t:"Uso da Crase",d:"Regras obrigatórias, proibidas e facultativas do uso da crase. Locução prepositiva + artigo feminino. Casos especiais com pronomes e palavras no plural.",freq:"alto"},
-      {t:"Pontuação",d:"Uso da vírgula, ponto e vírgula, dois pontos, travessão, reticências e parênteses. Separação de adjunto adverbial deslocado, aposto e orações intercaladas.",freq:"medio"},
-      {t:"Morfologia – Classes Gramaticais",d:"Classes variáveis: artigo, adjetivo, numeral, pronome, substantivo e verbo. Classes invariáveis: advérbio, conjunção, preposição e interjeição. Funções e flexões.",freq:"medio"},
-      {t:"Sintaxe e Concordância",d:"Concordância verbal e nominal. Sujeito simples, composto, oculto e indeterminado. Termos da oração: essenciais, integrantes e acessórios. Frase, oração e período.",freq:"alto"},
-      {t:"Colocação Pronominal e Regência",d:"Próclise, mesóclise e ênclise. Regência verbal: verbos que exigem preposição (obedecer a, assistir a, aspirar a). Regência nominal. Casos de crase.",freq:"medio"},
-      {t:"Período Composto",d:"Coordenação: orações sindéticas (aditivas, adversativas, alternativas, conclusivas, explicativas) e assindéticas. Subordinação: substantivas, adjetivas e adverbiais.",freq:"medio"},
-      {t:"Semântica e Figuras de Linguagem",d:"Polissemia, sinonímia, antonímia, homonímia e paronímia. Figuras: metáfora, metonímia, comparação, hipérbole, eufemismo, ironia, antítese. Denotação e conotação.",freq:"baixo"},
-      {t:"Funções e Elementos da Linguagem",d:"Emissor, receptor, código, mensagem, canal e referente. Funções: referencial, emotiva, fática, poética, apelativa e metalinguística. Signo: significante e significado.",freq:"baixo"},
-      {t:"Vozes Verbais e Formação de Palavras",d:"Voz ativa, passiva (analítica e sintética) e reflexiva. Estrutura das palavras: radical, afixo e desinência. Derivação (prefixal, sufixal, parassintética) e composição.",freq:"baixo"},
+      {t:"Interpretação de Texto",d:"Leitura e compreensão de textos variados. Identificar tema, ideia central, inferências e recursos argumentativos do autor.",freq:"alto"},
+      {t:"Ortografia e Acentuação",d:"Uso do acento agudo, circunflexo e til. Regras do novo acordo ortográfico (2009). Uso correto de maiúsculas e hifens.",freq:"alto"},
+      {t:"Classes de Palavras",d:"Substantivo, adjetivo, verbo, advérbio, preposição, conjunção, interjeição, numeral e artigo. Funções e flexões de cada classe.",freq:"medio"},
+      {t:"Sintaxe e Concordância",d:"Concordância nominal e verbal. Sujeito simples, composto, oculto. Regras especiais: coletivos, pronomes de tratamento, percentagem.",freq:"alto"},
+      {t:"Verbos e Conjugação",d:"Modos indicativo, subjuntivo e imperativo. Tempos verbais, verbos irregulares e defectivos. Vozes verbal: ativa, passiva e reflexiva.",freq:"medio"},
+      {t:"Pronomes e Colocação",d:"Pronomes pessoais do caso reto e oblíquo. Colocação pronominal: próclise, mesóclise e ênclise. Pronomes de tratamento.",freq:"medio"},
+      {t:"Pontuação",d:"Uso da vírgula (separação de adjunto adverbial, aposto, orações subordinadas). Ponto, ponto e vírgula, dois pontos, travessão e reticências.",freq:"medio"},
+      {t:"Semântica e Figuras de Linguagem",d:"Sinonímia, antonímia, polissemia, homonímia. Figuras: metáfora, metonímia, comparação, hipérbole, eufemismo, ironia.",freq:"baixo"},
+    ]
+  },
+  {
+    nome:"🔢 Matemática",
+    cor:"linear-gradient(135deg,#0d9488,#0f766e)",
+    topicos:[
+      {t:"Números e Operações",d:"Operações com números naturais, inteiros e racionais. Propriedades da adição, subtração, multiplicação e divisão. Ordem de operações.",freq:"alto"},
+      {t:"Frações e Porcentagem",d:"Simplificação, operações com frações. Porcentagem: calcular parte, todo e taxa. Acréscimo e descréscimo percentual.",freq:"alto"},
+      {t:"Regra de Três",d:"Regra de três simples direta e inversa. Regra de três composta: identificar grandezas direta/inversamente proporcionais.",freq:"alto"},
+      {t:"Razão e Proporção",d:"Conceito de razão. Propriedades das proporções. Grandezas proporcionais. Escala em mapas e plantas.",freq:"medio"},
+      {t:"Grandezas e Medidas",d:"Unidades de comprimento, massa, capacidade, tempo e área. Conversões entre unidades do SI.",freq:"medio"},
+      {t:"Geometria Básica",d:"Perímetro e área de figuras planas (quadrado, retângulo, triângulo, círculo). Volume de paralelepípedo e cubo.",freq:"medio"},
+      {t:"Raciocínio Lógico",d:"Proposições, negação, conjunção, disjunção, condicional e bicondicional. Tabelas-verdade. Sentenças abertas e fechadas.",freq:"baixo"},
+    ]
+  },
+  {
+    nome:"🏥 Saúde Pública e SUS",
+    cor:"linear-gradient(135deg,#15803d,#0d9488)",
+    topicos:[
+      {t:"Princípios do SUS",d:"Universalidade, integralidade e equidade (princípios doutrinários). Descentralização, hierarquização e participação social (princípios organizativos). Lei 8.080/1990.",freq:"alto"},
+      {t:"Vigilância em Saúde",d:"Vigilância epidemiológica, sanitária, ambiental e do trabalhador. Notificação compulsória (SINAN). Investigação de surtos e agravos.",freq:"alto"},
+      {t:"Atenção Básica",d:"Estratégia Saúde da Família (ESF). Composição das equipes de saúde. PNAB. Território adscrito e cadastro familiar.",freq:"medio"},
+      {t:"Epidemiologia",d:"Incidência, prevalência, mortalidade, morbidade. Cadeia epidemiológica: agente, hospedeiro e ambiente. Medidas de prevenção primária, secundária e terciária.",freq:"alto"},
+      {t:"Promoção da Saúde",d:"Carta de Ottawa (1986). Determinantes sociais da saúde. Educação em saúde. Intersetorialidade e empoderamento comunitário.",freq:"medio"},
+    ]
+  },
+  {
+    nome:"🏠 Visitas e Fiscalização",
+    cor:"linear-gradient(135deg,#16a34a,#15803d)",
+    topicos:[
+      {t:"Visita Domiciliar do ACE",d:"Objetivo: inspecionar imóveis para eliminação de criadouros. Roteiro de visita: área interna, externa, quintal e caixa d'água. Periodicidade dos ciclos.",freq:"alto"},
+      {t:"Ciclo de Trabalho do ACE",d:"Ciclo de 60 dias (LIRAa) ou definido pela gestão municipal. Estratificação de risco. Uso do mapa de quarteirões e boletim de campo.",freq:"alto"},
+      {t:"Notificação e Registro",d:"Preenchimento do Boletim de Acompanhamento de Campo (BAC). Registro de pendências, imóveis fechados e recusas. SINAN e formulários de campo.",freq:"medio"},
+      {t:"Educação em Saúde",d:"Orientações aos moradores sobre eliminação de criadouros. Comunicação eficaz e abordagem comunitária. Materiais educativos e ações coletivas.",freq:"medio"},
+    ]
+  },
+  {
+    nome:"🦟 Endemias e Doenças",
+    cor:"linear-gradient(135deg,#0d9488,#15803d)",
+    topicos:[
+      {t:"Dengue",d:"Transmissão pelo Aedes aegypti. Sintomas: febre alta, dor muscular e articular, exantema. Classificação: dengue, dengue com sinais de alarme e grave. Tratamento sintomático.",freq:"alto"},
+      {t:"Zika e Chikungunya",d:"Zika: pode causar microcefalia fetal (gestantes). Chikungunya: artralgia intensa e prolongada. Ambas transmitidas pelo Aedes aegypti.",freq:"alto"},
+      {t:"Malária",d:"Causada por Plasmodium (falciparum, vivax, malariae). Transmitida pela fêmea do Anopheles. Sintomas: febre periódica, calafrios, sudorese. Endêmica na Amazônia.",freq:"medio"},
+      {t:"Leishmaniose",d:"Leishmaniose tegumentar (úlceras na pele) e visceral (calazar). Transmitida pelo flebotomíneo (mosquito-palha). Reservatório: cão doméstico.",freq:"medio"},
+      {t:"Doença de Chagas",d:"Causada pelo Trypanosoma cruzi. Transmissão pelo barbeiro (Triatoma). Fase aguda: febre, edema de Romaña. Fase crônica: cardiopatia chagásica.",freq:"medio"},
+      {t:"Leptospirose",d:"Causada por Leptospira. Transmissão pela urina de ratos em águas de enchentes. Sintomas: febre, dor muscular (panturrilha), icterícia. Síndrome de Weil em casos graves.",freq:"alto"},
     ]
   },
   {
     nome:"💻 Conhecimentos em Informática",
-    cor:"linear-gradient(135deg,#be185d,#ec4899)",
+    cor:"linear-gradient(135deg,#0d9488,#0f766e)",
     topicos:[
       {t:"MS-Windows",d:"Conceito de pastas, diretórios, arquivos e atalhos. Área de trabalho e área de transferência. Manipulação de arquivos e pastas. Uso de menus, programas e aplicativos. Versão mais recente.",freq:"alto"},
-      {t:"MS-Word",d:"Estrutura básica dos documentos. Edição e formatação: cabeçalhos, parágrafos, fontes, colunas, marcadores simbólicos e numéricos, tabelas, impressão, controle de quebras e numeração de páginas. Legendas, índices, inserção de objetos e caixas de texto.",freq:"alto"},
+      {t:"MS-Word",d:"Estrutura básica dos documentos. Edição e formatação: cabeçalhos, parágrafos, fontes, colunas, marcadores simbólicos e numéricos, tabelas, impressão. Controle de quebras e numeração de páginas. Legendas, índices, inserção de objetos, campos predefinidos e caixas de texto.",freq:"alto"},
       {t:"MS-Excel",d:"Estrutura de planilhas: células, linhas, colunas, pastas e gráficos. Elaboração de tabelas e gráficos. Uso de fórmulas, funções e macros. Obtenção de dados externos e classificação de dados.",freq:"alto"},
       {t:"MS-PowerPoint",d:"Estrutura de apresentações: slides, anotações, régua, guias, cabeçalhos e rodapés. Edição e formatação. Inserção de objetos, numeração de páginas. Botões de ação, animação e transição entre slides.",freq:"medio"},
       {t:"Correio Eletrônico e Internet",d:"Uso de correio eletrônico: preparo, envio de mensagens e anexação de arquivos. Navegação na internet: conceitos de URL, links, sites, busca e impressão de páginas.",freq:"medio"},
     ]
   },
-  {
-    nome:"🎓 Conhecimentos Específicos",
-    cor:"linear-gradient(135deg,#500724,#9d174d)",
-    topicos:[
-      {t:"Papel do Orientador Educacional",d:"Histórico da orientação educacional no Brasil. Funções e atribuições do orientador. Identidade profissional no contexto escolar atual. Marcos normativos da profissão.",freq:"alto"},
-      {t:"Mediação de Conflitos",d:"Técnicas de escuta ativa e diálogo. Negociação e promoção da convivência ética. Resolução de problemas disciplinares. Cultura de paz e restauração de vínculos escolares.",freq:"alto"},
-      {t:"Projeto Político-Pedagógico (PPP)",d:"Participação ativa do orientador na construção, implementação, acompanhamento e avaliação do PPP. Conceito, estrutura e importância do PPP para a identidade escolar.",freq:"alto"},
-      {t:"Desenvolvimento Estudantil",d:"Acompanhamento do processo de ensino-aprendizagem. Identificação de dificuldades: dislexia, TDAH, discalculia. Encaminhamentos necessários para redes de apoio e saúde.",freq:"alto"},
-      {t:"Orientação Sexual e Prevenção",d:"Projetos voltados à educação para a saúde e sexualidade. Prevenção ao uso indevido de drogas. Educação afetivo-sexual na escola como prática preventiva e inclusiva.",freq:"medio"},
-      {t:"Bullying, Cyberbullying e Socioemocionais",d:"Combate ao bullying e cyberbullying. Indisciplina escolar: causas e intervenções. Desenvolvimento de habilidades socioemocionais: empatia, resiliência, autoconhecimento e cooperação.",freq:"medio"},
-      {t:"Relação Escola-Comunidade",d:"Articulação entre escola, famílias e grêmios estudantis. Redes de apoio social e de saúde. Participação comunitária na vida escolar. Conselho de classe e reuniões de pais.",freq:"medio"},
-    ]
-  },
 ];
 
 const questoes = [
-  {disc:"Português",tema:"Colocação Pronominal",p:"Assinale a alternativa em que a colocação pronominal está CORRETA de acordo com a norma culta:",ops:["Me diga a verdade.","Diga-me a verdade.","Diga me a verdade.","Me diz a verdade."],c:1,exp:"Em oração iniciada com verbo no imperativo afirmativo, usa-se ênclise: 'Diga-me'. O pronome átono não deve aparecer em início de oração na norma culta."},
-  {disc:"Português",tema:"Concordância Verbal",p:"Na frase 'Faz dez anos que trabalho nesta escola', o verbo 'faz' está:",ops:["Errado; deveria ser 'fazem'","Correto; verbos que indicam tempo são impessoais","Errado; deveria ser 'faziam'","Correto; concorda com 'escola'"],c:1,exp:"'Fazer' indicando tempo decorrido é verbo impessoal — não possui sujeito e fica sempre no singular."},
-  {disc:"Português",tema:"Figuras de Linguagem",p:"O recurso linguístico em 'A escola é o berço do conhecimento' é:",ops:["Comparação","Metáfora","Metonímia","Hipérbole"],c:1,exp:"Metáfora: identificação implícita entre 'escola' e 'berço' sem uso do conectivo comparativo 'como'."},
-  {disc:"Português",tema:"Regência Verbal",p:"'Ele obedeceu as regras da escola.' Esta frase apresenta erro de:",ops:["Concordância verbal","Regência verbal","Colocação pronominal","Ortografia"],c:1,exp:"'Obedecer' é transitivo indireto e exige preposição 'a': 'obedeceu às regras'. Regência verbal incorreta."},
-  {disc:"Português",tema:"Concordância Verbal",p:"Assinale a alternativa em que há ERRO de concordância verbal:",ops:["Os professores chegaram cedo.","Fazia dois anos que ele estudava.","Haviam muitos alunos no pátio.","A maioria dos alunos foi aprovada."],c:2,exp:"'Haver' no sentido de existir é verbo impessoal: 'Havia muitos alunos no pátio'. Não flexiona para o plural."},
-  {disc:"Português",tema:"Funções da Linguagem",p:"Qual a função da linguagem predominante em 'Você está me ouvindo? Alô, alô?'",ops:["Referencial","Emotiva","Fática","Poética"],c:2,exp:"A função fática tem por objetivo verificar ou estabelecer o canal de comunicação entre emissor e receptor."},
-  {disc:"Português",tema:"Uso da Crase",p:"Assinale a alternativa com crase CORRETA:",ops:["Entreguei o relatório à ele.","Fomos à reunião de pais.","Refiro-me à aquele problema.","Fui à pé até a escola."],c:1,exp:"'À reunião' = preposição 'a' + artigo feminino 'a'. Não se usa crase antes de pronome masculino ('ele') nem se duplica antes de artigo."},
+  // Português
+  {disc:"Português",tema:"Figuras de Linguagem",p:"Qual recurso linguístico é usado em 'O tempo passou como um raio'?",ops:["Metáfora","Comparação","Metonímia","Hipérbole"],c:1,exp:"'Como um raio' é uma comparação explícita (uso do 'como'), diferente da metáfora que é implícita."},
+  {disc:"Português",tema:"Pontuação",p:"Em qual alternativa o uso da vírgula está CORRETO?",ops:["Comprei, pão leite e manteiga.","Comprei pão, leite e manteiga.","Comprei pão leite, e manteiga.","Comprei, pão, leite e, manteiga."],c:1,exp:"A vírgula separa os itens de uma enumeração, mas não antes do último elemento quando há 'e'."},
+  {disc:"Português",tema:"Voz Passiva",p:"Na frase 'Os alunos foram premiados pela professora', a voz verbal é:",ops:["Ativa","Reflexiva","Passiva analítica","Passiva sintética"],c:2,exp:"Voz passiva analítica: o sujeito recebe a ação. Formada com verbo auxiliar (foram) + particípio (premiados) + agente da passiva (pela professora)."},
+  {disc:"Português",tema:"Semântica e Antônimos",p:"Qual é o antônimo de 'benevolente'?",ops:["Bondoso","Generoso","Malevolente","Tolerante"],c:2,exp:"Benevolente = que tem boa vontade. Malevolente = que tem má intenção. Prefixo mal- indica oposição."},
+  {disc:"Português",tema:"Concordância Verbal",p:"Assinale a alternativa com ERRO de concordância verbal:",ops:["Os alunos estudaram muito.","Faz dois anos que não o vejo.","Haviam muitas pessoas na festa.","A maioria dos alunos foi aprovada."],c:2,exp:"'Haver' no sentido de existir é impessoal e fica no singular: 'Havia muitas pessoas na festa'."},
+  // Matemática
+  {disc:"Matemática",tema:"Porcentagem",p:"Qual é 15% de 80?",ops:["10","12","15","18"],c:1,exp:"15% de 80 = 80 × 0,15 = 12. Ou: 10% de 80 = 8; 5% = 4; total = 12."},
+  {disc:"Matemática",tema:"Regra de Três",p:"Se 3 operários fazem um serviço em 12 dias, 6 operários fariam em:",ops:["24 dias","6 dias","4 dias","8 dias"],c:1,exp:"Grandezas inversamente proporcionais. 3 × 12 = 6 × x → x = 6 dias."},
+  {disc:"Matemática",tema:"Geometria Plana",p:"A área de um retângulo de base 8 m e altura 5 m é:",ops:["26 m²","13 m²","40 m²","80 m²"],c:2,exp:"Área do retângulo = base × altura = 8 × 5 = 40 m²."},
+  {disc:"Matemática",tema:"Frações",p:"Simplifique a fração 24/36:",ops:["3/4","2/3","4/6","6/9"],c:1,exp:"MDC(24,36) = 12. 24÷12 = 2 e 36÷12 = 3. Resultado: 2/3."},
+  {disc:"Matemática",tema:"Porcentagem",p:"Numa turma, 60% são mulheres. Se há 18 mulheres, quantos alunos há no total?",ops:["30","24","36","28"],c:0,exp:"60% = 18 → 100% = 18 ÷ 0,6 = 30 alunos."},
+  // SUS
+  {disc:"SUS",tema:"Princípios do SUS",p:"Qual é o princípio do SUS que garante atendimento a todos, independente de contribuição?",ops:["Integralidade","Universalidade","Equidade","Descentralização"],c:1,exp:"Universalidade: o SUS deve atender a todos os cidadãos, sem distinção. É um direito garantido pela CF/88."},
+  {disc:"SUS",tema:"Legislação do SUS",p:"A Lei Orgânica da Saúde que regulamenta o SUS é a:",ops:["Lei 8.142/1990","Lei 8.080/1990","Lei 7.498/1986","Lei 9.656/1998"],c:1,exp:"A Lei 8.080/1990 dispõe sobre as condições para a promoção, proteção e recuperação da saúde e organiza o SUS."},
+  {disc:"SUS",tema:"Promoção da Saúde",p:"Qual é o documento fundador da Promoção da Saúde no mundo?",ops:["Declaração de Alma-Ata","Carta de Ottawa","Declaração de Bogotá","Relatório Lalonde"],c:1,exp:"A Carta de Ottawa (1986) define os cinco campos de ação da promoção da saúde e é referência mundial."},
+  {disc:"SUS",tema:"Vigilância Epidemiológica",p:"A vigilância epidemiológica tem como função principal:",ops:["Fiscalizar alimentos","Monitorar e controlar doenças e agravos","Realizar cirurgias","Fabricar medicamentos"],c:1,exp:"Vigiar, monitorar e controlar doenças é o papel da vigilância epidemiológica. Ela usa o SINAN para notificações."},
+  // Visitas
+  {disc:"Visitas",tema:"Visita Domiciliar ACE",p:"O principal objetivo da visita domiciliar do ACE é:",ops:["Vacinar moradores","Eliminar criadouros do Aedes aegypti","Realizar consultas médicas","Distribuir remédios"],c:1,exp:"O ACE inspeciona imóveis em busca de recipientes com água parada que possam servir de criadouro para o mosquito."},
+  {disc:"Visitas",tema:"Visita Domiciliar ACE",p:"Quando um imóvel está fechado durante a visita, o ACE deve:",ops:["Registrar como visitado normalmente","Registrar como pendência e fazer nova visita","Pular e não registrar","Notificar a polícia"],c:1,exp:"Imóveis fechados são registrados como pendência no boletim de campo e são visitados novamente na próxima rodada."},
+  // Endemias
+  {disc:"Endemias",tema:"Dengue e Aedes",p:"Qual mosquito transmite a dengue, zika e chikungunya?",ops:["Anopheles darlingi","Aedes albopictus","Aedes aegypti","Culex quinquefasciatus"],c:2,exp:"O Aedes aegypti é o principal vetor da dengue, zika e chikungunya no Brasil."},
+  {disc:"Endemias",tema:"Leptospirose",p:"A leptospirose é transmitida principalmente por:",ops:["Picada de mosquito","Contato com urina de rato em água de enchente","Contato com barbeiro","Picada de flebotomíneo"],c:1,exp:"A Leptospira penetra pela pele em contato com água ou solo contaminados pela urina de ratos, especialmente em enchentes."},
+  {disc:"Endemias",tema:"Doença de Chagas",p:"A doença de Chagas é causada por qual parasita?",ops:["Plasmodium falciparum","Leishmania chagasi","Trypanosoma cruzi","Wuchereria bancrofti"],c:2,exp:"O Trypanosoma cruzi é o agente etiológico da doença de Chagas, transmitido pelo barbeiro (Triatoma)."},
+  {disc:"Endemias",tema:"Dengue e Aedes",p:"Qual fase da dengue apresenta risco de evolução grave?",ops:["Fase febril","Fase crítica","Fase de recuperação","Fase assintomática"],c:1,exp:"A fase crítica (após queda da febre) é quando pode haver extravasamento de plasma, levando à dengue grave."},
+  {disc:"Endemias",tema:"Malária",p:"A malária é endêmica principalmente em qual região do Brasil?",ops:["Nordeste","Sul","Região Amazônica","Centro-Oeste"],c:2,exp:"A região Amazônica concentra mais de 99% dos casos de malária no Brasil, onde o Anopheles é prevalente."},
+  {disc:"Endemias",tema:"Doença de Chagas",p:"O sinal de Romaña é característico da fase aguda de qual doença?",ops:["Dengue","Leishmaniose visceral","Malária","Doença de Chagas"],c:3,exp:"O sinal de Romaña é o edema bipalpebral unilateral indolor, ocorre quando o Trypanosoma cruzi entra pela conjuntiva."},
+  // Informática
   {disc:"Informática",tema:"MS-Word",p:"No MS-Word, qual recurso gera automaticamente o sumário com base nos estilos de título?",ops:["Inserir > Tabela","Referências > Sumário","Revisão > Ortografia","Layout > Colunas"],c:1,exp:"Em Referências > Sumário, o Word gera automaticamente o índice baseado nos estilos de parágrafo Título 1, Título 2 etc."},
   {disc:"Informática",tema:"MS-Excel",p:"No MS-Excel, qual função retorna o maior valor de um intervalo de células?",ops:["=SOMA()","=MED()","=MÁXIMO()","=CONT.SE()"],c:2,exp:"=MÁXIMO() retorna o maior valor numérico em um intervalo. =SOMA() soma, =MED() retorna a mediana, =CONT.SE() conta condicionalmente."},
   {disc:"Informática",tema:"MS-Windows",p:"A área de transferência do MS-Windows armazena:",ops:["Arquivos permanentemente","Itens copiados/recortados temporariamente","A configuração do sistema","O histórico de navegação"],c:1,exp:"A área de transferência (clipboard) guarda temporariamente o que foi copiado (Ctrl+C) ou recortado (Ctrl+X) para ser colado (Ctrl+V)."},
   {disc:"Informática",tema:"Internet e E-mail",p:"O protocolo utilizado para envio de e-mails entre servidores é:",ops:["HTTP","FTP","SMTP","DNS"],c:2,exp:"SMTP (Simple Mail Transfer Protocol) é o protocolo padrão para envio de mensagens de e-mail entre servidores de correio."},
   {disc:"Informática",tema:"MS-PowerPoint",p:"No MS-PowerPoint, qual recurso define o efeito visual na mudança entre slides?",ops:["Animação","Transição","Design","Layout"],c:1,exp:"Transição define o efeito visual quando se muda de um slide para outro. Animação aplica-se a elementos dentro do slide."},
   {disc:"Informática",tema:"MS-Excel",p:"No MS-Excel, a função =SE() serve para:",ops:["Somar um intervalo","Executar teste lógico e retornar valores distintos","Contar células com texto","Calcular média"],c:1,exp:"=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso) avalia uma condição e retorna um resultado conforme o teste."},
-  {disc:"Específicos",tema:"Papel do Orientador",p:"Qual é a principal função do Orientador Educacional na escola?",ops:["Ministrar aulas de reforço","Mediar relações e acompanhar o desenvolvimento integral dos alunos","Substituir professores ausentes","Coordenar o serviço administrativo"],c:1,exp:"O Orientador Educacional atua na mediação das relações escola-aluno-família e no acompanhamento do desenvolvimento integral e pleno dos estudantes."},
-  {disc:"Específicos",tema:"Bullying e Cyberbullying",p:"O bullying é caracterizado por:",ops:["Conflitos esporádicos entre alunos","Violência física apenas","Comportamento agressivo, repetitivo e com desequilíbrio de poder","Discussões verbais isoladas"],c:2,exp:"Bullying é definido pela intencionalidade, repetição e desequilíbrio de poder entre agressor e vítima. Pode ser físico, verbal, social ou virtual (cyberbullying)."},
-  {disc:"Específicos",tema:"Projeto Político-Pedagógico",p:"O Projeto Político-Pedagógico (PPP) é um documento que:",ops:["Define apenas o calendário escolar","Expressa a identidade, objetivos e práticas educativas da escola","É elaborado somente pela direção","Substitui o Regimento Escolar"],c:1,exp:"O PPP expressa a identidade da escola, seus valores, objetivos pedagógicos e ações educativas. Deve ser construído coletivamente com toda a comunidade escolar."},
-  {disc:"Específicos",tema:"Desenvolvimento Estudantil",p:"A dislexia é uma dificuldade de aprendizagem que afeta principalmente:",ops:["A coordenação motora","A leitura e a escrita (decodificação fonológica)","O raciocínio matemático","A memória de trabalho"],c:1,exp:"A dislexia é transtorno específico de aprendizagem de base neurológica que afeta precisão e fluência no reconhecimento de palavras e na capacidade de soletrar."},
-  {disc:"Específicos",tema:"Mediação de Conflitos",p:"A escuta ativa, técnica de mediação de conflitos, consiste em:",ops:["Interromper o aluno para corrigi-lo","Ouvir com atenção plena, sem julgamentos, demonstrando compreensão","Dar conselhos imediatamente","Registrar apenas fatos objetivos"],c:1,exp:"A escuta ativa envolve atenção plena, postura empática e feedback de compreensão sem julgamentos prévios — essencial na mediação de conflitos escolares."},
-  {disc:"Específicos",tema:"Desenvolvimento Estudantil",p:"O TDAH (Transtorno do Déficit de Atenção e Hiperatividade) é caracterizado por:",ops:["Dificuldades exclusivamente na leitura","Desatenção, hiperatividade e impulsividade que impactam o aprendizado","Ausência de linguagem verbal","Comprometimento exclusivo da memória"],c:1,exp:"O TDAH apresenta a tríade desatenção, hiperatividade e impulsividade em graus variados, afetando o rendimento escolar e as relações sociais."},
-  {disc:"Específicos",tema:"Habilidades Socioemocionais",p:"A habilidade socioemocional de 'resiliência' pode ser definida como:",ops:["Incapacidade de sentir emoções","Capacidade de se recuperar e adaptar diante de adversidades","Submissão às regras sem questionamento","Ausência de conflitos interpessoais"],c:1,exp:"Resiliência é a capacidade de superar, aprender e se fortalecer a partir de situações adversas. É uma das competências socioemocionais promovidas pela BNCC."},
+  {disc:"Informática",tema:"MS-Windows",p:"No MS-Windows, o atalho para desfazer a última ação é:",ops:["Ctrl+C","Ctrl+Z","Ctrl+V","Ctrl+X"],c:1,exp:"Ctrl+Z desfaz a última ação realizada na maioria dos programas Windows. Ctrl+Y refaz o que foi desfeito."},
 ];
 
 const EXAMES_DATA = [
   {
-    id:'sim1',titulo:'Simulado 1 – Língua Portuguesa',banca:'VUNESP',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
+    id:'sim1',titulo:'Simulado 1 – Língua Portuguesa e Matemática',banca:'VUNESP',ano:2024,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q5)',qs:[
+        {n:1,q:"No trecho 'O agente de saúde percorreu cada rua do bairro', o sujeito da oração é:",ops:["cada rua do bairro","O agente de saúde","percorreu","do bairro"],g:1,exp:"O agente de saúde é o sujeito simples (quem pratica a ação de percorrer)."},
+        {n:2,q:"Assinale a alternativa em que a palavra destacada é um ADVÉRBIO:",ops:["Ele é muito dedicado.","A água fresca é boa.","Trabalho aqui diariamente.","Comprei livros novos."],g:2,exp:"'Aqui' (advérbio de lugar) e 'diariamente' (advérbio de modo) modificam o verbo."},
+        {n:3,q:"'Preciso que você venha logo.' O modo verbal de 'venha' é:",ops:["Indicativo","Subjuntivo","Imperativo afirmativo","Imperativo negativo"],g:1,exp:"O subjuntivo (presente) é usado em orações subordinadas que expressam desejo, dúvida ou hipótese."},
+        {n:4,q:"Qual das alternativas apresenta uso CORRETO do acento?",ops:["pára (verbo parar)","vôo","idéia","área"],g:3,exp:"Pelo acordo ortográfico de 2009, 'para', 'voo' e 'ideia' não são acentuados. 'Área' conserva o acento por ser proparoxítona."},
+        {n:5,q:"'Muitos alunos faltaram à aula.' A classe gramatical de 'Muitos' é:",ops:["Adjetivo","Pronome indefinido","Numeral","Artigo"],g:1,exp:"'Muitos' é pronome indefinido quando acompanha substantivo indicando quantidade imprecisa."},
+      ]},
+      {nome:'Matemática (Q6–Q10)',qs:[
+        {n:6,q:"Um ACE percorre 3/5 de uma rua em um turno. Que fração ainda falta percorrer?",ops:["1/5","2/5","3/10","1/2"],g:1,exp:"Falta: 1 – 3/5 = 5/5 – 3/5 = 2/5 da rua."},
+        {n:7,q:"Um depósito tem 500 L de água. 20% foram consumidos. Quantos litros restaram?",ops:["100 L","400 L","450 L","350 L"],g:1,exp:"20% de 500 = 100 L consumidos. Restaram 500 – 100 = 400 L."},
+        {n:8,q:"Se 4 agentes visitam 120 imóveis em 1 dia, quantos imóveis 6 agentes visitariam no mesmo tempo?",ops:["150","180","160","200"],g:1,exp:"4 agentes → 120 imóveis. 1 agente → 30. 6 agentes → 6 × 30 = 180 imóveis."},
+        {n:9,q:"A área de um terreno retangular de 15 m × 8 m é:",ops:["46 m²","23 m²","120 m²","180 m²"],g:2,exp:"Área = base × altura = 15 × 8 = 120 m²."},
+        {n:10,q:"Qual é o valor de 3² + 4²?",ops:["49","25","14","7"],g:1,exp:"3² = 9; 4² = 16; 9 + 16 = 25."},
+      ]},
+    ]
+  },
+  {
+    id:'sim2',titulo:'Simulado 2 – Saúde Pública e SUS',banca:'FCC',ano:2024,
+    edital:'ACE Estadual',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Saúde Pública e SUS (Q1–Q5)',qs:[
+        {n:1,q:"Qual princípio do SUS determina que as ações devem focar nas necessidades de cada grupo?",ops:["Universalidade","Integralidade","Equidade","Descentralização"],g:2,exp:"Equidade: tratar desigualmente os desiguais, priorizando quem mais necessita para reduzir desigualdades."},
+        {n:2,q:"O SINAN é o sistema de informação utilizado para:",ops:["Registrar internações hospitalares","Notificações compulsórias de doenças","Controle de estoque de medicamentos","Pagamento de servidores da saúde"],g:1,exp:"SINAN = Sistema de Informação de Agravos de Notificação. Registra casos de doenças de notificação compulsória."},
+        {n:3,q:"A Estratégia Saúde da Família (ESF) está inserida em qual nível de atenção?",ops:["Atenção terciária","Atenção secundária","Atenção básica (primária)","Alta complexidade"],g:2,exp:"A ESF é a principal estratégia da Atenção Básica/Primária, sendo a porta de entrada preferencial do SUS."},
+        {n:4,q:"Qual é a principal característica da prevenção secundária?",ops:["Eliminar a causa da doença","Diagnóstico precoce e tratamento imediato","Reabilitação do paciente","Vacinação em massa"],g:1,exp:"Prevenção secundária: detectar a doença em estágio inicial para tratá-la e evitar agravamento (ex: rastreios)."},
+        {n:5,q:"O conceito ampliado de saúde definido pela OMS inclui:",ops:["Apenas ausência de doenças","Bem-estar físico, mental e social","Ter plano de saúde privado","Realizar exames regulares"],g:1,exp:"OMS (1946): saúde é 'completo bem-estar físico, mental e social, e não apenas ausência de doença.'"},
+      ]},
+      {nome:'Endemias (Q6–Q10)',qs:[
+        {n:6,q:"Qual é o período de incubação médio da dengue após a picada do mosquito infectado?",ops:["1 a 2 dias","4 a 10 dias","15 a 20 dias","30 dias"],g:1,exp:"O período de incubação da dengue no ser humano é de 4 a 10 dias após a picada do Aedes aegypti infectado."},
+        {n:7,q:"O vetor da leishmaniose visceral no Brasil é:",ops:["Aedes aegypti","Anopheles darlingi","Lutzomyia longipalpis (mosquito-palha)","Triatoma infestans (barbeiro)"],g:2,exp:"O Lutzomyia longipalpis (flebotomíneo) é o principal vetor da leishmaniose visceral no Brasil."},
+        {n:8,q:"Na malária, qual espécie de Plasmodium causa a forma mais grave da doença?",ops:["P. vivax","P. malariae","P. ovale","P. falciparum"],g:3,exp:"P. falciparum é o mais virulento, podendo causar malária cerebral, insuficiência renal e morte."},
+        {n:9,q:"Qual medida é MAIS eficaz para prevenir a dengue?",ops:["Uso de repelente","Eliminar depósitos de água parada","Usar mosquiteiro","Tomar antibióticos"],g:1,exp:"O controle vetorial — eliminar criadouros com água parada — é a medida mais eficaz, pois reduz a população do mosquito."},
+        {n:10,q:"A transmissão congênita do Zika vírus pode causar:",ops:["Hidrocefalia","Microcefalia","Macrossomia","Icterícia neonatal"],g:1,exp:"A infecção pelo Zika vírus durante a gestação está associada à microcefalia e outras malformações do sistema nervoso central do feto."},
+      ]},
+    ]
+  },
+  {
+    id:'sim3',titulo:'Simulado 3 – Conhecimentos Específicos ACE',banca:'IBFC',ano:2025,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Visitas e Fiscalização (Q1–Q5)',qs:[
+        {n:1,q:"Durante uma visita domiciliar, o ACE encontra um pneu com água no quintal. Qual é a conduta correta?",ops:["Registrar e seguir para o próximo imóvel","Eliminar o criadouro (esvaziar/virar o pneu) e orientar o morador","Multar o morador","Acionar a vigilância sanitária"],g:1,exp:"O ACE deve eliminar o criadouro no ato da visita (esvaziar, tampar, descartar) e educar o morador sobre prevenção."},
+        {n:2,q:"O LIRAa (Levantamento de Índice Rápido para Aedes aegypti) é realizado com qual periodicidade?",ops:["Mensal","Anual","Quadrimestral (3 vezes ao ano)","Semanal"],g:2,exp:"O LIRAa é realizado 3 vezes ao ano (quadrimestral), nos meses de fevereiro, maio/junho e outubro."},
+        {n:3,q:"Qual tipo de recipiente é considerado o principal criadouro do Aedes aegypti no Brasil?",ops:["Calhas entupidas","Caixas d'água sem tampa","Pneus","Vasos de plantas"],g:1,exp:"Caixas d'água sem tampa são o principal criadouro por armazenar grande volume de água limpa e parada — condição ideal para o Aedes."},
+        {n:4,q:"Quando o morador recusa a entrada do ACE em seu imóvel, o agente deve:",ops:["Forçar a entrada","Registrar a recusa no boletim e comunicar o supervisor","Abandonar a visita sem registro","Chamar a polícia"],g:1,exp:"O ACE deve registrar a recusa no BAC, informar ao supervisor e, se necessário, buscar apoio jurídico para acesso ao imóvel."},
+        {n:5,q:"O que é um imóvel 'B' na classificação do LIRAa?",ops:["Imóvel vistoriado sem foco","Imóvel com foco de Aedes","Imóvel fechado","Imóvel demolido"],g:1,exp:"Na classificação do LIRAa: A = visitado sem foco, B = visitado com foco, F = fechado, R = recusa, T = terreno baldio."},
+      ]},
+      {nome:'Endemias Avançado (Q6–Q10)',qs:[
+        {n:6,q:"Qual é o reservatório animal mais importante da leishmaniose visceral no ambiente urbano?",ops:["Rato","Gato","Cão doméstico","Gambá"],g:2,exp:"O cão doméstico é o principal reservatório urbano de Leishmania chagasi, sendo fundamental seu controle para prevenir a doença humana."},
+        {n:7,q:"A síndrome de Weil, forma grave da leptospirose, é caracterizada por:",ops:["Artralgia e rash cutâneo","Icterícia, insuficiência renal e hemorragia","Febre periódica e anemia","Edema e hipertensão"],g:1,exp:"Síndrome de Weil: tríade de icterícia intensa, insuficiência renal aguda e fenômenos hemorrágicos. Alta letalidade se não tratada."},
+        {n:8,q:"Na doença de Chagas, a cardiopatia é a manifestação mais frequente da fase:",ops:["Aguda","Indeterminada","Crônica","Pré-patente"],g:2,exp:"Na fase crônica, a cardiomiopatia chagásica (arritmias, insuficiência cardíaca) é a complicação mais grave e comum."},
+        {n:9,q:"Qual a principal diferença entre dengue clássica e dengue grave?",ops:["A grave tem mais febre","A grave apresenta extravasamento de plasma e choque","A clássica tem erupção cutânea","A grave dura menos tempo"],g:1,exp:"A dengue grave ocorre na fase crítica com extravasamento plasmático, levando a hemoconcentração, derrame e choque hipovolêmico."},
+        {n:10,q:"O Plasmodium vivax se diferencia do P. falciparum porque:",ops:["É mais letal","Pode causar recaídas (hipnozoítas no fígado)","Não tem tratamento","Transmite-se pelo Aedes"],g:1,exp:"P. vivax forma hipnozoítas (formas dormente no fígado), causando recaídas semanas ou meses após o tratamento. Por isso usa-se primaquina."},
+      ]},
+    ]
+  },
+  {
+    id:'sim4',titulo:'Simulado 4 – Língua Portuguesa e Endemias',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q5)',qs:[
+        {n:1,q:"Assinale a alternativa em que a palavra destacada é um SUBSTANTIVO COLETIVO:",ops:["Bando de pássaros","Vários pássaros","Pássaro cantor","Pássaro raro"],g:0,exp:"'Bando' é o substantivo coletivo de pássaros, indicando um conjunto deles com um único termo."},
+        {n:2,q:"Na frase 'Espero que todos compareçam à reunião', o verbo destacado está no modo:",ops:["Indicativo","Subjuntivo","Imperativo","Infinitivo"],g:1,exp:"'Compareçam' está no presente do subjuntivo, usado em orações subordinadas após verbos de desejo ou esperança."},
+        {n:3,q:"Qual alternativa apresenta uma ORAÇÃO SUBORDINADA ADVERBIAL CAUSAL?",ops:["Ele saiu porque estava doente.","Ele saiu para descansar.","Ele saiu quando terminou.","Ele saiu embora estivesse cansado."],g:0,exp:"Oração causal indica a causa do fato. 'Porque estava doente' explica o motivo da saída. Conjunção causal: porque, pois, já que."},
+        {n:4,q:"'Os agentes de saúde trabalharam arduamente.' O advérbio modifica:",ops:["O substantivo agentes","O adjetivo saúde","O verbo trabalharam","O artigo Os"],g:2,exp:"Advérbios modificam verbos, adjetivos ou outros advérbios. 'Arduamente' modifica o verbo 'trabalharam', indicando modo."},
+        {n:5,q:"Em qual alternativa há erro de REGÊNCIA VERBAL?",ops:["Preciso de ajuda.","Aspirei ao cargo.","Assisti ao filme.","Obedeci o regulamento."],g:3,exp:"'Obedecer' é verbo transitivo indireto: exige preposição 'a'. O correto é 'obedeci ao regulamento'."},
+      ]},
+      {nome:'Endemias (Q6–Q10)',qs:[
+        {n:6,q:"O Aedes aegypti se desenvolve preferencialmente em água:",ops:["Salgada e quente","Limpa e parada","Corrente e fria","Turva e quente"],g:1,exp:"O Aedes aegypti deposita seus ovos em água limpa e parada, como a encontrada em caixas d'água, pneus e vasos de planta."},
+        {n:7,q:"Qual é o nome do exame laboratorial utilizado para confirmar dengue nos primeiros 5 dias de sintomas?",ops:["Sorologia IgM","NS1 (antígeno não estrutural)","PCR de fezes","Hemocultura"],g:1,exp:"O antígeno NS1 é detectável nos primeiros dias de infecção (fase aguda). A sorologia IgM só aparece após o 5.º dia."},
+        {n:8,q:"A chikungunya se diferencia da dengue principalmente pela:",ops:["Ausência de febre","Artralgia intensa e prolongada","Presença de manchas hemorrágicas","Maior taxa de mortalidade"],g:1,exp:"A artralgia (dor articular) intensa e que pode persistir por meses é a marca registrada da chikungunya, diferenciando-a da dengue."},
+        {n:9,q:"Na leishmaniose tegumentar, a lesão mais característica é:",ops:["Vesículas na pele","Úlcera com bordas elevadas (aspecto vulcânico)","Manchas avermelhadas sem ulceração","Nódulos subcutâneos"],g:1,exp:"A úlcera leishmaniótica tem bordas bem delimitadas e elevadas (aspecto de cratera de vulcão), geralmente indolor."},
+        {n:10,q:"Qual medida é indicada para controle do barbeiro transmissor da doença de Chagas?",ops:["Aplicação de larvicida na água","Borrifação de inseticida nas residências","Uso de repelente corporal","Drenagem de charcos"],g:1,exp:"O controle do barbeiro (Triatoma) é feito pela borrifação de inseticidas residuais no interior e exterior das habitações, especialmente rurais."},
+      ]},
+    ]
+  },
+  {
+    id:'sim5',titulo:'Simulado 5 – Matemática e Saúde Pública',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Matemática (Q1–Q5)',qs:[
+        {n:1,q:"Um ACE percorre 240 imóveis em 6 dias. Quantos imóveis percorrerá em 10 dias, mantendo o mesmo ritmo?",ops:["360","400","420","480"],g:1,exp:"240 ÷ 6 = 40 imóveis/dia. 40 × 10 = 400 imóveis."},
+        {n:2,q:"Numa sala, 30% dos alunos foram aprovados. Se a sala tem 40 alunos, quantos foram aprovados?",ops:["10","12","14","15"],g:1,exp:"30% de 40 = 40 × 0,30 = 12 alunos aprovados."},
+        {n:3,q:"Qual é o valor de 2³ × 3²?",ops:["36","48","72","96"],g:2,exp:"2³ = 8 e 3² = 9. 8 × 9 = 72."},
+        {n:4,q:"Uma caixa d'água tem capacidade de 500 L. Já está com 3/5 do volume. Quantos litros faltam para encher?",ops:["150 L","200 L","250 L","300 L"],g:1,exp:"3/5 de 500 = 300 L (cheio). Faltam 500 – 300 = 200 L."},
+        {n:5,q:"Se a taxa de incidência de dengue numa cidade foi de 150 casos por 100.000 habitantes e a população é 200.000, quantos casos ocorreram?",ops:["150","250","300","350"],g:2,exp:"150/100.000 × 200.000 = 300 casos."},
+      ]},
+      {nome:'Saúde Pública (Q6–Q10)',qs:[
+        {n:6,q:"Qual é a principal diferença entre incidência e prevalência?",ops:["Incidência mede casos antigos; prevalência mede casos novos","Incidência mede casos novos num período; prevalência mede total de casos existentes","São sinônimos na epidemiologia","Incidência aplica-se só a doenças crônicas"],g:1,exp:"Incidência: número de casos NOVOS num período. Prevalência: total de casos existentes (novos + antigos) num momento."},
+        {n:7,q:"O controle vetorial é classificado como qual nível de prevenção?",ops:["Prevenção primária","Prevenção secundária","Prevenção terciária","Reabilitação"],g:0,exp:"Prevenção primária age antes da doença se instalar, eliminando o risco. O controle vetorial evita a transmissão."},
+        {n:8,q:"A descentralização no SUS significa que:",ops:["O Ministério da Saúde concentra todas as decisões","Municípios e estados assumem responsabilidades na gestão da saúde","Apenas hospitais privados prestam serviços","Os usuários pagam pelos serviços"],g:1,exp:"Descentralização: redistribuição de poder e responsabilidades para estados e municípios, aproximando a gestão da realidade local."},
+        {n:9,q:"O que é a 'Cadeia Epidemiológica'?",ops:["Lista de vacinas disponíveis no SUS","Sequência agente etiológico → mecanismo de transmissão → hospedeiro suscetível","Conjunto de hospitais de referência","Protocolo de atendimento de urgência"],g:1,exp:"A cadeia epidemiológica descreve o processo de transmissão: agente causador, fonte de infecção, via de transmissão e hospedeiro suscetível."},
+        {n:10,q:"Qual documento estabelece os princípios do SUS na Constituição Federal?",ops:["Lei 8.142/1990","Decreto 7.508/2011","Constituição Federal de 1988, Art. 196–200","Lei 9.961/2000"],g:2,exp:"Os artigos 196 a 200 da CF/1988 estabelecem a saúde como direito de todos e dever do Estado, fundando o SUS."},
+      ]},
+    ]
+  },
+  {
+    id:'sim6',titulo:'Simulado 6 – Completo ACE',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Língua Portuguesa (Q1–Q4)',qs:[
+        {n:1,q:"'O agente realizou as visitas conforme o planejado.' A palavra 'conforme' exerce a função de:",ops:["Preposição","Conjunção conformativa","Advérbio de modo","Pronome relativo"],g:1,exp:"'Conforme' introduz oração subordinada adverbial conformativa, indicando que a ação foi feita de acordo com algo."},
+        {n:2,q:"Qual alternativa está correta quanto ao uso do hífen?",ops:["Anti-inflamatório","Antiinflamatório","Anti inflamatório","Antiinflamatorio"],g:0,exp:"Usa-se hífen quando o segundo elemento começa com vogal igual à última do prefixo (anti + inflamatório = anti-inflamatório)."},
+        {n:3,q:"'Ninguém fez nada.' Esta frase apresenta:",ops:["Pleonasmo vicioso","Dupla negação enfática (correta em português)","Erro de concordância","Ambiguidade"],g:1,exp:"Em português, a dupla negação (ninguém... nada) é recurso enfático correto, diferente do inglês onde seria erro."},
+        {n:4,q:"O sujeito da oração 'Chove muito no inverno baiano' é:",ops:["muito","inverno baiano","Chove","Sujeito inexistente (oração impessoal)"],g:3,exp:"Verbos meteorológicos (chover, nevar, trovejar) são impessoais — não têm sujeito."},
+      ]},
+      {nome:'Matemática (Q5–Q7)',qs:[
+        {n:5,q:"Qual é o MDC de 36 e 48?",ops:["6","12","18","24"],g:1,exp:"Fatores de 36: 1,2,3,4,6,9,12,18,36. Fatores de 48: 1,2,3,4,6,8,12,16,24,48. MDC = 12."},
+        {n:6,q:"Uma solução larvicida cobre 500 m². Quantas aplicações são necessárias para cobrir 3.500 m²?",ops:["5","6","7","8"],g:2,exp:"3.500 ÷ 500 = 7 aplicações."},
+        {n:7,q:"Em um ciclo de 60 dias, um ACE visitou 420 imóveis. Qual a média diária?",ops:["6","7","8","9"],g:1,exp:"420 ÷ 60 = 7 imóveis por dia."},
+      ]},
+      {nome:'Endemias e SUS (Q8–Q10)',qs:[
+        {n:8,q:"A forma de transmissão da leptospirose mais comum em surtos urbanos é:",ops:["Picada de inseto","Contato com água/lama contaminada pela urina de roedores","Transfusão de sangue","Contato com saliva de animais"],g:1,exp:"Em enchentes urbanas, o solo e a água ficam contaminados pela urina de ratos, e o contato com mucosas ou pele com ferimentos permite a infecção."},
+        {n:9,q:"Qual é o papel do ACE na vigilância entomológica?",ops:["Realizar diagnóstico clínico de doenças","Monitorar e controlar a densidade de vetores como o Aedes aegypti","Prescrever medicamentos para pacientes","Realizar exames laboratoriais"],g:1,exp:"O ACE atua na vigilância entomológica monitorando índices vetoriais, identificando criadouros e aplicando medidas de controle."},
+        {n:10,q:"O princípio da INTEGRALIDADE no SUS significa:",ops:["Atender somente casos urgentes","Oferecer atenção completa ao indivíduo, da prevenção à reabilitação","Integrar serviços públicos e privados","Garantir atendimento apenas em hospitais"],g:1,exp:"Integralidade: o cuidado deve abranger todas as necessidades do indivíduo — promoção, prevenção, tratamento e reabilitação — de forma contínua."},
+      ]},
+    ]
+  },
+  {
+    id:'sim7',titulo:'Simulado 7 – Conhecimentos em Informática',banca:'VUNESP',ano:2025,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Informática – MS-Windows e MS-Word (Q1–Q5)',qs:[
+        {n:1,q:"No MS-Windows, a 'área de transferência' é usada para:",ops:["Armazenar arquivos permanentemente","Guardar temporariamente itens copiados ou recortados para serem colados","Conectar à internet","Gerenciar impressoras"],g:1,exp:"A área de transferência (clipboard) guarda temporariamente o que foi copiado (Ctrl+C) ou recortado (Ctrl+X) para ser colado (Ctrl+V)."},
+        {n:2,q:"No MS-Windows, qual atalho de teclado desfaz a última ação realizada?",ops:["Ctrl+C","Ctrl+Z","Ctrl+V","Ctrl+X"],g:1,exp:"Ctrl+Z desfaz a última ação na maioria dos programas. Ctrl+Y refaz o que foi desfeito."},
+        {n:3,q:"No MS-Windows, 'atalho' (shortcut) em uma pasta é:",ops:["Uma cópia completa do arquivo","Um arquivo compactado","Um ponteiro/link que aponta para o arquivo ou pasta original","Uma pasta protegida por senha"],g:2,exp:"Um atalho é um arquivo .lnk que aponta para o objeto original. Deletar o atalho não afeta o arquivo original."},
+        {n:4,q:"No MS-Word, qual recurso gera automaticamente o sumário com base nos estilos de título?",ops:["Inserir > Tabela","Referências > Sumário","Revisão > Ortografia","Layout > Colunas"],g:1,exp:"Em Referências > Sumário, o Word gera automaticamente o índice baseado nos estilos Título 1, Título 2 etc."},
+        {n:5,q:"No MS-Word, o recurso 'Localizar e Substituir' (Ctrl+H) serve para:",ops:["Salvar em outro formato","Encontrar e trocar palavras ou trechos no documento","Verificar a ortografia","Inserir comentários"],g:1,exp:"Ctrl+H abre 'Localizar e Substituir', permitindo encontrar uma palavra/frase e substituí-la por outra automaticamente em todo o documento."},
+      ]},
+      {nome:'Informática – MS-Excel, PowerPoint e Internet (Q6–Q10)',qs:[
+        {n:6,q:"No MS-Excel, a fórmula =SOMA(A1:A5) soma:",ops:["Apenas A1 e A5","Todas as células de A1 até A5","Apenas 5 células aleatórias","Células de A até E na linha 1"],g:1,exp:"O intervalo A1:A5 inclui todas as células de A1 até A5, ou seja, A1, A2, A3, A4 e A5."},
+        {n:7,q:"No MS-Excel, qual função retorna o maior valor de um intervalo?",ops:["=SOMA()","=MÉDIA()","=MÁXIMO()","=CONT.SE()"],g:2,exp:"=MÁXIMO() retorna o maior valor numérico do intervalo. =MÍNIMO() retorna o menor. =MÉDIA() calcula a média aritmética."},
+        {n:8,q:"No MS-Excel, a função =SE() serve para:",ops:["Somar células de um intervalo","Executar um teste lógico e retornar valores diferentes conforme o resultado","Contar células com texto","Calcular a média"],g:1,exp:"=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso) avalia uma condição e retorna um de dois resultados possíveis."},
+        {n:9,q:"No MS-PowerPoint, qual recurso define o efeito visual ao mudar de um slide para o próximo?",ops:["Animação","Transição","Design","Layout"],g:1,exp:"Transição define o efeito visual de mudança entre slides. Animação aplica efeitos a objetos dentro de um mesmo slide."},
+        {n:10,q:"O protocolo utilizado para envio de e-mails entre servidores é:",ops:["HTTP","FTP","SMTP","DNS"],g:2,exp:"SMTP (Simple Mail Transfer Protocol) é o protocolo padrão para envio de e-mails. POP3 e IMAP são usados para recebimento/acesso."},
+      ]},
+      {nome:'Informática – Avançado (Q11–Q20)',qs:[
+        {n:11,q:"No MS-Windows, a extensão de arquivo '.docx' está associada a qual programa?",ops:["MS-Excel","MS-PowerPoint","MS-Word","MS-Paint"],g:2,exp:".docx é o formato padrão do MS-Word a partir da versão 2007. .xlsx é do Excel, .pptx é do PowerPoint."},
+        {n:12,q:"No MS-Windows, o Gerenciador de Tarefas (Ctrl+Alt+Del) permite:",ops:["Instalar novos programas","Monitorar e encerrar processos em execução","Formatar o disco rígido","Configurar a impressora"],g:1,exp:"O Gerenciador de Tarefas monitora uso de CPU, memória e rede, além de permitir encerrar processos travados ou com alto consumo de recursos."},
+        {n:13,q:"No MS-Word, 'mala direta' é usada para:",ops:["Enviar e-mails em massa","Criar documentos personalizados com dados variáveis (nome, endereço etc.)","Formatar automaticamente parágrafos","Inserir tabelas dinamicamente"],g:1,exp:"Mala direta combina um documento-modelo com uma fonte de dados (planilha) para gerar cópias personalizadas em série — útil para cartas, etiquetas e comunicados."},
+        {n:14,q:"No MS-Word, o recurso 'controle de alterações' serve para:",ops:["Desfazer todas as alterações de uma vez","Rastrear e revisar modificações feitas no documento por diferentes autores","Bloquear a edição do arquivo","Salvar automaticamente a cada minuto"],g:1,exp:"Controle de Alterações (Revisão > Controlar Alterações) registra cada modificação com autor, data e tipo de mudança — essencial para revisão colaborativa."},
+        {n:15,q:"No MS-Excel, qual função conta o número de células que atendem a uma condição?",ops:["=SOMA()","=MÉDIA()","=CONT.SE()","=MÁXIMO()"],g:2,exp:"=CONT.SE(intervalo; critério) conta quantas células de um intervalo atendem ao critério especificado. Ex: =CONT.SE(A1:A10;\">5\") conta células maiores que 5."},
+        {n:16,q:"No MS-Excel, o operador '&' (e comercial) em fórmulas serve para:",ops:["Multiplicação","Concatenar (unir) textos","Divisão","Comparação lógica"],g:1,exp:"O operador & concatena textos no Excel. Exemplo: =A1&\" \"&B1 une o conteúdo de A1, um espaço e B1 em uma única célula."},
+        {n:17,q:"No MS-PowerPoint, o 'Painel de Anotações' serve para:",ops:["Exibir o slide em tela cheia","Adicionar lembretes e notas visíveis ao apresentador durante a apresentação","Inserir imagens no slide","Configurar a transição entre slides"],g:1,exp:"O Painel de Anotações (abaixo do slide) permite ao apresentador adicionar notas de apoio, visíveis apenas para ele durante a apresentação."},
+        {n:18,q:"Na internet, o protocolo HTTPS difere do HTTP porque:",ops:["É mais lento","Adiciona criptografia SSL/TLS à transmissão de dados","Funciona apenas em redes privadas","Permite apenas e-mails"],g:1,exp:"HTTPS usa criptografia SSL/TLS para proteger os dados transmitidos entre o navegador e o servidor, essencial em logins, transações e dados pessoais."},
+        {n:19,q:"Uma URL (Uniform Resource Locator) é:",ops:["Um tipo de vírus","O endereço que identifica e localiza um recurso na internet","Um protocolo de e-mail","Um formato de arquivo de imagem"],g:1,exp:"A URL identifica e localiza um recurso na internet (página, arquivo, imagem), especificando o protocolo (https://), domínio e caminho do recurso."},
+        {n:20,q:"Ao 'anexar' um arquivo em um e-mail, o usuário está:",ops:["Copiando o e-mail para outra pasta","Incluindo um arquivo para ser enviado junto com a mensagem","Encaminhando o e-mail para outro destinatário","Salvando o e-mail como rascunho"],g:1,exp:"Anexar (attach) significa incluir um arquivo (documento, imagem, planilha) junto à mensagem de e-mail para que o destinatário possa visualizá-lo ou baixá-lo."},
+      ]},
+    ]
+  },
+  {
+    id:'sim8',titulo:'Simulado 8 – Endemias e Doenças (Completo)',banca:'IBFC',ano:2025,
+    edital:'ACE Municipal',cargo:'Agente de Combate às Endemias',
+    secoes:[
+      {nome:'Dengue (Q1–Q10)',qs:[
+        {n:1,q:"Qual é o principal vetor transmissor da dengue no Brasil?",ops:["Anopheles darlingi","Aedes aegypti","Culex quinquefasciatus","Lutzomyia longipalpis"],g:1,exp:"O Aedes aegypti é o principal vetor da dengue no Brasil. Também transmite Zika e Chikungunya. Prefere ambientes urbanos e criadouros com água limpa e parada."},
+        {n:2,q:"Quais são os sintomas clássicos da dengue?",ops:["Tosse, coriza e febre baixa","Febre alta súbita, dor muscular intensa, dor retro-orbital e exantema","Diarreia, vômito e icterícia","Artralgia prolongada e rash cutâneo apenas"],g:1,exp:"A dengue clássica apresenta febre alta súbita (38–40°C), cefaleia, dor retro-orbital, mialgia, artralgia e exantema. Pode evoluir para formas graves."},
+        {n:3,q:"Segundo a classificação do Ministério da Saúde, a dengue é dividida em:",ops:["Leve, moderada e grave","Dengue, dengue com sinais de alarme e dengue grave","Fase febril, crítica e de recuperação apenas","Tipo 1, 2, 3 e 4"],g:1,exp:"A classificação vigente divide a dengue em: dengue (sem sinais de alarme), dengue com sinais de alarme e dengue grave — baseada no risco de evolução clínica."},
+        {n:4,q:"Qual é o sinal de alarme mais importante que indica risco de evolução para dengue grave?",ops:["Febre acima de 38°C","Dor abdominal intensa e contínua","Tosse seca persistente","Manchas avermelhadas na pele"],g:1,exp:"Dor abdominal intensa e contínua é um dos principais sinais de alarme da dengue, indicando extravasamento de plasma e risco de choque — requer hospitalização imediata."},
+        {n:5,q:"A dengue grave é caracterizada por:",ops:["Febre alta por mais de 7 dias","Extravasamento grave de plasma, sangramento grave ou comprometimento grave de órgãos","Artralgia mais intensa que a dengue clássica","Ausência de febre com rash cutâneo"],g:1,exp:"A dengue grave ocorre quando há: extravasamento de plasma com choque, acúmulo de fluidos com dificuldade respiratória, sangramento grave ou comprometimento de órgãos."},
+        {n:6,q:"O tratamento específico para a dengue é:",ops:["Antibióticos de largo espectro","Antivirais específicos como oseltamivir","Sintomático: hidratação oral/venosa, analgésicos e antipirética (evitar AAS)","Corticoides em todos os casos"],g:2,exp:"Não há antiviral específico para dengue. O tratamento é sintomático: hidratação adequada, paracetamol para febre e dor. Ácido acetilsalicílico (AAS) e anti-inflamatórios são contraindicados pelo risco de sangramento."},
+        {n:7,q:"O período de incubação da dengue no ser humano, após a picada do mosquito infectado, é de:",ops:["1 a 2 dias","4 a 10 dias","15 a 20 dias","30 dias ou mais"],g:1,exp:"O período de incubação da dengue no ser humano é de 4 a 10 dias após a picada do Aedes aegypti infectado. No mosquito, o vírus leva 8 a 12 dias para se tornar infectante."},
+        {n:8,q:"Qual exame laboratorial confirma a dengue nos primeiros 5 dias de sintomas?",ops:["Sorologia IgM","Antígeno NS1","Hemocultura","PCR de fezes"],g:1,exp:"O antígeno NS1 (proteína não estrutural 1) é detectável nos primeiros dias de infecção (fase aguda). A sorologia IgM/IgG só é detectável a partir do 5º dia."},
+        {n:9,q:"O Aedes aegypti se desenvolve preferencialmente em água:",ops:["Salgada e quente","Limpa e parada em recipientes como pneus, vasos e caixas d'água","Corrente e fria","Turva com matéria orgânica"],g:1,exp:"O Aedes aegypti deposita seus ovos em água limpa e parada. Os principais criadouros são: caixas d'água sem tampa, pneus, vasos de plantas, calhas e garrafas."},
+        {n:10,q:"Qual é a fase da dengue em que ocorre maior risco de evolução grave?",ops:["Fase febril (1º ao 3º dia)","Fase crítica (3º ao 6º dia, após queda da febre)","Fase de recuperação (após o 7º dia)","A doença não apresenta fases distintas"],g:1,exp:"A fase crítica ocorre entre o 3º e o 6º dia, coincidindo com a queda da febre. É nesta fase que pode ocorrer extravasamento de plasma, levando a hemoconcentração e choque."},
+      ]},
+      {nome:'Zika e Chikungunya (Q11–Q20)',qs:[
+        {n:11,q:"Qual é o principal vetor da Zika e da Chikungunya no Brasil?",ops:["Anopheles darlingi","Culex quinquefasciatus","Aedes aegypti","Triatoma infestans"],g:2,exp:"O Aedes aegypti é o principal vetor da Zika e da Chikungunya no Brasil, além da dengue. O Aedes albopictus também pode transmitir, mas tem menor relevância epidemiológica no Brasil."},
+        {n:12,q:"A principal complicação associada à infecção pelo Zika vírus em gestantes é:",ops:["Pré-eclâmpsia","Microcefalia e outras malformações do sistema nervoso central do feto","Diabetes gestacional","Parto prematuro sem sequelas"],g:1,exp:"A infecção pelo Zika vírus durante a gestação, especialmente no primeiro trimestre, está associada à síndrome congênita do Zika — microcefalia, calcificações cerebrais e outras malformações do SNC."},
+        {n:13,q:"O Zika vírus pode ser transmitido por quais outras vias além do mosquito?",ops:["Apenas pelo mosquito","Sexual, transfusão sanguínea e transmissão vertical (mãe para filho)","Apenas por transfusão","Contato com objetos contaminados"],g:1,exp:"O Zika se diferencia por ter transmissão sexual comprovada, além de transmissão pelo mosquito, transfusão sanguínea e transmissão vertical da mãe para o feto durante a gestação."},
+        {n:14,q:"O principal sintoma que diferencia a Chikungunya da dengue é:",ops:["Febre alta","Artralgia intensa e prolongada (pode durar meses ou anos)","Exantema cutâneo","Cefaleia intensa"],g:1,exp:"A artralgia (dor articular) intensa e que pode persistir por meses ou anos é a marca registrada da Chikungunya, diferenciando-a clinicamente da dengue."},
+        {n:15,q:"O nome 'Chikungunya' em swahili significa:",ops:["Febre do mosquito","Aquele que se curva (pela dor articular)","Doença das manchas","Febre da floresta"],g:1,exp:"'Chikungunya' vem da língua makonde (África) e significa 'aquele que se curva' ou 'dobrado pela dor', referindo-se à postura característica dos pacientes devido à artralgia intensa."},
+        {n:16,q:"Qual é o período de incubação da Chikungunya no ser humano?",ops:["1 a 2 dias","1 a 12 dias (geralmente 3 a 7 dias)","15 a 20 dias","30 dias"],g:1,exp:"O período de incubação da Chikungunya é de 1 a 12 dias, com média de 3 a 7 dias após a picada do mosquito infectado."},
+        {n:17,q:"A fase crônica da Chikungunya é caracterizada por:",ops:["Febre recorrente e rash cutâneo","Artralgia persistente por mais de 3 meses após a infecção aguda","Comprometimento renal grave","Cardiopatia progressiva"],g:1,exp:"Na fase crônica da Chikungunya (após 3 meses), a artralgia persistente é o sintoma predominante, podendo durar anos e comprometer significativamente a qualidade de vida."},
+        {n:18,q:"Em relação à Zika, gestantes que viajam para áreas endêmicas devem:",ops:["Tomar vacina específica antes da viagem","Evitar viagens a áreas com transmissão ativa e, se necessário, usar repelente e roupas protetoras","Usar apenas protetor solar","Tomar antibióticos preventivos"],g:1,exp:"Não há vacina disponível para Zika. As medidas preventivas incluem evitar áreas endêmicas, usar repelente, roupas de manga longa e eliminar criadouros do Aedes aegypti."},
+        {n:19,q:"O diagnóstico laboratorial do Zika vírus na fase aguda é feito por:",ops:["Hemograma completo apenas","RT-PCR para detecção do RNA viral","Teste rápido de IgM","Sorologia ELISA convencional"],g:1,exp:"Na fase aguda (até o 5º dia), o RT-PCR (reação em cadeia da polimerase em tempo real) é o método de escolha para detectar o RNA do Zika vírus no sangue, urina ou saliva."},
+        {n:20,q:"Qual das seguintes afirmações sobre a Chikungunya está CORRETA?",ops:["Não causa morte","A artralgia é sempre resolvida em menos de 1 semana","Pode causar formas graves em recém-nascidos, idosos e imunossuprimidos","Tem tratamento antiviral específico aprovado"],g:2,exp:"Embora a letalidade seja baixa, a Chikungunya pode causar formas graves em grupos vulneráveis como recém-nascidos (transmissão perinatal), idosos e imunossuprimidos. Não há antiviral específico aprovado."},
+      ]},
+      {nome:'Malária (Q21–Q30)',qs:[
+        {n:21,q:"Qual é o agente causador da malária?",ops:["Trypanosoma cruzi","Plasmodium spp. (falciparum, vivax, malariae, ovale)","Leishmania chagasi","Leptospira interrogans"],g:1,exp:"A malária é causada por protozoários do gênero Plasmodium. No Brasil, as espécies mais prevalentes são P. vivax (maioria) e P. falciparum (mais letal). P. malariae e P. ovale são raros."},
+        {n:22,q:"Qual inseto transmite a malária ao ser humano?",ops:["Fêmea do Aedes aegypti","Fêmea do Anopheles (mosquito-prego)","Triatoma infestans (barbeiro)","Lutzomyia longipalpis (mosquito-palha)"],g:1,exp:"A malária é transmitida pela picada da fêmea do mosquito Anopheles (popularmente chamado de mosquito-prego ou muriçoca). Apenas a fêmea se alimenta de sangue para desenvolver os ovos."},
+        {n:23,q:"Os sintomas clássicos da malária incluem:",ops:["Artralgia intensa e rash cutâneo","Febre periódica com calafrios e sudorese (tríade malárica)","Icterícia, insuficiência renal e hemorragia","Tosse crônica e dificuldade respiratória"],g:1,exp:"A tríade malárica é: calafrio (fase fria), febre alta (fase quente) e sudorese (fase de sudorese). Os paroxismos ocorrem em intervalos regulares conforme a espécie: 48h (vivax/falciparum) ou 72h (malariae)."},
+        {n:24,q:"Qual espécie de Plasmodium causa a forma mais grave da malária?",ops:["P. vivax","P. malariae","P. ovale","P. falciparum"],g:3,exp:"P. falciparum é o mais virulento, podendo causar malária cerebral, insuficiência renal aguda, anemia grave, hipoglicemia e morte se não tratada rapidamente."},
+        {n:25,q:"O P. vivax se diferencia do P. falciparum por:",ops:["Ser mais letal","Causar formas hipnozoítas no fígado que podem causar recaídas","Não ter tratamento eficaz","Ser transmitido pelo Aedes aegypti"],g:1,exp:"O P. vivax forma hipnozoítas (formas dormentes no fígado), causando recaídas semanas ou meses após o tratamento. Por isso, o esquema com primaquina (que elimina os hipnozoítas) é essencial."},
+        {n:26,q:"Em qual região do Brasil a malária é mais endêmica?",ops:["Nordeste","Sul","Região Amazônica (Norte)","Centro-Oeste"],g:2,exp:"A região Amazônica concentra mais de 99% dos casos de malária no Brasil, onde as condições de temperatura, umidade e floresta favorecem a proliferação do Anopheles."},
+        {n:27,q:"Qual medicamento é utilizado para eliminar os hipnozoítas hepáticos do P. vivax e prevenir recaídas?",ops:["Cloroquina","Primaquina","Artesunato","Doxiciclina"],g:1,exp:"A primaquina é o único medicamento capaz de eliminar os hipnozoítas de P. vivax e P. ovale no fígado, prevenindo recaídas. É contraindicada em gestantes e em pessoas com deficiência de G6PD."},
+        {n:28,q:"O diagnóstico laboratorial da malária é realizado principalmente por:",ops:["Hemograma completo","Gota espessa e esfregaço sanguíneo (microscopia óptica)","Sorologia IgM","Cultura de sangue"],g:1,exp:"A gota espessa é o exame padrão-ouro para diagnóstico da malária no Brasil — permite identificar o Plasmodium e quantificar a parasitemia. Testes rápidos (TDR) também são usados em áreas remotas."},
+        {n:29,q:"A malária cerebral é uma complicação grave causada principalmente por:",ops:["P. vivax","P. malariae","P. falciparum","P. ovale"],g:2,exp:"A malária cerebral é causada por P. falciparum, que provoca sequestro de hemácias parasitadas nos capilares cerebrais, levando a coma, convulsões e elevada letalidade sem tratamento imediato."},
+        {n:30,q:"O controle da malária no Brasil é realizado principalmente por:",ops:["Vacinação em massa da população","Controle vetorial (larvicidas, inseticidas residuais) e diagnóstico/tratamento precoce","Uso de antibióticos preventivos","Drenagem de todos os rios da Amazônia"],g:1,exp:"O controle da malária combina: controle vetorial (redução do Anopheles), diagnóstico laboratorial precoce, tratamento oportuno e medidas de proteção individual (mosquiteiros impregnados, repelentes)."},
+      ]},
+      {nome:'Leishmaniose (Q31–Q40)',qs:[
+        {n:31,q:"Qual é o agente etiológico da leishmaniose?",ops:["Trypanosoma cruzi","Plasmodium falciparum","Leishmania spp.","Leptospira interrogans"],g:2,exp:"A leishmaniose é causada por protozoários do gênero Leishmania. No Brasil, as principais espécies são L. braziliensis e L. amazonensis (tegumentar) e L. chagasi/infantum (visceral)."},
+        {n:32,q:"Qual inseto transmite a leishmaniose ao ser humano?",ops:["Fêmea do Aedes aegypti","Triatoma infestans (barbeiro)","Lutzomyia longipalpis (flebotomíneo/mosquito-palha)","Fêmea do Anopheles"],g:2,exp:"A leishmaniose é transmitida pela picada do flebotomíneo (mosquito-palha, birigui), do gênero Lutzomyia no Brasil. É um mosquito pequeno, de voo silencioso, ativo ao entardecer."},
+        {n:33,q:"Quais são as duas formas principais da leishmaniose no Brasil?",ops:["Pulmonar e hepática","Tegumentar americana (LTA) e visceral (calazar)","Cutânea e hemática","Aguda e crônica apenas"],g:1,exp:"No Brasil, as principais formas são: Leishmaniose Tegumentar Americana (LTA) — úlceras na pele e mucosas — e Leishmaniose Visceral (LV ou calazar) — compromete órgãos internos como fígado, baço e medula."},
+        {n:34,q:"A lesão cutânea característica da leishmaniose tegumentar é:",ops:["Vesículas com líquido amarelado","Manchas avermelhadas sem ulceração","Úlcera com bordas elevadas e bem delimitadas (aspecto de cratera de vulcão)","Nódulos subcutâneos dolorosos"],g:2,exp:"A úlcera leishmaniótica tem bordas bem delimitadas e elevadas, fundo granuloso (aspecto de cratera de vulcão), geralmente indolor. Localiza-se mais frequentemente em membros inferiores."},
+        {n:35,q:"O principal reservatório urbano da leishmaniose visceral no Brasil é:",ops:["Rato doméstico","Gato doméstico","Cão doméstico","Gambá"],g:2,exp:"O cão doméstico é o principal reservatório urbano da L. infantum/chagasi. O controle canino (eutanásia de cães soropositivos, coleiras inseticidas) é parte essencial das medidas de controle."},
+        {n:36,q:"A leishmaniose visceral (calazar) se caracteriza por:",ops:["Úlceras exclusivamente na pele","Febre prolongada, hepatoesplenomegalia, anemia e emagrecimento","Artralgia intensa e rash cutâneo","Febre periódica com calafrios"],g:1,exp:"O calazar apresenta: febre irregular e prolongada, hepatoesplenomegalia (baço muito aumentado), anemia, leucopenia, hipoalbuminemia e emagrecimento progressivo. É fatal se não tratado."},
+        {n:37,q:"Qual medicamento é considerado de primeira escolha para o tratamento da leishmaniose?",ops:["Cloroquina","Antimonial pentavalente (glucantime)","Penicilina","Ivermectina"],g:1,exp:"O antimoniato de N-metilglucamina (Glucantime) é o medicamento de primeira linha para leishmaniose tegumentar e visceral no Brasil, via parenteral. A anfotericina B lipossomal é alternativa para casos graves."},
+        {n:38,q:"A leishmaniose mucosa (espúndia) é uma forma grave de LTA que afeta:",ops:["Apenas a pele das extremidades","As mucosas do nariz, boca e faringe, causando destruição tecidual","Os órgãos internos (fígado e baço)","O sistema nervoso central"],g:1,exp:"A forma mucosa da LTA pode causar destruição progressiva das mucosas nasal, oral e faríngea, levando a desfiguramento grave. É causada principalmente pela L. braziliensis."},
+        {n:39,q:"Como o ACE pode contribuir para o controle da leishmaniose visceral?",ops:["Aplicando medicamento nos cães","Educando a comunidade sobre o flebotomíneo, eliminando criadouros e comunicando casos suspeitos à vigilância","Vacinando os cães da área","Apenas fazendo borrifação de inseticida"],g:1,exp:"O ACE contribui com: educação em saúde sobre o vetor, eliminação de matéria orgânica e locais de reprodução do flebotomíneo, identificação de casos suspeitos e articulação com serviços de saúde."},
+        {n:40,q:"Em qual tipo de ambiente o flebotomíneo (vetor da leishmaniose) prefere habitar?",ops:["Apenas em ambientes aquáticos","Ambientes úmidos, sombreados, com matéria orgânica em decomposição (folhas, lixo, animais)","Apenas em ambientes urbanos secos","Dentro de residências com ar-condicionado"],g:1,exp:"O flebotomíneo prefere ambientes com umidade, sombra e matéria orgânica em decomposição — como pilhas de folhas, entulho, canis e currais. Controlar esses ambientes é medida preventiva essencial."},
+      ]},
+      {nome:'Doença de Chagas (Q41–Q50)',qs:[
+        {n:41,q:"Qual é o agente causador da doença de Chagas?",ops:["Plasmodium falciparum","Leishmania braziliensis","Trypanosoma cruzi","Leptospira interrogans"],g:2,exp:"A doença de Chagas é causada pelo protozoário Trypanosoma cruzi, descoberto por Carlos Chagas em 1909 — uma das maiores contribuições da ciência brasileira à medicina mundial."},
+        {n:42,q:"Qual é o principal vetor da doença de Chagas no Brasil?",ops:["Aedes aegypti","Anopheles darlingi","Triatoma infestans e outras espécies de barbeiro (Triatoma spp.)","Lutzomyia longipalpis"],g:2,exp:"O barbeiro (Triatoma infestans e outras espécies), da família Triatominae, é o principal vetor. Defeca após a picada e as fezes contaminadas com T. cruzi penetram pela pele ou mucosas coçadas."},
+        {n:43,q:"Como ocorre a transmissão vetorial da doença de Chagas?",ops:["Pela picada direta do barbeiro que injeta o parasita","Pelo contato com as fezes do barbeiro contaminadas com T. cruzi na pele ou mucosas","Pela inalação de poeira contaminada","Pelo contato com urina do barbeiro"],g:1,exp:"O barbeiro pica e defeca próximo ao local da picada. As fezes contêm o T. cruzi na forma tripomastigota. Ao coçar o local, o hospedeiro introduz o parasita pela pele lesada ou mucosas."},
+        {n:44,q:"O sinal de Romaña, característico da fase aguda da doença de Chagas, consiste em:",ops:["Lesão ulcerada na pele no local da picada","Edema bipalpebral unilateral indolor quando o parasita entra pela conjuntiva ocular","Febre com manchas hemorrágicas","Artralgia intensa dos membros inferiores"],g:1,exp:"O sinal de Romaña é o edema bipalpebral unilateral indolor, que ocorre quando o T. cruzi penetra pela conjuntiva ocular — porta de entrada para a infecção na face."},
+        {n:45,q:"A fase crônica da doença de Chagas pode se manifestar como:",ops:["Apenas febre prolongada","Cardiopatia chagásica (arritmias, insuficiência cardíaca) e forma digestiva (megaesôfago, megacólon)","Artralgia crônica","Comprometimento exclusivo do sistema nervoso"],g:1,exp:"Na fase crônica, a cardiopatia chagásica (arritmias, bloqueios, insuficiência cardíaca, morte súbita) é a complicação mais grave. A forma digestiva cursa com megaesôfago e megacólon."},
+        {n:46,q:"Além da via vetorial, a doença de Chagas pode ser transmitida por:",ops:["Contato com fezes de ratos","Transfusão sanguínea, transmissão congênita, transplante de órgãos e ingestão de alimentos contaminados","Picada de mosquito Aedes","Contato sexual apenas"],g:1,exp:"Vias de transmissão não vetorial: transfusão sanguínea, transplante de órgãos, transmissão congênita (mãe para filho), acidentes laboratoriais e ingestão oral (surtos por açaí e caldo de cana contaminados)."},
+        {n:47,q:"Qual é o medicamento utilizado no tratamento etiológico da doença de Chagas?",ops:["Cloroquina","Benznidazol (ou nifurtimox)","Penicilina benzatina","Ivermectina"],g:1,exp:"O Benznidazol é o medicamento de primeira escolha no Brasil para o tratamento etiológico. É mais eficaz na fase aguda. Na fase crônica, o tratamento é paliativo (cardiopatia, digestivo)."},
+        {n:48,q:"A principal medida de controle do barbeiro nas residências rurais é:",ops:["Uso de repelente corporal","Borrifação de inseticidas residuais no interior e exterior das habitações, especialmente em frestas e paredes","Aplicação de larvicidas em água","Drenagem de charcos próximos"],g:1,exp:"O controle do barbeiro é feito pela borrifação de inseticidas residuais (organofosforados, piretroides) nas habitações, especialmente em paredes de pau-a-pique, frestas e ocos de madeira onde o inseto se abriga."},
+        {n:49,q:"A fase indeterminada da doença de Chagas é caracterizada por:",ops:["Sintomas graves de cardiopatia","Ausência de sintomas clínicos com sorologia positiva para T. cruzi","Presença de parasitas no sangue periférico em grande quantidade","Febre e edema generalizados"],g:1,exp:"Na fase indeterminada (pode durar décadas ou toda a vida), o paciente tem sorologia positiva mas sem sintomas clínicos, alterações eletrocardiográficas ou de exames de imagem. Cerca de 60-70% dos infectados permanecem nesta fase."},
+        {n:50,q:"O controle da doença de Chagas inclui qual ação do ACE?",ops:["Aplicar medicamento diretamente nas pessoas","Identificar e notificar habitações infestadas por barbeiros e orientar sobre melhoria das moradias","Realizar cirurgias cardíacas nas comunidades","Vacinar os moradores contra o T. cruzi"],g:1,exp:"O ACE contribui identificando triatomíneos (barbeiros) nas residências, notificando à vigilância entomológica, orientando moradores sobre melhoria das condições habitacionais e medidas preventivas."},
+      ]},
+      {nome:'Leptospirose (Q51–Q60)',qs:[
+        {n:51,q:"Qual é o agente causador da leptospirose?",ops:["Trypanosoma cruzi","Plasmodium vivax","Leptospira interrogans (bactéria espiroqueta)","Leishmania braziliensis"],g:2,exp:"A leptospirose é causada pela bactéria Leptospira interrogans, uma espiroqueta (bactéria com forma espiralada). Existem mais de 200 sorovares patogênicos, sendo o sorovar icterohaemorrhagiae o mais grave."},
+        {n:52,q:"Como ocorre a principal forma de transmissão da leptospirose ao ser humano?",ops:["Picada de mosquito","Contato da pele ou mucosas com água ou lama contaminada pela urina de ratos","Ingestão de carne crua contaminada","Transmissão de pessoa a pessoa"],g:1,exp:"A Leptospira penetra pela pele com lesões ou mucosas íntegras em contato com água, lama ou solo contaminados pela urina de ratos, especialmente em enchentes urbanas."},
+        {n:53,q:"Qual animal é o principal reservatório urbano da leptospirose?",ops:["Cão doméstico","Bovino","Rato (roedor sinantrópico)","Pombo"],g:2,exp:"O rato doméstico (Rattus norvegicus) é o principal reservatório urbano da leptospirose. Ele elimina a Leptospira pela urina cronicamente, sem adoecer, contaminando o ambiente."},
+        {n:54,q:"Quais são os sintomas iniciais mais característicos da leptospirose?",ops:["Artralgia crônica e rash cutâneo","Febre súbita, cefaleia intensa, mialgia (especialmente nas panturrilhas) e conjuntivite","Tosse e coriza","Diarreia e vômito apenas"],g:1,exp:"A leptospirose inicia com febre alta súbita, cefaleia intensa, mialgia (especialmente nas panturrilhas — 'dor nas batatas das pernas'), prostração, conjuntivite e fotofobia."},
+        {n:55,q:"A Síndrome de Weil, forma grave da leptospirose, é caracterizada pela tríade:",ops:["Febre, artralgia e rash","Icterícia intensa, insuficiência renal aguda e fenômenos hemorrágicos","Febre, cefaleia e convulsões","Hepatomegalia, esplenomegalia e anemia"],g:1,exp:"A Síndrome de Weil é a forma mais grave: tríade de icterícia intensa (coloração amarela), insuficiência renal aguda e fenômenos hemorrágicos (petéquias, equimoses, hemorragia pulmonar). Letalidade elevada."},
+        {n:56,q:"Em qual período do ano os casos de leptospirose aumentam significativamente no Brasil?",ops:["Inverno (junho a agosto)","Período de chuvas intensas e enchentes (verão — dezembro a março)","Primavera","Outono"],g:1,exp:"Os casos de leptospirose aumentam significativamente no período de chuvas intensas (verão), quando enchentes disseminam a urina de ratos pelo ambiente urbano, ampliando a exposição humana."},
+        {n:57,q:"Qual é o tratamento de escolha para a leptospirose?",ops:["Antivirais como oseltamivir","Antibióticos: penicilina G cristalina (casos graves) ou doxiciclina (casos leves)","Apenas sintomático, sem antibiótico","Corticoides em alta dose"],g:1,exp:"O tratamento é com antibióticos: penicilina G cristalina IV nos casos graves (Síndrome de Weil) e doxiciclina VO nos casos leves. O diagnóstico e tratamento precoces reduzem drasticamente a letalidade."},
+        {n:58,q:"Como o ACE pode contribuir para a prevenção da leptospirose?",ops:["Aplicando vacinas nos ratos","Realizando o controle de roedores sinantrópicos (desratização) e orientando a comunidade sobre riscos em enchentes","Apenas notificando casos confirmados","Distribuindo antibióticos preventivos"],g:1,exp:"O ACE contribui com ações de controle de roedores (desratização), orientação da comunidade sobre riscos de exposição em enchentes, uso de EPI (botas, luvas) e notificação de casos suspeitos."},
+        {n:59,q:"A leptospirose não se transmite de:",ops:["Contato com urina de animais infectados","Contato com água ou lama contaminada","Transmissão direta de pessoa a pessoa","Contato com solo contaminado"],g:2,exp:"A transmissão de pessoa para pessoa é rara ou inexistente na leptospirose. A doença se transmite pelo contato ambiental com urina de animais infectados, não diretamente entre humanos."},
+        {n:60,q:"Qual é a notificação obrigatória da leptospirose no Brasil?",ops:["Não é de notificação obrigatória","É doença de notificação compulsória imediata apenas em surtos","É doença de notificação compulsória (SINAN), com notificação de todos os casos confirmados e suspeitos","É notificada apenas ao município, não ao estado"],g:2,exp:"A leptospirose é doença de notificação compulsória no Brasil (SINAN). Todos os casos suspeitos e confirmados devem ser notificados, permitindo o monitoramento epidemiológico e a resposta oportuna às epidemias."},
+      ]},
+    ]
+  },
+  {
+    id:'sim9',titulo:'Simulado 9 – Completo ACE (Todos os Tópicos)',banca:'Ação Bahia',ano:2025,
+    edital:'ACE Municipal – Bahia',cargo:'Agente de Combate às Endemias',
     secoes:[
       {nome:'Língua Portuguesa (Q1–Q10)',qs:[
-        {n:1,q:"No trecho 'Os orientadores educacionais participaram ativamente do PPP', o sujeito é:",ops:["do PPP","ativamente","Os orientadores educacionais","participaram"],g:2,exp:"'Os orientadores educacionais' é o sujeito simples (quem praticou a ação de participar)."},
-        {n:2,q:"Assinale a frase em que a crase está empregada CORRETAMENTE:",ops:["Fomos à reunião de pais.","Entreguei o relatório à ele.","Refiro-me à aquele problema.","Fui à pé até a escola."],g:0,exp:"'À reunião' = preposição 'a' + artigo feminino 'a'. Não se usa crase antes de pronome masculino ('ele') nem se duplica antes de artigo."},
-        {n:3,q:"Qual é a classe gramatical de 'embora' em 'Embora chovesse, ele foi à escola'?",ops:["Advérbio","Preposição","Conjunção subordinativa concessiva","Interjeição"],g:2,exp:"'Embora' introduz oração subordinada adverbial concessiva. Não confundir com 'embora' = adeus/partida (advérbio)."},
-        {n:4,q:"'Os alunos chegaram cedo e estudaram bastante.' As orações são:",ops:["Subordinadas adverbiais","Coordenadas sindéticas aditivas","Coordenadas assindéticas","Subordinadas substantivas"],g:1,exp:"A conjunção 'e' une orações coordenadas sindéticas aditivas, sem relação de dependência sintática entre elas."},
-        {n:5,q:"Em qual alternativa há ERRO de ortografia?",ops:["exceção","recepção","concenso","descrição"],g:2,exp:"O correto é 'consenso' (sem 'c' antes do 'n'). Deriva do latim 'consensus'."},
-        {n:6,q:"Na frase 'Preciso que você venha logo', o modo verbal de 'venha' é:",ops:["Indicativo","Subjuntivo","Imperativo afirmativo","Imperativo negativo"],g:1,exp:"O subjuntivo presente é usado em orações subordinadas que expressam desejo, dúvida ou hipótese após verbos como 'precisar'."},
-        {n:7,q:"O advérbio 'arduamente' na frase 'Os agentes trabalharam arduamente' modifica:",ops:["O substantivo agentes","O adjetivo dedicados","O verbo trabalharam","O artigo Os"],g:2,exp:"Advérbios de modo modificam o verbo, indicando a maneira como a ação se realiza."},
-        {n:8,q:"Qual a voz verbal em 'O projeto foi elaborado pela equipe'?",ops:["Ativa","Reflexiva","Passiva sintética","Passiva analítica"],g:3,exp:"Voz passiva analítica: auxiliar 'foi' + particípio 'elaborado' + agente da passiva 'pela equipe'."},
-        {n:9,q:"Em 'Ninguém fez nada durante a reunião', a construção com dupla negação é:",ops:["Pleonasmo vicioso","Dupla negação enfática, correta em português","Erro de concordância","Ambiguidade"],g:1,exp:"Em português, 'ninguém... nada' é uma dupla negação enfática gramaticalmente correta, diferente do inglês onde seria erro."},
-        {n:10,q:"A figura de linguagem em 'O tempo é dinheiro' é:",ops:["Comparação","Hipérbole","Metáfora","Metonímia"],g:2,exp:"Metáfora: identifica implicitamente 'tempo' e 'dinheiro' sem o uso de conectivos comparativos como 'como'."},
-      ]}
-    ]
-  },
-  {
-    id:'sim2',titulo:'Simulado 2 – Conhecimentos em Informática',banca:'FCC',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Informática (Q1–Q5)',qs:[
-        {n:1,q:"No MS-Word, qual recurso insere números de página automaticamente?",ops:["Inserir > Cabeçalho","Inserir > Número de Página","Layout > Margens","Referências > Notas de Rodapé"],g:1,exp:"Em Inserir > Número de Página, o Word insere automaticamente a numeração nas posições escolhidas (topo, rodapé, margens)."},
-        {n:2,q:"No MS-Excel, a fórmula =SOMA(A1:A5) soma:",ops:["Apenas A1 e A5","Células de A1 até A5","Apenas 5 células aleatórias","Células de A até E na linha 1"],g:1,exp:"O intervalo A1:A5 inclui todas as células de A1 até A5 — ou seja, A1, A2, A3, A4 e A5."},
-        {n:3,q:"No MS-Windows, o atalho de teclado para 'desfazer' a última ação é:",ops:["Ctrl+C","Ctrl+Z","Ctrl+V","Ctrl+X"],g:1,exp:"Ctrl+Z desfaz a última ação realizada na maioria dos programas Windows. Ctrl+Y refaz o que foi desfeito."},
-        {n:4,q:"O formato de arquivo nativo do MS-Word (versão atual) é:",ops:[".doc",".txt",".docx",".pdf"],g:2,exp:"O formato .docx é o padrão do Microsoft Word a partir da versão 2007 (formato XML aberto). O .doc é o formato legado."},
-        {n:5,q:"No MS-PowerPoint, o 'Painel de Anotações' serve para:",ops:["Exibir o slide em tela cheia","Adicionar lembretes visíveis ao apresentador","Inserir imagens no slide","Configurar a transição"],g:1,exp:"O Painel de Anotações (abaixo do slide) permite ao apresentador adicionar notas de apoio, visíveis apenas para ele durante a apresentação."},
+        {n:1,q:"Assinale a alternativa em que a vírgula está empregada CORRETAMENTE:",ops:["Comprei, luvas, botas e, repelente.","Os agentes, que se dedicam, obtêm bons resultados.","Carlos, chefe da equipe, apresentou o relatório.","Ela chegou, e saiu rapidamente."],g:2,exp:"Vírgula de aposto: 'chefe da equipe' é aposto explicativo de 'Carlos' e deve ser isolado por vírgulas. Nas demais alternativas o uso da vírgula é incorreto."},
+        {n:2,q:"Na frase 'Os imóveis foram vistoriados pelo ACE', a voz verbal é:",ops:["Ativa","Reflexiva","Passiva sintética","Passiva analítica"],g:3,exp:"Passiva analítica: auxiliar 'foram' + particípio 'vistoriados' + agente da passiva 'pelo ACE'. Equivale a: 'O ACE vistoriou os imóveis'."},
+        {n:3,q:"Assinale a frase com crase CORRETAMENTE empregada:",ops:["Fomos à reunião de equipe.","Entreguei o boletim à ele.","Refiro-me à aquele imóvel.","Fui à pé até o posto."],g:0,exp:"'À reunião' = preposição 'a' + artigo feminino 'a'. Não se usa crase antes de pronome masculino ('ele') nem antes de artigo que já está na palavra."},
+        {n:4,q:"'Haviam muitos criadouros no imóvel.' Esta frase apresenta erro de:",ops:["Regência verbal","Colocação pronominal","Concordância verbal","Ortografia"],g:2,exp:"'Haver' no sentido de existir é impessoal e fica sempre no singular: 'Havia muitos criadouros no imóvel'."},
+        {n:5,q:"Em qual alternativa o uso do hífen está CORRETO?",ops:["Anti-inflamatório","Antiinflamatório","Anti inflamatório","Antiinflamatorio"],g:0,exp:"Usa-se hífen quando o segundo elemento começa com vogal idêntica à última letra do prefixo: anti + inflamatório = anti-inflamatório."},
+        {n:6,q:"O sujeito da oração 'É obrigatório notificar casos de dengue' é:",ops:["casos de dengue","notificar","É obrigatório","Sujeito inexistente — oração impessoal"],g:3,exp:"A construção 'É obrigatório + infinitivo' forma uma oração impessoal — não há sujeito que pratique a ação de 'ser obrigatório'."},
+        {n:7,q:"A figura de linguagem em 'O mosquito é um inimigo invisível' é:",ops:["Comparação","Hipérbole","Metáfora","Metonímia"],g:2,exp:"Metáfora: identifica implicitamente 'mosquito' e 'inimigo invisível' sem o uso de conectivo comparativo 'como'."},
+        {n:8,q:"Na frase 'Preciso que você venha logo ao campo', o modo verbal de 'venha' é:",ops:["Indicativo","Subjuntivo","Imperativo afirmativo","Imperativo negativo"],g:1,exp:"O subjuntivo presente é usado em orações subordinadas após verbos de desejo ou necessidade como 'precisar'."},
+        {n:9,q:"Qual é o par de PARÔNIMOS?",ops:["Dengue / dengoso","Descrição / discrição","Amor / desamor","Casa / casinha"],g:1,exp:"Parônimos: palavras de grafia e pronúncia semelhantes mas sentidos diferentes. 'Descrição' = ato de descrever; 'discrição' = qualidade de discreto."},
+        {n:10,q:"Em 'O agente orientou os moradores conforme o protocolo', a palavra 'conforme' exerce a função de:",ops:["Preposição","Conjunção conformativa","Advérbio de modo","Pronome relativo"],g:1,exp:"'Conforme' introduz oração subordinada adverbial conformativa, indicando que a ação foi realizada de acordo com algo previsto."},
       ]},
-      {nome:'Informática – Avançado (Q6–Q10)',qs:[
-        {n:6,q:"Na internet, o protocolo HTTPS difere do HTTP por:",ops:["Ser mais lento","Adicionar uma camada de segurança/criptografia (SSL/TLS)","Funcionar apenas em redes privadas","Permitir apenas e-mails"],g:1,exp:"HTTPS usa criptografia SSL/TLS para proteger os dados transmitidos entre o navegador e o servidor, essencial em transações e dados pessoais."},
-        {n:7,q:"No MS-Excel, qual função conta o número de células que atendem a uma condição?",ops:["=SOMA()","=MÉDIA()","=CONT.SE()","=MÁXIMO()"],g:2,exp:"=CONT.SE(intervalo; critério) conta quantas células de um intervalo atendem ao critério especificado."},
-        {n:8,q:"O que é um 'hiperlink' na internet?",ops:["Um arquivo de imagem","Um tipo de vírus","Um elemento clicável que redireciona para outra página ou recurso","Uma senha de acesso"],g:2,exp:"Hiperlink (ou link) é um elemento interativo que ao ser clicado redireciona o usuário para outro endereço/recurso na web."},
-        {n:9,q:"No MS-Word, 'mala direta' é usada para:",ops:["Enviar e-mails em massa pelo Word","Criar documentos personalizados com dados variáveis (nome, endereço etc.)","Formatar automaticamente parágrafos","Inserir tabelas dinamicamente"],g:1,exp:"Mala direta combina um documento-modelo com uma fonte de dados (planilha, banco) para gerar cópias personalizadas em série."},
-        {n:10,q:"No MS-Windows, 'atalho' (shortcut) em uma pasta é:",ops:["Uma cópia completa do arquivo","Um arquivo compactado","Um ponteiro/link para o arquivo ou pasta original","Uma pasta protegida por senha"],g:2,exp:"Um atalho é um arquivo .lnk que aponta para o objeto original. Ao deletar um atalho, o arquivo original permanece intacto."},
+      {nome:'Matemática (Q11–Q20)',qs:[
+        {n:11,q:"Um ACE percorre 300 imóveis em 5 dias. Quantos imóveis percorrerá em 8 dias?",ops:["420","460","480","500"],g:2,exp:"300 ÷ 5 = 60 imóveis/dia. 60 × 8 = 480 imóveis."},
+        {n:12,q:"Numa rua, 40% dos imóveis tinham criadouros. Se a rua tem 75 imóveis, quantos tinham criadouros?",ops:["25","30","35","40"],g:1,exp:"40% de 75 = 75 × 0,40 = 30 imóveis com criadouros."},
+        {n:13,q:"Se 5 agentes visitam 200 imóveis em 2 dias, quantos imóveis 8 agentes visitariam no mesmo tempo?",ops:["280","300","320","350"],g:2,exp:"5 agentes → 200 imóveis em 2 dias. 1 agente → 40 em 2 dias. 8 agentes → 320 imóveis."},
+        {n:14,q:"A taxa de incidência de dengue numa cidade foi de 200 casos por 100.000 hab. Se a população é 150.000, quantos casos ocorreram?",ops:["250","300","350","400"],g:1,exp:"200/100.000 × 150.000 = 300 casos."},
+        {n:15,q:"Um depósito de larvicida tem 48 litros. Cada aplicação usa 3/8 do total. Quantos litros são usados por aplicação?",ops:["12 L","16 L","18 L","20 L"],g:2,exp:"3/8 de 48 = 48 × 3 ÷ 8 = 144 ÷ 8 = 18 litros por aplicação."},
+        {n:16,q:"Em um ciclo de 60 dias, um ACE visitou 540 imóveis. Qual a média diária?",ops:["7","8","9","10"],g:2,exp:"540 ÷ 60 = 9 imóveis por dia."},
+        {n:17,q:"Uma solução inseticida cobre 400 m². Para cobrir 2.800 m², quantas aplicações são necessárias?",ops:["5","6","7","8"],g:2,exp:"2.800 ÷ 400 = 7 aplicações."},
+        {n:18,q:"Qual é o MDC de 48 e 60?",ops:["6","10","12","24"],g:2,exp:"Fatores de 48: 1,2,3,4,6,8,12,16,24,48. Fatores de 60: 1,2,3,4,5,6,10,12,15,20,30,60. MDC = 12."},
+        {n:19,q:"Numa turma de agentes, 25% são do sexo masculino. Se há 12 homens, quantos agentes há no total?",ops:["36","42","48","56"],g:2,exp:"25% = 12 → 100% = 12 ÷ 0,25 = 48 agentes no total."},
+        {n:20,q:"A área de um terreno retangular de 20 m × 12 m é:",ops:["64 m²","120 m²","240 m²","480 m²"],g:2,exp:"Área = base × altura = 20 × 12 = 240 m²."},
       ]},
-    ]
-  },
-  {
-    id:'sim3',titulo:'Simulado 3 – Conhecimentos Específicos',banca:'IBFC',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Orientação Educacional (Q1–Q5)',qs:[
-        {n:1,q:"De acordo com a legislação brasileira, o Orientador Educacional pode ter formação em:",ops:["Pedagogia ou Psicologia","Apenas Psicologia","Apenas Pedagogia","Administração Escolar"],g:0,exp:"A Orientação Educacional pode ser exercida por pedagogos (com habilitação) ou psicólogos escolares, conforme a legislação e os editais municipais/estaduais."},
-        {n:2,q:"O que são 'habilidades socioemocionais' no contexto escolar?",ops:["Apenas disciplinas do currículo","Competências como empatia, resiliência e autoconhecimento que influenciam o aprendizado e as relações","Notas de comportamento no boletim","Regras do regimento escolar"],g:1,exp:"Habilidades socioemocionais (BNCC) incluem autoconhecimento, autogestão, empatia, habilidades de relacionamento e responsabilidade — essenciais ao desenvolvimento pleno."},
-        {n:3,q:"O cyberbullying se distingue do bullying presencial principalmente por:",ops:["Ser menos grave","Ocorrer em ambiente virtual com potencial de maior alcance e anonimato","Envolver apenas adultos","Não ter consequências psicológicas"],g:1,exp:"O cyberbullying ocorre em ambientes digitais, podendo ser anônimo e ter alcance ilimitado, tornando mais difícil o enfrentamento e aumentando o impacto nas vítimas."},
-        {n:4,q:"A 'escuta ativa' como técnica de mediação consiste em:",ops:["Apenas ouvir sem responder","Atenção plena ao que o outro diz, com postura empática e sem julgamentos","Registrar tudo em ata","Dar soluções imediatas ao conflito"],g:1,exp:"A escuta ativa é uma técnica de comunicação que envolve atenção total, compreensão empática e feedback, criando um espaço seguro para o diálogo."},
-        {n:5,q:"O PPP escolar deve ser construído:",ops:["Somente pela direção e coordenação","Coletivamente, com participação de professores, alunos, pais e comunidade","Apenas pelos professores","Pelo orientador educacional de forma autônoma"],g:1,exp:"O PPP é um documento coletivo que expressa a identidade escolar. Sua construção participativa é exigida pela LDB (Lei 9.394/96) e garante legitimidade às decisões pedagógicas."},
+      {nome:'Saúde Pública e SUS (Q21–Q30)',qs:[
+        {n:21,q:"Qual princípio do SUS garante atendimento a todos os cidadãos, independentemente de contribuição?",ops:["Integralidade","Universalidade","Equidade","Descentralização"],g:1,exp:"Universalidade: o SUS atende a todos sem distinção, como direito garantido pela Constituição Federal de 1988 (art. 196)."},
+        {n:22,q:"O princípio da EQUIDADE no SUS significa:",ops:["Atender a todos da mesma forma","Tratar desigualmente os desiguais, priorizando quem mais necessita para reduzir iniquidades","Integrar serviços públicos e privados","Garantir atendimento apenas nas UBSs"],g:1,exp:"Equidade não é igualdade: é dar mais a quem mais precisa, reconhecendo as diferenças e vulnerabilidades de cada grupo para reduzir desigualdades em saúde."},
+        {n:23,q:"A Lei Orgânica da Saúde que regulamenta o SUS é a:",ops:["Lei 8.142/1990","Lei 8.080/1990","Lei 7.498/1986","Lei 9.656/1998"],g:1,exp:"A Lei 8.080/1990 dispõe sobre as condições para a promoção, proteção e recuperação da saúde, além de organizar e regular as ações do SUS."},
+        {n:24,q:"O SINAN é o sistema de informação utilizado para:",ops:["Registrar internações hospitalares","Notificações compulsórias de doenças e agravos","Controle de estoque de medicamentos","Pagamento dos servidores da saúde"],g:1,exp:"SINAN = Sistema de Informação de Agravos de Notificação. Registra casos de doenças de notificação compulsória, como dengue, leptospirose e leishmaniose."},
+        {n:25,q:"O LIRAa (Levantamento de Índice Rápido para Aedes aegypti) é realizado com qual periodicidade?",ops:["Mensal","Anual","Quadrimestral (3 vezes ao ano)","Semanal"],g:2,exp:"O LIRAa é realizado 3 vezes ao ano (quadrimestral), nos meses de fevereiro, maio/junho e outubro, para monitorar os índices de infestação do Aedes aegypti."},
+        {n:26,q:"A Estratégia Saúde da Família (ESF) está inserida em qual nível de atenção do SUS?",ops:["Atenção terciária","Atenção secundária","Atenção básica (primária)","Alta complexidade"],g:2,exp:"A ESF é a principal estratégia da Atenção Básica/Primária, sendo a porta de entrada preferencial do SUS e base para o cuidado longitudinal da população."},
+        {n:27,q:"Qual é a principal característica da prevenção primária em saúde?",ops:["Diagnóstico precoce de doenças já instaladas","Reabilitação do paciente","Ações antes da instalação da doença, eliminando fatores de risco","Tratamento de doenças crônicas"],g:2,exp:"Prevenção primária age antes da doença se instalar: vacinação, controle de vetores, saneamento e educação em saúde são exemplos. O controle vetorial do Aedes é prevenção primária da dengue."},
+        {n:28,q:"A cadeia epidemiológica descreve:",ops:["Lista de vacinas disponíveis no SUS","A sequência: agente etiológico → mecanismo de transmissão → hospedeiro suscetível","O protocolo de atendimento hospitalar","A lista de doenças de notificação compulsória"],g:1,exp:"A cadeia epidemiológica descreve o processo de transmissão: agente causador, fonte de infecção, via de transmissão e hospedeiro suscetível. Quebrar qualquer elo interrompe a transmissão."},
+        {n:29,q:"Incidência e prevalência diferem porque:",ops:["São sinônimos na epidemiologia","Incidência mede casos NOVOS num período; prevalência mede total de casos existentes num momento","Incidência aplica-se só a doenças crônicas","Prevalência é sempre menor que a incidência"],g:1,exp:"Incidência: número de casos NOVOS em um período. Prevalência: total de casos existentes (novos + antigos) em um momento ou período. São medidas epidemiológicas complementares."},
+        {n:30,q:"O conceito ampliado de saúde definido pela OMS (1946) inclui:",ops:["Apenas ausência de doenças","Completo bem-estar físico, mental e social — não apenas ausência de doença","Ter plano de saúde privado","Realizar exames preventivos regulares"],g:1,exp:"A OMS (1946) definiu saúde como 'completo estado de bem-estar físico, mental e social, e não apenas ausência de doença ou enfermidade' — base do conceito ampliado de saúde no SUS."},
       ]},
-      {nome:'Desenvolvimento e Inclusão (Q6–Q10)',qs:[
-        {n:6,q:"O TDAH é classificado atualmente pelo DSM-5 como:",ops:["Distúrbio emocional","Transtorno do Neurodesenvolvimento","Psicose infantil","Deficiência intelectual"],g:1,exp:"O DSM-5 classifica o TDAH como Transtorno do Neurodesenvolvimento, caracterizado por desatenção e/ou hiperatividade-impulsividade."},
-        {n:7,q:"Qual a principal diferença entre dislexia e dificuldade de aprendizagem por falta de estímulo?",ops:["Não há diferença","A dislexia tem base neurológica; a outra decorre de fatores ambientais/pedagógicos","A dislexia afeta apenas o cálculo","Dificuldade de aprendizagem é mais grave"],g:1,exp:"A dislexia tem origem neurobiológica (genética, estrutura cerebral), diferindo das dificuldades de aprendizagem causadas por falta de estímulo, método inadequado ou fatores emocionais."},
-        {n:8,q:"A prevenção ao uso de drogas nas escolas deve ser abordada prioritariamente como:",ops:["Tema proibido","Educação para a saúde, com foco em informação, autoestima e habilidades de resistência","Ação exclusiva da polícia","Responsabilidade apenas da família"],g:1,exp:"A prevenção escolar deve ser educativa e integral: informação qualificada, fortalecimento de vínculos, autoestima e habilidades para lidar com pressão — não punitiva."},
-        {n:9,q:"O grêmio estudantil tem como função principal:",ops:["Organizar festas escolares","Representar os estudantes e promover sua participação democrática na escola","Substituir o conselho de classe","Fiscalizar professores"],g:1,exp:"O grêmio estudantil é a entidade representativa dos alunos, garantida pela Lei 7.398/85, que promove cidadania, participação democrática e defesa dos interesses estudantis."},
-        {n:10,q:"Na mediação de conflitos escolares, o orientador deve:",ops:["Sempre punir o agressor","Ouvir todas as partes, buscar compreensão mútua e construir soluções coletivas","Ignorar os conflitos menores","Encaminhar todos os casos à direção"],g:1,exp:"A mediação de conflitos pressupõe imparcialidade, escuta de todas as partes e construção colaborativa de soluções, promovendo convivência ética e pacífica."},
+      {nome:'Visitas e Fiscalização (Q31–Q40)',qs:[
+        {n:31,q:"O principal objetivo da visita domiciliar do ACE é:",ops:["Vacinar os moradores","Eliminar criadouros do Aedes aegypti e orientar os moradores","Realizar consultas médicas domiciliares","Distribuir medicamentos"],g:1,exp:"O ACE inspeciona imóveis em busca de recipientes com água parada que sirvam de criadouro para o mosquito, eliminando-os no ato e educando o morador sobre prevenção."},
+        {n:32,q:"Qual tipo de recipiente é considerado o principal criadouro do Aedes aegypti no Brasil?",ops:["Calhas entupidas","Caixas d'água sem tampa","Pneus velhos","Vasos de flores com pires"],g:1,exp:"Caixas d'água sem tampa são o principal criadouro por armazenar grande volume de água limpa e parada — condição ideal para a oviposição do Aedes aegypti."},
+        {n:33,q:"Quando o morador recusa a entrada do ACE em seu imóvel, o agente deve:",ops:["Forçar a entrada com apoio policial","Registrar a recusa no boletim de campo (BAC) e comunicar ao supervisor","Abandonar a visita e não registrar","Multar o morador imediatamente"],g:1,exp:"O ACE deve registrar a recusa no BAC, informar ao supervisor e, se necessário, buscar apoio jurídico para acesso compulsório ao imóvel. Não pode forçar a entrada por conta própria."},
+        {n:34,q:"Na classificação do LIRAa, o imóvel 'B' significa:",ops:["Imóvel vistoriado sem foco de Aedes","Imóvel vistoriado com foco de Aedes","Imóvel fechado","Imóvel demolido"],g:1,exp:"Classificação LIRAa: A = visitado sem foco, B = visitado COM foco, F = fechado, R = recusa, T = terreno baldio. O índice de infestação é calculado com base nos imóveis 'B'."},
+        {n:35,q:"O ciclo de trabalho do ACE no LIRAa tem duração de:",ops:["30 dias","45 dias","60 dias","90 dias"],g:2,exp:"O ciclo operacional do LIRAa tem duração de 60 dias, sendo realizado 3 vezes ao ano. Cada ciclo abrange todo o território municipal do agente."},
+        {n:36,q:"O Boletim de Acompanhamento de Campo (BAC) é usado para:",ops:["Registrar apenas os imóveis com foco","Registrar todos os imóveis visitados, pendências, recusas e focos encontrados","Solicitar materiais ao almoxarifado","Comunicar ausências ao supervisor"],g:1,exp:"O BAC é o instrumento de registro de campo do ACE, onde são anotados todos os imóveis visitados, sua classificação (A, B, F, R, T), focos encontrados e ações realizadas."},
+        {n:37,q:"Durante a visita domiciliar, o ACE encontra um pneu com água no quintal. A conduta correta é:",ops:["Registrar e seguir para o próximo imóvel","Eliminar o criadouro (esvaziar/virar o pneu) e orientar o morador sobre prevenção","Multar o morador","Acionar a vigilância sanitária"],g:1,exp:"O ACE deve eliminar o criadouro no ato da visita (esvaziar, virar, descartar) e educar o morador sobre como evitar o acúmulo de água parada."},
+        {n:38,q:"A estratificação de risco no trabalho do ACE serve para:",ops:["Definir quais agentes trabalham em cada bairro","Priorizar áreas com maior índice de infestação e risco epidemiológico para ações intensificadas","Calcular o salário dos agentes","Determinar o número de criadouros por imóvel"],g:1,exp:"A estratificação de risco classifica as áreas do município conforme o índice de infestação e histórico epidemiológico, permitindo priorizar recursos e intensificar ações nas áreas de maior risco."},
+        {n:39,q:"Qual é o papel da educação em saúde nas visitas domiciliares do ACE?",ops:["Substituir o tratamento médico","Orientar os moradores sobre eliminação de criadouros, sinais de alerta e importância da prevenção","Fiscalizar e punir moradores negligentes","Apenas distribuir material educativo impresso"],g:1,exp:"A educação em saúde é parte fundamental do trabalho do ACE: orientar sobre eliminação de criadouros, reconhecimento dos sintomas, procura de serviço de saúde e importância da prevenção coletiva."},
+        {n:40,q:"Imóveis 'fechados' (F) no ciclo do ACE devem ser:",ops:["Desconsiderados no relatório","Registrados como pendência e revisitados na próxima rodada","Notificados diretamente à polícia","Considerados sem foco automaticamente"],g:1,exp:"Imóveis fechados são registrados no BAC como pendência e devem ser revisitados na próxima rodada do ciclo para garantir a cobertura completa do território."},
       ]},
-    ]
-  },
-  {
-    id:'sim4',titulo:'Simulado 4 – Completo (LP + Informática + Específicos)',banca:'Ação Bahia',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Língua Portuguesa (Q1–Q4)',qs:[
-        {n:1,q:"'Conforme o planejado, o orientador realizou as visitas às turmas.' A palavra 'conforme' exerce a função de:",ops:["Preposição","Conjunção conformativa","Advérbio de modo","Pronome relativo"],g:1,exp:"'Conforme' introduz oração subordinada adverbial conformativa, indicando que a ação foi realizada de acordo com algo previsto."},
-        {n:2,q:"Qual alternativa apresenta uso CORRETO do hífen?",ops:["Anti-inflamatório","Antiinflamatório","Anti inflamatório","Antiinflamatorio"],g:0,exp:"Usa-se hífen quando o segundo elemento começa com vogal idêntica à última letra do prefixo: anti + inflamatório = anti-inflamatório."},
-        {n:3,q:"O sujeito da oração 'É preciso dialogar com os alunos' é:",ops:["os alunos","dialogar","É preciso","Sujeito inexistente (oração impessoal)"],g:3,exp:"A construção 'É preciso + infinitivo' forma uma oração impessoal — não há um ser que pratique a ação de 'ser preciso'."},
-        {n:4,q:"Em 'Aspirei ao cargo de orientador', o verbo 'aspirar' está empregado no sentido de:",ops:["Inalar","Almejar/desejar","Limpar com aspirador","Respirar"],g:1,exp:"'Aspirar a' (com preposição) = almejar, desejar. 'Aspirar' (sem preposição) = inalar. A regência com 'a' distingue os dois sentidos."},
+      {nome:'Endemias e Doenças (Q41–Q50)',qs:[
+        {n:41,q:"Qual mosquito é o principal vetor da dengue, Zika e Chikungunya no Brasil?",ops:["Anopheles darlingi","Aedes albopictus","Aedes aegypti","Culex quinquefasciatus"],g:2,exp:"O Aedes aegypti é o principal vetor das três arboviroses no Brasil. Prefere ambientes urbanos e criadouros artificiais com água limpa e parada."},
+        {n:42,q:"A principal complicação da infecção por Zika em gestantes é:",ops:["Pré-eclâmpsia grave","Microcefalia e malformações do sistema nervoso central do feto","Diabetes gestacional","Parto prematuro sem sequelas neurológicas"],g:1,exp:"A síndrome congênita do Zika inclui microcefalia, calcificações cerebrais, artrogripose e outras malformações do SNC fetal, especialmente quando a infecção ocorre no primeiro trimestre."},
+        {n:43,q:"A malária é endêmica principalmente em qual região do Brasil?",ops:["Nordeste","Sul","Região Amazônica","Centro-Oeste"],g:2,exp:"A região Amazônica concentra mais de 99% dos casos de malária no Brasil, onde temperatura, umidade e floresta criam condições ideais para o Anopheles."},
+        {n:44,q:"O vetor da leishmaniose visceral no Brasil é:",ops:["Aedes aegypti","Anopheles darlingi","Lutzomyia longipalpis (flebotomíneo/mosquito-palha)","Triatoma infestans (barbeiro)"],g:2,exp:"O Lutzomyia longipalpis é o principal vetor da leishmaniose visceral no Brasil. É um mosquito pequeno, de voo silencioso e baixo, ativo ao entardecer e amanhecer."},
+        {n:45,q:"A doença de Chagas é causada pelo:",ops:["Plasmodium falciparum","Leishmania chagasi","Trypanosoma cruzi","Wuchereria bancrofti"],g:2,exp:"O Trypanosoma cruzi é o agente etiológico da doença de Chagas, transmitido pelo barbeiro (Triatoma spp.). Foi descoberto pelo médico brasileiro Carlos Chagas em 1909."},
+        {n:46,q:"A Síndrome de Weil, forma grave da leptospirose, apresenta a tríade:",ops:["Artralgia, rash e febre","Icterícia intensa, insuficiência renal aguda e fenômenos hemorrágicos","Febre periódica, calafrios e sudorese","Hepatomegalia, esplenomegalia e anemia"],g:1,exp:"A Síndrome de Weil é a forma mais grave da leptospirose: icterícia intensa (coloração amarela intensa), insuficiência renal aguda e fenômenos hemorrágicos (petéquias, hemorragia pulmonar). Alta letalidade."},
+        {n:47,q:"Qual é a fase da dengue de maior risco de evolução grave?",ops:["Fase febril (1º ao 3º dia)","Fase crítica (3º ao 6º dia, após queda da febre)","Fase de recuperação (após 7º dia)","A doença não apresenta fases"],g:1,exp:"A fase crítica, coincidindo com a queda da febre, é quando pode ocorrer extravasamento de plasma, hemoconcentração e choque — principal causa de óbito por dengue."},
+        {n:48,q:"O sinal de Romaña é característico da fase aguda de qual doença?",ops:["Dengue","Leishmaniose visceral","Malária","Doença de Chagas"],g:3,exp:"O sinal de Romaña é o edema bipalpebral unilateral indolor, ocorre quando o Trypanosoma cruzi entra pela conjuntiva ocular — porta de entrada para a infecção na face."},
+        {n:49,q:"Qual é o reservatório animal mais importante da leishmaniose visceral no ambiente urbano?",ops:["Rato doméstico","Gato doméstico","Cão doméstico","Gambá"],g:2,exp:"O cão doméstico é o principal reservatório urbano da L. infantum/chagasi. O controle canino é parte essencial das estratégias de prevenção da leishmaniose visceral urbana."},
+        {n:50,q:"A transmissão da leptospirose ocorre principalmente por:",ops:["Picada de inseto","Contato com água ou lama contaminada pela urina de ratos","Transmissão de pessoa a pessoa","Contato com saliva de animais infectados"],g:1,exp:"A Leptospira penetra pela pele com lesões ou mucosas em contato com água/lama contaminada pela urina de ratos, especialmente em enchentes urbanas."},
       ]},
-      {nome:'Informática (Q5–Q7)',qs:[
-        {n:5,q:"No MS-Excel, qual é o operador utilizado para concatenar (unir) textos em fórmulas?",ops:["+ (mais)","& (e comercial)","* (asterisco)","/ (barra)"],g:1,exp:"O operador & concatena textos no Excel. Exemplo: =A1&\" \"&B1 une o conteúdo de A1, um espaço e B1 em uma única célula."},
-        {n:6,q:"Uma URL (Uniform Resource Locator) é:",ops:["Um tipo de vírus","O endereço de um recurso na internet","Um protocolo de e-mail","Um formato de arquivo de imagem"],g:1,exp:"A URL identifica e localiza um recurso na internet (página, arquivo, imagem), especificando o protocolo, domínio e caminho do recurso."},
-        {n:7,q:"No MS-Word, 'controle de alterações' serve para:",ops:["Desfazer todas as alterações","Rastrear e revisar modificações feitas no documento por diferentes autores","Bloquear a edição do arquivo","Salvar automaticamente"],g:1,exp:"Controle de Alterações (Revisão > Controlar Alterações) registra cada modificação com autor, data e tipo de mudança, essencial para revisão colaborativa."},
-      ]},
-      {nome:'Conhecimentos Específicos (Q8–Q10)',qs:[
-        {n:8,q:"O Conselho de Classe tem como finalidade:",ops:["Apenas avaliar notas dos alunos","Analisar coletivamente o processo de ensino-aprendizagem e propor intervenções pedagógicas","Punir alunos com baixo rendimento","Substituir o PPP escolar"],g:1,exp:"O Conselho de Classe é um espaço coletivo de reflexão pedagógica que reúne professores, coordenação e orientação para analisar o processo educativo e propor ações de melhoria."},
-        {n:9,q:"A articulação entre escola e família, no contexto da orientação educacional, visa principalmente:",ops:["Transferir a responsabilidade educativa para os pais","Construir parceria para apoio integral ao desenvolvimento do estudante","Fiscalizar a vida privada das famílias","Reduzir a autonomia dos alunos"],g:1,exp:"A parceria escola-família fortalece o processo educativo, pois cria uma rede de apoio consistente ao desenvolvimento acadêmico, emocional e social do estudante."},
-        {n:10,q:"Segundo a BNCC, as competências socioemocionais devem ser desenvolvidas:",ops:["Apenas nas aulas de Educação Física","De forma transversal em todas as disciplinas e espaços educativos","Somente pelo orientador educacional","Exclusivamente no Ensino Médio"],g:1,exp:"A BNCC prevê o desenvolvimento de competências socioemocionais de forma transversal em toda a Educação Básica, integrando-se ao projeto pedagógico escolar."},
-      ]},
-    ]
-  },
-  {
-    id:'sim5',titulo:'Simulado 5 – Completo (LP + Informática + Específicos)',banca:'Ação Bahia',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Língua Portuguesa (Q1–Q4)',qs:[
-        {n:1,q:"Assinale a alternativa em que a vírgula está empregada CORRETAMENTE:",ops:["Comprei cadernos, canetas e, borracha.","Os alunos, que estudaram, foram aprovados.","João, meu melhor aluno, passou no concurso.","Ela chegou, e saiu rapidamente."],g:2,exp:"Vírgula de aposto: 'meu melhor aluno' é um aposto explicativo de 'João' e deve ser isolado por vírgulas. Nas outras alternativas o uso da vírgula é incorreto."},
-        {n:2,q:"Identifique a alternativa com par de PARÔNIMOS:",ops:["Escola / escolar","Descrição / discrição","Amor / desamor","Casa / casinha"],g:1,exp:"Parônimos são palavras de grafia e pronúncia semelhantes mas significados diferentes: 'descrição' (ato de descrever) e 'discrição' (qualidade de discreto)."},
-        {n:3,q:"Na frase 'Vende-se imóvel', a voz verbal é:",ops:["Ativa","Passiva analítica","Passiva sintética","Reflexiva"],g:2,exp:"Passiva sintética (ou pronominal): formada com verbo na 3ª pessoa + pronome apassivador 'se'. Equivale a 'Um imóvel é vendido'."},
-        {n:4,q:"'Embora estivesse cansado, o orientador atendeu todos os alunos.' A oração sublinhada é:",ops:["Coordenada sindética adversativa","Subordinada adverbial concessiva","Subordinada adverbial causal","Coordenada assindética"],g:1,exp:"A conjunção 'embora' + subjuntivo introduz oração subordinada adverbial concessiva: indica concessão, contraste com a ideia principal."},
-      ]},
-      {nome:'Informática (Q5–Q7)',qs:[
-        {n:5,q:"No MS-Excel, qual função calcula a média aritmética de um intervalo?",ops:["=SOMA()","=MÉDIA()","=MED()","=MODO()"],g:1,exp:"=MÉDIA(intervalo) calcula a média aritmética. =MED() retorna a mediana (valor central) e =MODO() retorna o valor mais frequente."},
-        {n:6,q:"No MS-Word, o recurso 'Localizar e Substituir' (Ctrl+H) serve para:",ops:["Salvar o documento em outro formato","Encontrar e trocar palavras ou trechos no documento","Verificar a ortografia","Inserir comentários"],g:1,exp:"Ctrl+H abre 'Localizar e Substituir', permitindo encontrar uma palavra/frase e substituí-la por outra em todo o documento de forma automática."},
-        {n:7,q:"No MS-PowerPoint, 'animação' difere de 'transição' porque:",ops:["Animação muda o design do slide","Animação aplica efeitos a objetos dentro do slide; transição aplica efeito entre slides","Transição é mais rápida","São a mesma coisa"],g:1,exp:"Animação: efeitos aplicados a elementos (texto, imagem) dentro de um slide. Transição: efeito visual ao passar de um slide para o próximo."},
-      ]},
-      {nome:'Conhecimentos Específicos (Q8–Q10)',qs:[
-        {n:8,q:"O orientador educacional deve participar do PPP escolar principalmente:",ops:["Apenas assinando o documento final","Na construção, implementação, acompanhamento e avaliação contínua","Somente na fase de avaliação","Apenas quando solicitado pela direção"],g:1,exp:"A participação do orientador no PPP é ativa e contínua nas quatro etapas: construção coletiva, implementação prática, acompanhamento dos resultados e avaliação periódica."},
-        {n:9,q:"Qual das alternativas descreve corretamente a 'empatia' como habilidade socioemocional?",ops:["Capacidade de impor os próprios pontos de vista","Habilidade de compreender e compartilhar os sentimentos do outro","Ausência de emoções em situações de conflito","Obediência às regras sem questionamento"],g:1,exp:"Empatia é a capacidade de se colocar no lugar do outro, compreendendo suas emoções e perspectivas — fundamental para o trabalho do orientador educacional."},
-        {n:10,q:"A indisciplina escolar deve ser compreendida pelo orientador como:",ops:["Apenas um problema de caráter do aluno","Um comportamento a punir sem investigação","Um sinal que pode indicar dificuldades emocionais, familiares ou pedagógicas","Uma questão exclusivamente da família"],g:2,exp:"A indisciplina pode ser um sinal de alerta para questões subjacentes: dificuldades de aprendizagem, problemas familiares, socioemocionais ou inadequação das práticas pedagógicas."},
-      ]},
-    ]
-  },
-  {
-    id:'sim6',titulo:'Simulado 6 – Completo (LP + Informática + Específicos)',banca:'Ação Bahia',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Língua Portuguesa (Q1–Q4)',qs:[
-        {n:1,q:"Assinale a alternativa em que a concordância nominal está CORRETA:",ops:["As alunas ficaram satisfeito com o resultado.","Os professores estavam cansadas após a reunião.","As orientadoras ficaram satisfeitas com o PPP.","O grupo de alunos saíram cedo."],g:2,exp:"O adjetivo 'satisfeitas' concorda em gênero (feminino) e número (plural) com 'orientadoras'. Nas demais, há discordância entre substantivo e adjetivo."},
-        {n:2,q:"'Ele assistiu o filme ontem.' Esta frase apresenta erro de:",ops:["Concordância verbal","Regência verbal","Ortografia","Colocação pronominal"],g:1,exp:"'Assistir' no sentido de ver/presenciar é verbo transitivo indireto: exige preposição 'a'. O correto é 'assistiu ao filme'."},
-        {n:3,q:"Assinale a alternativa em que há METÁFORA:",ops:["Ela corre como o vento.","Seus olhos são estrelas no céu.","Mil pessoas compareceram ao evento.","O estudante leu o texto rapidamente."],g:1,exp:"'Seus olhos são estrelas' é metáfora: identifica implicitamente dois elementos diferentes sem usar 'como'. 'Corre como o vento' é comparação (uso de 'como')."},
-        {n:4,q:"Na oração 'Os orientadores que se dedicam obtêm bons resultados', a oração 'que se dedicam' é:",ops:["Subordinada substantiva subjetiva","Subordinada adjetiva restritiva","Subordinada adverbial causal","Coordenada sindética aditiva"],g:1,exp:"'Que se dedicam' é oração subordinada adjetiva restritiva: introduzida pelo pronome relativo 'que', restringe o sentido do antecedente 'orientadores' (sem vírgula)."},
-      ]},
-      {nome:'Informática (Q5–Q7)',qs:[
-        {n:5,q:"No MS-Word, 'recuo de parágrafo' serve para:",ops:["Alterar a fonte do texto","Definir o afastamento do texto em relação às margens da página","Inserir uma tabela","Numerar as páginas"],g:1,exp:"O recuo controla o afastamento horizontal do parágrafo em relação às margens. Pode ser recuo à esquerda, à direita, de primeira linha ou deslocado."},
-        {n:6,q:"No MS-Windows, o gerenciador de tarefas (Ctrl+Alt+Del > Gerenciador de Tarefas) permite:",ops:["Instalar novos programas","Monitorar e encerrar processos e programas em execução","Formatar o disco rígido","Configurar a impressora"],g:1,exp:"O Gerenciador de Tarefas monitora o uso de CPU, memória e rede, além de permitir encerrar processos travados ou que consomem muitos recursos."},
-        {n:7,q:"Ao anexar um arquivo em um e-mail, o usuário está:",ops:["Copiando o e-mail para outra pasta","Incluindo um arquivo para ser enviado junto com a mensagem","Encaminhando o e-mail para outro destinatário","Salvando o e-mail como rascunho"],g:1,exp:"Anexar (attach) significa incluir um arquivo (documento, imagem, planilha) junto à mensagem de e-mail para que o destinatário possa baixá-lo."},
-      ]},
-      {nome:'Conhecimentos Específicos (Q8–Q10)',qs:[
-        {n:8,q:"O histórico da orientação educacional no Brasil tem origem associada a qual movimento?",ops:["Movimento escolanovista e à industrialização do país nas décadas de 1920-1930","Reforma universitária de 1968","Lei de Cotas de 2012","Criação do ENEM em 1998"],g:0,exp:"A orientação educacional surgiu no Brasil ligada ao movimento escolanovista e à necessidade de adaptar a educação às demandas da industrialização, nas décadas de 1920 e 1930."},
-        {n:9,q:"Redes de apoio social e de saúde são acionadas pelo orientador quando:",ops:["O aluno apresenta dificuldades que ultrapassam a competência da escola","O aluno tira notas baixas em provas","A escola precisa de mais verbas","Os pais não comparecem às reuniões"],g:0,exp:"O orientador deve articular a escola com redes externas (CRAS, CAPS, UBS, Conselho Tutelar) quando as necessidades do aluno extrapolam as possibilidades de intervenção escolar."},
-        {n:10,q:"Projetos de educação sexual na escola devem ser desenvolvidos com base em:",ops:["Apenas orientação religiosa","Informação científica, respeito à diversidade e promoção da saúde integral","Proibição de discussões sobre o tema","Responsabilidade exclusiva dos pais"],g:1,exp:"A educação sexual escolar deve ser laica, baseada em evidências científicas, respeitar a diversidade e promover a saúde integral dos estudantes, conforme orientações do MEC e da OMS."},
-      ]},
-    ]
-  },
-  {
-    id:'sim7',titulo:'Simulado 7 – Conhecimentos Específicos (Nível Difícil)',banca:'Ação Bahia',ano:2025,
-    edital:'Orientador Educacional',cargo:'Nível Superior',
-    secoes:[
-      {nome:'Fundamentos Históricos e Teóricos (Q1–Q10)',qs:[
-        {n:1,q:"O Decreto-Lei nº 4.244/1942 (Lei Orgânica do Ensino Secundário) foi o primeiro instrumento legal a mencionar a orientação educacional no Brasil. Qual a denominação utilizada nesse decreto?",ops:["Orientação Pedagógica","Orientação Educativa","Orientação de Ensino","Conselho de Orientação Profissional"],g:1,exp:"O Decreto-Lei nº 4.244/1942 utilizou o termo 'Orientação Educativa', denominação original da área no Brasil, antes da consolidação do termo 'Orientação Educacional' nas décadas seguintes."},
-        {n:2,q:"Na teoria do desenvolvimento ecológico de Urie Bronfenbrenner, o 'mesossistema' é definido como:",ops:["O ambiente imediato onde o indivíduo vive (família, escola)","As inter-relações ENTRE os microssistemas (ex.: relação família-escola)","As estruturas sociais amplas que influenciam indiretamente o desenvolvimento","As mudanças ao longo do tempo na vida do indivíduo"],g:1,exp:"O mesossistema representa as conexões e processos entre dois ou mais ambientes (microssistemas) nos quais a pessoa em desenvolvimento participa ativamente, como a articulação família-escola fundamental na orientação educacional."},
-        {n:3,q:"O conceito de 'habitus' de Pierre Bourdieu aplicado à orientação educacional revela que:",ops:["A motivação intrínseca é o único fator determinante das trajetórias escolares","Disposições sociais incorporadas influenciam inconscientemente as escolhas e trajetórias educacionais dos estudantes","O currículo escolar determina completamente o sucesso dos alunos","A psicometria é o instrumento mais adequado para avaliar o potencial dos estudantes"],g:1,exp:"O 'habitus' bourdieusiano são disposições duráveis incorporadas pela experiência social que orientam percepções e práticas. No contexto escolar, explica como origem social e capital cultural influenciam trajetórias, essencial para o orientador compreender desigualdades educacionais."},
-        {n:4,q:"Segundo Dan Olweus, pesquisador norueguês precursor nos estudos sobre bullying, para uma situação ser classificada como tal, são necessários TRÊS critérios. Assinale a alternativa que os lista corretamente:",ops:["Presença de adulto, registro em ata e punição disciplinar","Intencionalidade, repetição e desequilíbrio de poder entre agressor e vítima","Violência física, testemunhas e comunicação à direção","Conflito verbal, isolamento e diferença de idade"],g:1,exp:"Olweus (1993) definiu bullying por três critérios simultâneos: (1) comportamento INTENCIONAL de causar dano; (2) REPETIÇÃO ao longo do tempo; (3) DESEQUILÍBRIO DE PODER entre as partes. A ausência de qualquer um desses elementos descaracteriza o bullying."},
-        {n:5,q:"A abordagem centrada na pessoa (ACP) de Carl Rogers, aplicada à orientação educacional, fundamenta-se no tripé:",ops:["Autoridade, disciplina e avaliação contínua","Empatia, congruência (autenticidade) e aceitação incondicional positiva","Diagnóstico, intervenção e encaminhamento","Triagem, acompanhamento e relatório"],g:1,exp:"Rogers definiu três condições necessárias e suficientes para o crescimento: empatia (compreender o mundo interno do outro), congruência (autenticidade do orientador) e aceitação incondicional positiva (respeito sem julgamento). Essas condições criam o clima facilitador do desenvolvimento."},
-        {n:6,q:"Donald Winnicott propôs o conceito de 'objeto transicional' e 'espaço potencial'. No contexto da orientação escolar, o 'espaço potencial' pode ser compreendido como:",ops:["A sala física destinada ao atendimento do orientador","O espaço simbólico de confiança e criatividade onde o aluno pode se expressar autenticamente sem ameaça ao self","O intervalo entre as aulas dedicado ao lazer","O período de transição entre o fundamental e o médio"],g:1,exp:"O 'espaço potencial' winnicottiano é uma área intermediária de experiência, entre a realidade interna e externa, onde a criatividade e o brincar ocorrem. Na orientação, traduz-se como o setting relacional onde o aluno se sente seguro para explorar a própria identidade."},
-        {n:7,q:"A 'violência simbólica', conceito de Bourdieu e Passeron em 'A Reprodução' (1970), é relevante para o orientador educacional porque:",ops:["Explica apenas episódios de violência física documentada nas escolas","Revela como a escola reproduz e legitima desigualdades sociais por meio de mecanismos sutis de dominação cultural, naturalizando a exclusão","Define o uso de punições simbólicas no regimento escolar","Refere-se exclusivamente a conflitos entre corpo docente e direção"],g:1,exp:"A violência simbólica opera pela internalização das relações de dominação como naturais e legítimas. A escola, ao impor arbitrários culturais dominantes como universais, contribui para a reprodução das desigualdades — o orientador deve identificar e questionar esses mecanismos."},
-        {n:8,q:"Na teoria da autodeterminação (Deci e Ryan), os três componentes psicológicos básicos que sustentam a motivação intrínseca são:",ops:["Recompensa, punição e reforço","Autonomia, competência e pertencimento (vínculo)","Obediência, disciplina e rendimento","Cognição, afeto e comportamento"],g:1,exp:"A teoria da autodeterminação (SDT) postula que os seres humanos têm três necessidades psicológicas básicas inatas: autonomia (agir por iniciativa própria), competência (sentir-se eficaz) e pertencimento (vínculos relacionais significativos). O orientador deve criar condições que satisfaçam essas necessidades."},
-        {n:9,q:"O modelo ecológico de prevenção ao uso de drogas nas escolas, baseado na perspectiva de saúde pública, distingue-se de modelos tradicionais por:",ops:["Focar exclusivamente na abstinência como meta única","Atuar em múltiplos níveis (indivíduo, família, escola, comunidade e políticas públicas) com estratégias de redução de riscos","Priorizar a punição dos usuários como estratégia preventiva","Encaminhar imediatamente todos os envolvidos para tratamento médico compulsório"],g:1,exp:"O modelo ecológico compreende o uso de drogas como fenômeno multideterminado. A intervenção multinível aborda fatores de risco e proteção em todos os sistemas — do individual ao macrossocial — superando a visão punitiva ou informacional isolada."},
-        {n:10,q:"A 'teoria do apego' de John Bowlby tem implicações diretas para a orientação educacional porque:",ops:["Explica apenas o comportamento de bebês nos primeiros meses de vida","Os padrões de apego formados na infância influenciam a qualidade dos vínculos escolares, a regulação emocional e a resposta ao estresse acadêmico","Define como os professores devem disciplinar os alunos","Fundamenta a avaliação psicométrica de inteligência"],g:1,exp:"Bowlby demonstrou que os padrões de apego (seguro, ansioso, evitativo, desorganizado) formados com os cuidadores primários se generalizam para outras relações. Na escola, alunos com apego inseguro tendem a apresentar dificuldades relacionais e maior vulnerabilidade — o orientador pode atuar como 'figura de apego secundária'."},
-      ]},
-      {nome:'Legislação, PPP e Gestão Educacional (Q11–Q20)',qs:[
-        {n:11,q:"O art. 12, inciso VI, da LDB (Lei nº 9.394/96) determina que os estabelecimentos de ensino devem:",ops:["Contratar obrigatoriamente um orientador educacional por turno","Articular-se com as famílias e a comunidade, criando processos de integração da sociedade com a escola","Elaborar o PPP sem participação externa para garantir autonomia","Manter registro psicológico de todos os alunos"],g:1,exp:"A LDB, em seu art. 12, VI, obriga os estabelecimentos de ensino a articular-se com famílias e comunidade, integrando a sociedade à escola — atribuição diretamente relacionada ao trabalho do orientador educacional na construção de redes de apoio."},
-        {n:12,q:"Segundo a Resolução CNE/CEB nº 7/2010, que fixa as Diretrizes Curriculares Nacionais para o Ensino Fundamental de 9 anos, o projeto político-pedagógico:",ops:["Deve ser elaborado exclusivamente pela equipe gestora sem participação da comunidade escolar","Constitui instrumento de gestão e orientação do trabalho escolar, expressando a identidade educativa da instituição e devendo ser construído coletivamente","É documento optativo que pode ser substituído pelo regimento interno","Deve seguir modelo único definido pelo MEC para todo o território nacional"],g:1,exp:"A Resolução CNE/CEB nº 7/2010 reforça que o PPP é instrumento identitário e de gestão construído coletivamente, que deve refletir as especificidades da comunidade escolar — sua construção participativa é condição de legitimidade."},
-        {n:13,q:"O Conselho de Classe PRELIMINAR (ou Pré-Conselho) distingue-se do Conselho Parcial e do Final porque:",ops:["Ocorre no final do ano letivo com atribuição das menções finais","Acontece antes do início do período letivo, com finalidade diagnóstica e de planejamento coletivo","É convocado apenas para decidir sobre reprovação de alunos","Reúne exclusivamente pais e alunos, sem participação dos professores"],g:1,exp:"O Conselho Preliminar tem caráter diagnóstico e prospectivo: antecede o período letivo para o planejamento coletivo com base em dados anteriores. O Parcial acompanha o processo durante o ano; o Final delibera sobre aprovação/reprovação."},
-        {n:14,q:"O art. 56 do ECA (Lei nº 8.069/90) estabelece que os dirigentes de estabelecimentos de ensino fundamental comunicarão ao Conselho Tutelar casos de:",ops:["Apenas evasão escolar comprovada após 30 dias","Maus-tratos envolvendo alunos, reiteração de faltas injustificadas e elevados níveis de repetência e evasão","Somente violência física com lesões documentadas","Problemas de aprendizagem sem diagnóstico médico"],g:1,exp:"O art. 56 do ECA cria obrigação legal dos dirigentes escolares de comunicar ao Conselho Tutelar: I – maus-tratos; II – faltas injustificadas reiteradas; III – elevados níveis de repetência. O não cumprimento constitui omissão passível de responsabilização."},
-        {n:15,q:"A Lei nº 13.185/2015, que institui o Programa de Combate à Intimidação Sistemática (Bullying), define como atos de intimidação sistemática:",ops:["Qualquer briga ou conflito esporádico entre estudantes","Todo ato de violência física ou psicológica, intencional e repetitivo, sem motivação evidente, praticado por indivíduo ou grupo, em relação de desequilíbrio de poder","Apenas atos praticados em ambiente físico escolar, excluindo o ambiente virtual","Conflitos que envolvam exclusivamente agressão verbal"],g:1,exp:"A Lei 13.185/2015 define bullying como todo ato de violência (física ou psicológica), intencional, repetitivo, sem motivação evidente e com desequilíbrio de poder. A lei inclui o cyberbullying como modalidade e obriga as escolas a implementar ações de prevenção."},
-        {n:16,q:"A Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (MEC, 2008) estabelece que o Atendimento Educacional Especializado (AEE):",ops:["Substitui o ensino regular para alunos com deficiência severa","É complementar ou suplementar à formação dos estudantes, realizado preferencialmente no contraturno, em salas de recursos multifuncionais","Deve ser realizado exclusivamente em escolas especiais separadas","É obrigatório apenas para estudantes com deficiência visual e auditiva"],g:1,exp:"O AEE, conforme a PNEEPEI (2008), não substitui o ensino regular: é complementar (para deficiência) ou suplementar (para altas habilidades), realizado preferencialmente no contraturno em salas de recursos multifuncionais, garantindo acesso ao currículo comum."},
-        {n:17,q:"A diferença funcional ESSENCIAL entre o orientador educacional e o coordenador pedagógico é:",ops:["O coordenador tem formação superior; o orientador pode ter formação técnica","O orientador foca no desenvolvimento integral e socioemocional do estudante e na articulação escola-família-comunidade; o coordenador articula o trabalho pedagógico-curricular dos professores","São funções equivalentes com denominações diferentes segundo o estado","O orientador atende os professores; o coordenador atende diretamente os alunos"],g:1,exp:"Embora complementares, as funções diferem: o orientador educacional centra-se no estudante como sujeito integral (desenvolvimento, socioemocional, articulação com família/rede), enquanto o coordenador pedagógico foca na formação docente e na implementação curricular."},
-        {n:18,q:"O sigilo profissional na orientação educacional pode ser EXCEPCIONALMENTE quebrado quando:",ops:["Os pais legalmente responsáveis solicitarem todas as informações sobre o filho maior de 12 anos","Há risco concreto e iminente à integridade física ou psicológica do estudante ou de terceiros, tornando a proteção da vida um valor superior à confidencialidade","A direção da escola solicitar relatório detalhado para fins administrativos","O aluno apresenta desempenho insatisfatório consecutivo em avaliações"],g:1,exp:"O sigilo é princípio ético fundamental da orientação. Sua quebra é justificada eticamente apenas quando o sigilo colocaria em risco a integridade física ou psicológica do próprio sujeito ou de terceiros — situação de risco concreto e iminente sobrepõe-se à confidencialidade."},
-        {n:19,q:"O art. 15 da LDB estabelece que as escolas públicas de educação básica terão:",ops:["Dependência total das decisões da Secretaria de Educação para garantir uniformidade","Progressivos graus de autonomia pedagógica e administrativa e de gestão financeira, observadas as normas gerais do direito financeiro","Gestão compartilhada obrigatoriamente com empresas privadas parceiras","Autonomia restrita exclusivamente a decisões sobre calendário escolar"],g:1,exp:"O art. 15 da LDB consagra a autonomia progressiva das escolas públicas nas dimensões pedagógica, administrativa e financeira. Essa autonomia é o fundamento da gestão democrática e da construção do PPP como instrumento identitário da escola."},
-        {n:20,q:"A Lei nº 11.340/2006 (Lei Maria da Penha) tem implicações para a atuação do orientador educacional porque:",ops:["Aplica-se apenas ao contexto domiciliar, sem qualquer relação com o ambiente escolar","A escola é espaço privilegiado para identificação de sinais de violência doméstica e o orientador deve estar capacitado para acionar redes de proteção e apoio à estudante em situação de violência","É de competência exclusiva de delegacias especializadas em violência doméstica","A lei proíbe o orientador de intervir em situações de violência familiar por questões de privacidade"],g:1,exp:"A escola frequentemente é o primeiro espaço em que sinais de violência doméstica são identificados (mudanças comportamentais, marcas físicas, relatos). O orientador tem papel crucial na escuta qualificada, encaminhamento à rede de proteção (CREAS, DEAM, Conselho Tutelar) e apoio à estudante."},
-      ]},
-      {nome:'Práticas Avançadas e Casos Complexos (Q21–Q30)',qs:[
-        {n:21,q:"Na teoria do desenvolvimento vocacional de Donald Super, o conceito de 'maturidade vocacional' refere-se a:",ops:["A escolha definitiva de uma profissão na adolescência","O grau em que o comportamento de desenvolvimento de carreira do indivíduo corresponde ao esperado para sua etapa de vida","A capacidade de exercer com êxito uma função profissional específica","A preferência por carreiras com maior remuneração"],g:1,exp:"Super (1957) definiu maturidade vocacional como a congruência entre o comportamento de desenvolvimento de carreira do indivíduo e o comportamento esperado para sua etapa de desenvolvimento. É um conceito processual: a escolha vocacional é contínua e evolutiva ao longo de toda a vida."},
-        {n:22,q:"Em casos de suspeita fundada de abuso sexual envolvendo um estudante, o orientador educacional DEVE, como primeira e imediata ação:",ops:["Investigar detalhadamente o caso com entrevistas ao suposto agressor antes de qualquer comunicação","Comunicar imediatamente ao Conselho Tutelar e/ou ao sistema de garantia de direitos, preservando a proteção e a dignidade da criança ou adolescente","Aguardar confirmação médica e policial antes de acionar qualquer instância externa","Comunicar apenas à direção da escola e manter o caso interno para evitar exposição da família"],g:1,exp:"O art. 245 do ECA tipifica como infração o não comunicado por profissionais de educação. Diante de suspeita fundada de abuso, a comunicação imediata ao Conselho Tutelar é obrigação legal — a investigação compete às autoridades competentes, não à escola."},
-        {n:23,q:"A mediação de conflitos escolares difere da arbitragem e da negociação direta porque:",ops:["A mediação é mais rápida e eficaz para conflitos físicos graves","Na mediação, um terceiro neutro (mediador) facilita o diálogo e a construção autônoma da solução pelas próprias partes, sem impor decisões","Na mediação, o mediador decide o resultado com base em regras preestabelecidas","A negociação direta requer sempre a presença de um adulto como árbitro"],g:1,exp:"Na mediação, o mediador não decide: facilita o diálogo para que as partes construam a própria solução. Na arbitragem, o árbitro decide. Na negociação direta, as partes dialogam sem intermediário. A mediação é preferida por promover autonomia e habilidades socioemocionais."},
-        {n:24,q:"A 'evasão escolar' como fenômeno multideterminado deve ser compreendida pelo orientador a partir de:",ops:["Exclusivamente a decisão individual do aluno e da família","Fatores interativos: econômicos (trabalho infantil, pobreza), pedagógicos (reprovação, violência escolar), familiares (instabilidade) e sociais (território, violência urbana)","Unicamente problemas de aprendizagem não diagnosticados","Como responsabilidade exclusiva do aluno com histórico de indisciplina"],g:1,exp:"A evasão é fenômeno complexo e multicausal. Reduzir a um único fator distorce a análise e ineficácia as intervenções. O orientador deve mapear os múltiplos determinantes para propor intervenções articuladas com família, rede de proteção e políticas públicas."},
-        {n:25,q:"A articulação intersetorial (escola + saúde + assistência social + justiça) realizada pelo orientador pressupõe o princípio de:",ops:["Que a escola deve resolver todos os problemas dos alunos de forma autossuficiente","Proteção integral do estudante como sujeito de direitos, reconhecendo que suas necessidades biopsicossociais extrapolam a competência exclusiva da escola","Transferência integral de responsabilidades da escola para outros setores","Que apenas casos com diagnóstico médico confirmado merecem encaminhamento intersetorial"],g:1,exp:"A articulação intersetorial fundamenta-se na proteção integral (ECA, art. 1º): a criança é sujeito de direitos cujo desenvolvimento pleno exige ação integrada de múltiplos setores. O orientador opera como articulador desta rede, sem abdicar da responsabilidade escolar."},
-        {n:26,q:"Na abordagem da 'resiliência' em contexto escolar, o papel do orientador é fundamentalmente:",ops:["Identificar e remover todos os fatores de risco da vida do aluno","Fortalecer fatores de proteção (vínculos seguros, autoeficácia, habilidades socioemocionais) que permitam ao aluno adaptar-se positivamente às adversidades","Classificar os alunos em 'resilientes' e 'não resilientes' para encaminhamentos específicos","Garantir que o aluno não experiencie situações adversas durante o período escolar"],g:1,exp:"A resiliência não é ausência de adversidade, mas capacidade adaptativa construída socialmente. O orientador fortalece fatores protetores: vínculo escolar seguro, autoconhecimento, suporte familiar e redes de apoio — recursos que o aluno carrega consigo além da escola."},
-        {n:27,q:"O conceito de 'zona de desenvolvimento proximal' (ZDP) de Vygotsky, quando aplicado à orientação educacional, implica que o orientador deve:",ops:["Trabalhar apenas com o que o aluno já sabe fazer de forma independente","Identificar o que o aluno pode alcançar com mediação qualificada e criar intervenções que operem nessa zona, expandindo o desenvolvimento potencial","Aguardar o desenvolvimento natural sem intervenção, respeitando o ritmo biológico","Comparar o aluno apenas com seus pares de mesma idade cronológica"],g:1,exp:"A ZDP define a distância entre o nível de desenvolvimento real (o que faz sozinho) e o potencial (o que faz com mediação). Intervir na ZDP é atuar onde o desenvolvimento está em curso — o orientador como mediador qualificado potencializa o crescimento do aluno."},
-        {n:28,q:"A perspectiva da 'educação inclusiva' distingue-se da 'integração escolar' porque:",ops:["Educação inclusiva e integração são termos sinônimos na legislação brasileira","Na integração, o aluno se adapta à escola; na educação inclusiva, a escola se transforma para acolher todos os estudantes na sua diversidade","A integração oferece mais recursos especializados que a inclusão","A educação inclusiva se aplica apenas a alunos com deficiência; a integração é universal"],g:1,exp:"A integração é baseada no modelo médico: o aluno precisa se adaptar à escola existente. A educação inclusiva é baseada no modelo social: a escola deve se transformar para acolher a diversidade humana. É uma mudança paradigmática, não apenas terminológica."},
-        {n:29,q:"Na orientação de alunos com TDAH, o orientador educacional deve compreender que a abordagem mais eficaz é:",ops:["Exclusivamente farmacológica, sendo a escola responsável apenas por encaminhar ao médico","Multimodal: combinando suporte pedagógico (adaptações, estratégias), intervenção comportamental, orientação familiar e, quando necessário, suporte clínico especializado","Baseada em punições consistentes para reduzir comportamentos hiperativos","Restrita ao encaminhamento para classe especial para evitar transtorno à turma regular"],g:1,exp:"O consenso científico internacional para TDAH indica abordagem multimodal: intervenção pedagógica (adaptações curriculares, estratégias de organização), suporte comportamental, psicoeducação familiar e, quando indicado, intervenção farmacológica — nunca isolada."},
-        {n:30,q:"A construção da 'identidade profissional' do orientador educacional no Brasil foi historicamente marcada por tensão entre duas perspectivas. Qual par de perspectivas expressa corretamente essa tensão fundante?",ops:["Perspectiva burocrática vs. perspectiva informal","Perspectiva de ajustamento/controle social (adaptação do indivíduo ao sistema) vs. perspectiva emancipatória/transformadora (desenvolvimento crítico do sujeito)","Perspectiva médica vs. perspectiva jurídica","Perspectiva internacional vs. perspectiva nacional"],g:1,exp:"A história da orientação educacional no Brasil oscilou entre: a perspectiva liberal-funcionalista (ajustar o aluno ao sistema produtivo, herança dos anos 1940-60) e a perspectiva crítico-transformadora (influência de Paulo Freire e das pedagogias progressistas), que compreende o orientador como agente de emancipação e transformação social."},
+      {nome:'Conhecimentos em Informática (Q51–Q60)',qs:[
+        {n:51,q:"No MS-Windows, o atalho Ctrl+C realiza qual ação?",ops:["Recortar o item selecionado","Copiar o item selecionado para a área de transferência","Colar o conteúdo da área de transferência","Desfazer a última ação"],g:1,exp:"Ctrl+C copia o item selecionado para a área de transferência, mantendo o original. Ctrl+X recorta (remove o original). Ctrl+V cola. Ctrl+Z desfaz."},
+        {n:52,q:"No MS-Word, qual recurso insere números de página automaticamente no documento?",ops:["Inserir > Cabeçalho","Inserir > Número de Página","Layout > Margens","Referências > Notas de Rodapé"],g:1,exp:"Em Inserir > Número de Página, o Word insere a numeração automaticamente nas posições escolhidas (topo, rodapé ou margens do documento)."},
+        {n:53,q:"No MS-Word, qual atalho abre 'Localizar e Substituir'?",ops:["Ctrl+F","Ctrl+H","Ctrl+G","Ctrl+L"],g:1,exp:"Ctrl+H abre a caixa de diálogo 'Localizar e Substituir', que permite encontrar uma palavra/frase e substituí-la por outra automaticamente em todo o documento."},
+        {n:54,q:"No MS-Excel, qual fórmula calcula a média aritmética do intervalo B2:B10?",ops:["=SOMA(B2:B10)","=MÉDIA(B2:B10)","=MÁXIMO(B2:B10)","=CONT.SE(B2:B10)"],g:1,exp:"=MÉDIA(intervalo) calcula a média aritmética do conjunto de valores. =SOMA() soma, =MÁXIMO() retorna o maior valor, =CONT.SE() conta condicionalmente."},
+        {n:55,q:"No MS-Excel, o símbolo $ em uma referência como $A$1 indica:",ops:["Que a célula está vazia","Referência absoluta — a célula não muda ao copiar a fórmula","Que o valor é monetário","Erro na fórmula"],g:1,exp:"O $ fixa a referência de célula (referência absoluta). $A$1 sempre aponta para a célula A1, mesmo ao copiar a fórmula para outras células. Sem $, a referência é relativa e se ajusta automaticamente."},
+        {n:56,q:"No MS-Excel, qual função verifica uma condição e retorna valores diferentes conforme o resultado?",ops:["=SOMA()","=PROCV()","=SE()","=CONT.NÚM()"],g:2,exp:"=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso) é a função condicional básica do Excel. Exemplo: =SE(A1>10;\"Aprovado\";\"Reprovado\")."},
+        {n:57,q:"No MS-PowerPoint, qual recurso aplica efeitos visuais a objetos (texto, imagem) DENTRO de um slide?",ops:["Transição","Design","Animação","Layout"],g:2,exp:"Animação aplica efeitos de entrada, ênfase ou saída a objetos dentro de um slide. Transição é o efeito entre slides ao avançar a apresentação."},
+        {n:58,q:"No MS-PowerPoint, o modo 'Apresentação de Slides' (F5) serve para:",ops:["Editar o layout do slide","Exibir a apresentação em tela cheia para o público","Adicionar anotações ao apresentador","Imprimir os slides em preto e branco"],g:1,exp:"F5 inicia a apresentação de slides em tela cheia a partir do primeiro slide. Shift+F5 inicia a partir do slide atual."},
+        {n:59,q:"Na internet, o que significa a sigla URL?",ops:["Universal Reading Language","Uniform Resource Locator (endereço de um recurso na internet)","United Remote Link","User Resource Login"],g:1,exp:"URL = Uniform Resource Locator: é o endereço que identifica e localiza um recurso na internet, especificando protocolo (https://), domínio (site.com.br) e caminho (/pagina)."},
+        {n:60,q:"Ao enviar um e-mail com 'CC' (Com Cópia), o que ocorre?",ops:["O e-mail é enviado apenas para o destinatário em CC","Todos os destinatários (principal e CC) recebem o e-mail e podem ver os endereços uns dos outros","O e-mail fica em modo confidencial","Apenas o remetente recebe cópia"],g:1,exp:"CC (Com Cópia) envia uma cópia do e-mail para destinatários adicionais, e todos os destinatários conseguem ver os endereços de e-mail de quem está em CC. Para cópia oculta, usa-se CCO (Cópia Oculta)."},
       ]},
     ]
   },
 ];
 
-const STORAGE_KEY = 'orientadorRespostas';
-
-const videoMap = {
-  // Português – Prof Noslen
-  'Colocação Pronominal':        'l_WxqVvmyGo',
-  'Concordância Verbal':         '4ZJnTqTk4_Y',
-  'Regência Verbal':             'B0EgJVneeGE',
-  'Figuras de Linguagem':        'Hi-2LNNg4SE',
-  'Uso da Crase':                'yUpRa62vcSI',
-  'Funções da Linguagem':        'iwyZbcC9pU0',
-  // Informática – Curso em Vídeo / grandes canais
-  'MS-Word':                     '59lDXVkqlqQ',
-  'MS-Excel':                    'Hi6OZYYh52w',
-  'MS-Windows':                  'N8tizX5Wvl4',
-  'MS-PowerPoint':               's7CckgnzojY',
-  'Internet e E-mail':           'pY7pM6JOxMU',
-  // Conhecimentos Específicos
-  'Papel do Orientador':         'f1sfPO0pZc4',
-  'Bullying e Cyberbullying':    'c4hviPCe2Vo',
-  'Projeto Político-Pedagógico': 'Aip1hspKOKY',
-  'Desenvolvimento Estudantil':  'MFBjAjsg5FU',
-  'Mediação de Conflitos':       'sSopbaVYjUg',
-  'Habilidades Socioemocionais': 'AWFE6sb748s',
-};
-
-
+// ===================== GLOBAIS =====================
+const STORAGE_KEY = 'aceRespostas';
 let flashDados=[], flashDeck=[], flashIdx=0;
 let quizPerguntas=[], quizIdx=0, quizCertas=0, quizErradas=0, respondeu=false;
 let exAtual=null, exSecAtual=0, exQAtual=0, exRespostas={}, exStarted=false;
 let _speechRate=1;
 
+// ===================== INIT =====================
 window.addEventListener('DOMContentLoaded',()=>{
   buildFlashDados();
   renderResumo();
@@ -588,10 +773,11 @@ window.addEventListener('DOMContentLoaded',()=>{
   renderMapa();
   renderExamesList();
   mostrarRelatorio();
-  const dark = localStorage.getItem('orientadorDark');
+  const dark = localStorage.getItem('aceDark');
   if(dark==='1') document.body.setAttribute('data-dark','');
 });
 
+// ===================== RESUMO =====================
 function renderResumo(){
   const el = document.getElementById('sec-resumo');
   el.innerHTML = disciplinas.map((d,i)=>`
@@ -620,6 +806,7 @@ function toggleDisc(i,hdr){
   hdr.classList.toggle('open',open);
 }
 
+// ===================== FLASHCARDS =====================
 function buildFlashDados(){
   flashDados=[];
   disciplinas.forEach(d=>{
@@ -690,8 +877,10 @@ function falar(txt){
   speechSynthesis.speak(u);
 }
 
+// ===================== MAPA =====================
 function renderMapa(){
   const filtros = document.getElementById('mapa-filtros');
+  const grid = document.getElementById('mapa-grid');
   const nomes = ['Todos',...disciplinas.map(d=>d.nome)];
   filtros.innerHTML = nomes.map((n,i)=>`<button class="${i===0?'ativo':''}" onclick="filtrarMapa(this,'${n}')">${n}</button>`).join('');
   _renderMapaGrid('Todos');
@@ -720,6 +909,33 @@ function _renderMapaGrid(disc){
   `).join('');
 }
 
+// ===================== QUIZ =====================
+const videoMap = {
+  'Figuras de Linguagem':    'Hi-2LNNg4SE',
+  'Pontuação':               'VBd0zYVNHlk',
+  'Voz Passiva':             'uPoNVpFf4FQ',
+  'Semântica e Antônimos':   'seHDO4IM_ik',
+  'Concordância Verbal':     '4ZJnTqTk4_Y',
+  'Porcentagem':             'w5LBMTEpExk',
+  'Regra de Três':           'J-rh35WVKSA',
+  'Geometria Plana':         'B56sPSdGh2Y',
+  'Frações':                 'FRjSwZH_xgM',
+  'Princípios do SUS':       'exQpXr6Q_6Y',
+  'Legislação do SUS':       'eDxYBpSSSNg',
+  'Promoção da Saúde':       'xVT5TwBr6zQ',
+  'Vigilância Epidemiológica':'SiqXMZkCGSk',
+  'Visita Domiciliar ACE':   'xKJfCqPbRZA',
+  'Dengue e Aedes':          'xLFBz_6xBHI',
+  'Leptospirose':            'RxiPVBqfXkE',
+  'Doença de Chagas':        'PkBhp8VjPeA',
+  'Malária':                 'NfbKn4C1W_A',
+  'MS-Word':                 '59lDXVkqlqQ',
+  'MS-Excel':                'Hi6OZYYh52w',
+  'MS-Windows':              'N8tizX5Wvl4',
+  'MS-PowerPoint':           's7CckgnzojY',
+  'Internet e E-mail':       'pY7pM6JOxMU',
+};
+
 function iniciarQuiz(){
   const filtro = document.getElementById('quiz-filtro').value;
   let banco = filtro==='todos' ? [...questoes] : questoes.filter(q=>q.disc===filtro);
@@ -736,14 +952,20 @@ function renderQuestao(){
   respondeu=false;
   const q = quizPerguntas[quizIdx];
   document.getElementById('q-disc').textContent = q.disc;
-  document.getElementById('q-tema').textContent = q.tema || '';
-  document.getElementById('q-tema').style.display = q.tema ? '' : 'none';
+  const temaEl = document.getElementById('q-tema');
+  temaEl.textContent = q.tema || '';
+  temaEl.style.display = q.tema ? '' : 'none';
   document.getElementById('q-num').textContent = `${quizIdx+1}/${quizPerguntas.length}`;
   document.getElementById('q-pergunta').textContent = q.p;
   document.getElementById('q-exp').classList.remove('show');
   document.getElementById('btn-prox-q').style.display='none';
-  // vídeo relacionado
-  const vid = q.tema ? (videoMap[q.tema]||'') : '';
+  const ops = document.getElementById('q-ops');
+  ops.innerHTML = q.ops.map((o,i)=>`
+    <button class="quiz-op" onclick="verificarResposta(${i})">
+      <span style="font-weight:700;min-width:18px">${String.fromCharCode(65+i)})</span> ${o}
+    </button>
+  `).join('');
+  const vid = q.tema ? (videoMap[q.tema] || '') : '';
   const wrap = document.getElementById('q-video-wrap');
   if(vid){
     wrap.style.display = 'block';
@@ -752,12 +974,6 @@ function renderQuestao(){
     wrap.style.display = 'none';
     wrap.innerHTML = '';
   }
-  const ops = document.getElementById('q-ops');
-  ops.innerHTML = q.ops.map((o,i)=>`
-    <button class="quiz-op" onclick="verificarResposta(${i})">
-      <span style="font-weight:700;min-width:18px">${String.fromCharCode(65+i)})</span> ${o}
-    </button>
-  `).join('');
 }
 
 function verificarResposta(idx){
@@ -799,6 +1015,7 @@ function salvarRespostaQuiz(acertou){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(dados));
 }
 
+// ===================== SIMULADOS =====================
 function renderExamesList(){
   const el = document.getElementById('exames-lista');
   el.innerHTML = EXAMES_DATA.map(e=>`
@@ -830,6 +1047,7 @@ function renderQuestaoExame(){
   const q = sec.qs[exQAtual];
   document.getElementById('ex-sec-label').textContent = sec.nome;
 
+  // pergunta
   const pergEl = document.getElementById('ex-pergunta');
   pergEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px"><span style="flex:1"></span><button class="audio-btn" title="Ouvir pergunta">🔊</button></div>`;
   pergEl.querySelector('span').textContent = `Q${q.n}. ${q.q}`;
@@ -838,6 +1056,7 @@ function renderQuestaoExame(){
   document.getElementById('ex-exp').classList.remove('show');
   document.getElementById('btn-ex-prox').style.display='none';
 
+  // alternativas
   const ops = document.getElementById('ex-ops');
   ops.innerHTML = q.ops.map((o,i)=>`
     <button class="ex-op" data-idx="${i}">
@@ -847,6 +1066,7 @@ function renderQuestaoExame(){
     </button>
   `).join('');
 
+  // preenche texto e listeners sem risco de escape
   ops.querySelectorAll('.ex-op').forEach((btn, i)=>{
     btn.querySelector('span:nth-child(2)').textContent = q.ops[i];
     btn.addEventListener('click', (e)=>{
@@ -918,6 +1138,7 @@ function voltarExames(){
   exAtual=null; exStarted=false;
 }
 
+// ===================== RELATÓRIO =====================
 function mostrarRelatorio(){
   const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
   const qT=dados.quizTotal||0, qC=dados.quizCertas||0;
@@ -935,7 +1156,7 @@ function exportarTXT(){
   const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
   const qT=dados.quizTotal||0,qC=dados.quizCertas||0;
   const sT=dados.simTotal||0,sC=dados.simCertas||0,sQ=dados.simQuestoes||0;
-  const txt=`RELATÓRIO – Orientador Educacional
+  const txt=`RELATÓRIO ACE – Agente de Combate às Endemias
 Gerado em: ${new Date().toLocaleString('pt-BR')}
 
 QUIZ
@@ -949,11 +1170,11 @@ SIMULADOS
   Acertos: ${sC} (${sQ?Math.round(sC/sQ*100):0}%)
 
 ---
-Bons estudos! 🌸
+Bons estudos! 🌿
 `;
   const a=document.createElement('a');
   a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(txt);
-  a.download='relatorio-orientador.txt';
+  a.download='relatorio-ace.txt';
   a.click();
   toast('Exportado com sucesso!');
 }
@@ -965,6 +1186,7 @@ function limparDados(){
   toast('Dados apagados!');
 }
 
+// ===================== UTILS =====================
 function mudarTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('ativo'));
   el.classList.add('ativo');
@@ -982,7 +1204,7 @@ function setSpeed(v, btn){
 function toggleDark(){
   const dark = document.body.hasAttribute('data-dark');
   dark ? document.body.removeAttribute('data-dark') : document.body.setAttribute('data-dark','');
-  localStorage.setItem('orientadorDark', dark?'0':'1');
+  localStorage.setItem('aceDark', dark?'0':'1');
 }
 
 function toast(msg){
