@@ -163,6 +163,8 @@ header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 2
 .btn-ex-prox{background:var(--ace-primary);color:#fff}
 .btn-ex-prox:hover{background:var(--ace-secondary)}
 .btn-ex-voltar{background:var(--border);color:var(--text)}
+.btn-ex-encerrar{background:#dc2626;color:#fff}
+.btn-ex-encerrar:hover{background:#b91c1c}
 .ex-resultado{display:none;text-align:center;padding:28px}
 .ex-resultado.show{display:block}
 .ex-res-num{font-size:3.5rem;font-weight:800;color:var(--ace-primary)}
@@ -317,12 +319,14 @@ header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 2
         <div class="ex-explicacao" id="ex-exp"></div>
         <div class="ex-nav">
           <button class="btn-ex-voltar" onclick="voltarExames()">← Sair</button>
+          <button class="btn-ex-encerrar" id="btn-ex-encerrar" onclick="encerrarAntecipado()">⏹ Encerrar</button>
           <button class="btn-ex-prox" id="btn-ex-prox" onclick="avancarExame()">Próxima →</button>
         </div>
       </div>
       <div class="ex-resultado" id="ex-resultado">
         <div class="ex-res-num" id="ex-res-num"></div>
         <div class="ex-res-label" id="ex-res-label"></div>
+        <div id="ex-res-parcial" style="font-size:.8rem;color:#d97706;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 14px;margin-bottom:16px;display:none"></div>
         <button onclick="voltarExames()" style="padding:10px 24px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer">Voltar</button>
       </div>
     </div>
@@ -1752,8 +1756,33 @@ function renderExamesList(){
   `).join('');
 }
 
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function shuffleSimulado(exame){
+  const clone = JSON.parse(JSON.stringify(exame));
+  clone.secoes.forEach(sec=>{
+    // Agrupa questões que compartilham texto-base (mantém grupo junto)
+    const grupos = [];
+    let grupo = [];
+    sec.qs.forEach(q=>{
+      if(q.texto && grupo.length>0){ grupos.push(grupo); grupo=[q]; }
+      else { grupo.push(q); }
+    });
+    if(grupo.length) grupos.push(grupo);
+    shuffleArray(grupos);
+    sec.qs = grupos.flat();
+  });
+  return clone;
+}
+
 function iniciarExame(id){
-  exAtual = EXAMES_DATA.find(e=>e.id===id);
+  exAtual = shuffleSimulado(EXAMES_DATA.find(e=>e.id===id));
   exSecAtual=0; exQAtual=0; exRespostas={}; exStarted=true;
   document.getElementById('exames-lista').style.display='none';
   const ativo = document.getElementById('exame-ativo');
@@ -1765,16 +1794,24 @@ function iniciarExame(id){
   renderQuestaoExame();
 }
 
+function getTextoAtivo(sec, qIdx){
+  for(let i=qIdx; i>=0; i--){
+    if(sec.qs[i].texto) return sec.qs[i].texto;
+  }
+  return null;
+}
+
 function renderQuestaoExame(){
   const sec = exAtual.secoes[exSecAtual];
   const q = sec.qs[exQAtual];
   document.getElementById('ex-sec-label').textContent = sec.nome;
 
   // pergunta
+  const textoAtivo = getTextoAtivo(sec, exQAtual);
   const pergEl = document.getElementById('ex-pergunta');
-  if(q.texto){
+  if(textoAtivo){
     pergEl.innerHTML = `<div class="texto-base-wrap" id="tbw-${q.n}"><button class="texto-base-toggle" onclick="document.getElementById('tbw-${q.n}').classList.toggle('open')">📄 Texto-base — clique para expandir</button><div class="texto-base-conteudo"></div></div><div style="display:flex;align-items:flex-start;gap:8px"><span style="flex:1"></span><button class="audio-btn" title="Ouvir pergunta">🔊</button></div>`;
-    pergEl.querySelector('.texto-base-conteudo').textContent = q.texto;
+    pergEl.querySelector('.texto-base-conteudo').textContent = textoAtivo;
   } else {
     pergEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px"><span style="flex:1"></span><button class="audio-btn" title="Ouvir pergunta">🔊</button></div>`;
   }
@@ -1850,20 +1887,38 @@ function avancarExame(){
   renderQuestaoExame();
 }
 
-function finalizarExame(){
+function encerrarAntecipado(){
+  const respondidas = Object.keys(exRespostas).length;
+  if(respondidas===0){ voltarExames(); return; }
+  finalizarExame(true);
+}
+
+function finalizarExame(parcial){
   document.getElementById('ex-corpo').style.display='none';
-  let total=0,certas=0;
+  let totalExame=0, respondidas=0, certas=0;
   exAtual.secoes.forEach((s,si)=>{
     s.qs.forEach((q,qi)=>{
-      total++;
-      if(exRespostas[`${si}_${qi}`]===q.g) certas++;
+      totalExame++;
+      const resp = exRespostas[`${si}_${qi}`];
+      if(resp!==undefined){
+        respondidas++;
+        if(resp===q.g) certas++;
+      }
     });
   });
-  document.getElementById('ex-res-num').textContent = `${certas}/${total}`;
-  const pct=Math.round(certas/total*100);
+  const base = parcial ? respondidas : totalExame;
+  document.getElementById('ex-res-num').textContent = `${certas}/${base}`;
+  const pct = base>0 ? Math.round(certas/base*100) : 0;
   document.getElementById('ex-res-label').textContent = `${pct}% de aproveitamento`;
+  const parcialEl = document.getElementById('ex-res-parcial');
+  if(parcial && respondidas<totalExame){
+    parcialEl.textContent = `⚠️ Simulado encerrado antecipadamente — ${respondidas} de ${totalExame} questões respondidas`;
+    parcialEl.style.display='block';
+  } else {
+    parcialEl.style.display='none';
+  }
   document.getElementById('ex-resultado').classList.add('show');
-  salvarResultadoSimulado(certas,total);
+  salvarResultadoSimulado(certas, respondidas);
 }
 
 function salvarResultadoSimulado(certas,total){
