@@ -190,6 +190,53 @@ header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 2
 [data-dark] .freq-alto{background:#2a0808;color:#fca5a5}
 [data-dark] .freq-medio{background:#2a1a00;color:#fcd34d}
 [data-dark] .freq-baixo{background:#052e16;color:#86efac}
+/* PROVAS */
+.provas-lista{display:grid;gap:10px}
+.prova-card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.prova-card-info h3{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.prova-card-info p{font-size:.75rem;color:var(--muted)}
+.prova-ativa{display:none}
+.prova-ativa.show{display:block}
+.prova-header{background:linear-gradient(135deg,#052e16,#15803d);color:#fff;border-radius:var(--radius);padding:16px 18px;margin-bottom:16px}
+.prova-header h2{font-size:1rem;font-weight:700}
+.prova-header p{font-size:.75rem;color:#bbf7d0;margin-top:4px}
+.prova-resultado-topo{background:linear-gradient(135deg,#052e16,#15803d);color:#fff;border-radius:var(--radius);padding:22px;text-align:center;margin-bottom:18px;display:none}
+.prova-resultado-topo.show{display:block}
+.prova-res-num{font-size:3rem;font-weight:800;color:#bbf7d0}
+.prova-res-pct{font-size:1.1rem;color:#bbf7d0;margin-top:4px}
+.prova-res-msg{font-size:.85rem;color:#a7f3d0;margin-top:8px}
+.prova-questao-wrap{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:border-color .3s}
+.prova-questao-wrap.acertou{border-left-color:#15803d}
+.prova-questao-wrap.errou{border-left-color:#dc2626}
+.prova-q-header{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.prova-q-num{font-size:.68rem;font-weight:700;background:var(--ace-primary);color:#fff;padding:2px 8px;border-radius:10px}
+.prova-q-disc{font-size:.65rem;color:var(--muted);font-weight:600;text-transform:uppercase}
+.prova-q-resultado{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:10px;display:none}
+.prova-q-resultado.acertou{display:inline-block;background:#dcfce7;color:#15803d}
+.prova-q-resultado.errou{display:inline-block;background:#fee2e2;color:#dc2626}
+.prova-q-enunciado{font-size:.88rem;font-weight:600;line-height:1.6;margin-bottom:12px}
+.prova-ops{display:flex;flex-direction:column;gap:6px}
+.prova-op{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:.82rem;text-align:left;transition:all .15s;display:flex;gap:8px;align-items:flex-start;width:100%}
+.prova-op:hover:not([disabled]){background:#dcfce7;border-color:var(--ace-primary);color:#14532d}
+.prova-op.selecionada{background:#dcfce7;border-color:var(--ace-primary);font-weight:600;color:#14532d}
+.prova-op.correta{background:#dcfce7;border-color:#15803d;font-weight:600;color:#14532d}
+.prova-op.errada{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.prova-op[disabled]{cursor:default}
+[data-dark] .prova-op{background:var(--bg);color:var(--text)}
+[data-dark] .prova-op:hover:not([disabled]){background:#052e16;border-color:var(--ace-primary);color:#bbf7d0}
+[data-dark] .prova-op.selecionada{background:#052e16;border-color:var(--ace-primary);color:#bbf7d0}
+[data-dark] .prova-op.correta{background:#052e16;border-color:#15803d;color:#bbf7d0}
+[data-dark] .prova-op.errada{background:#2a0808;border-color:#dc2626;color:#fca5a5}
+.prova-exp{background:#f0fdf4;border-left:4px solid var(--ace-primary);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.6;margin-top:10px;display:none}
+.prova-exp.show{display:block}
+[data-dark] .prova-exp{background:#052e16}
+.btn-corrigir-prova{display:block;width:100%;padding:14px;background:var(--ace-primary);color:#fff;border:none;border-radius:var(--radius);font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;text-align:center}
+.btn-corrigir-prova:hover{background:var(--ace-secondary)}
+.prova-nav-topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.prova-progresso{font-size:.8rem;color:var(--muted)}
+.prova-aviso{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 14px;font-size:.78rem;color:#92400e;margin-top:8px;display:none}
+.prova-aviso.show{display:block}
+[data-dark] .prova-aviso{background:#2a1a00;color:#fcd34d}
 /* RESPONSIVE */
 @media(max-width:600px){
   .flash-frente .termo{font-size:1.1rem}
@@ -226,6 +273,7 @@ header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 2
     <div class="tab" onclick="mudarTab('mapa',this)">🗺️ Mapa</div>
     <div class="tab" onclick="mudarTab('quiz',this)">❓ Quiz</div>
     <div class="tab" onclick="mudarTab('simulados',this)">📝 Simulados</div>
+    <div class="tab" onclick="mudarTab('provas',this)">📋 Provas</div>
     <div class="tab" onclick="mudarTab('relatorio',this)">📊 Relatório</div>
   </div>
 </div>
@@ -331,6 +379,30 @@ header{background:linear-gradient(135deg,#052e16,#15803d,#16a34a);padding:18px 2
         <div id="ex-res-parcial" style="font-size:.8rem;color:#d97706;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:8px 14px;margin-bottom:16px;display:none"></div>
         <button onclick="voltarExames()" style="padding:10px 24px;border-radius:8px;border:none;background:var(--ace-primary);color:#fff;font-weight:600;cursor:pointer">Voltar</button>
       </div>
+    </div>
+  </div>
+
+  <!-- PROVAS -->
+  <div id="sec-provas" class="secao">
+    <div class="provas-lista" id="provas-lista"></div>
+    <div class="prova-ativa" id="prova-ativa">
+      <div class="prova-resultado-topo" id="prova-resultado-topo">
+        <div class="prova-res-num" id="prova-res-num"></div>
+        <div class="prova-res-pct" id="prova-res-pct"></div>
+        <div class="prova-res-msg" id="prova-res-msg"></div>
+      </div>
+      <div class="prova-header">
+        <h2 id="prova-titulo-ativo"></h2>
+        <p id="prova-info-ativo"></p>
+      </div>
+      <div class="prova-nav-topo">
+        <button onclick="voltarProvas()" style="padding:8px 16px;border-radius:8px;border:none;background:var(--border);color:var(--text);font-weight:600;cursor:pointer;font-size:.82rem">← Sair</button>
+        <span class="prova-progresso" id="prova-progresso">0 de 60 respondidas</span>
+      </div>
+      <div id="prova-questoes"></div>
+      <div class="prova-aviso" id="prova-aviso">⚠️ Responda todas as questões antes de corrigir, ou a prova será corrigida com as respostas marcadas até agora.</div>
+      <button class="btn-corrigir-prova" id="btn-corrigir" onclick="corrigirProva()">✅ Corrigir Prova</button>
+      <div style="height:40px"></div>
     </div>
   </div>
 
@@ -1550,6 +1622,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   renderFlash();
   renderMapa();
   renderExamesList();
+  renderProvasLista();
   mostrarRelatorio();
   const dark = localStorage.getItem('aceDark');
   if(dark==='1') document.body.setAttribute('data-dark','');
@@ -2043,6 +2116,220 @@ function limparDados(){
   toast('Dados apagados!');
 }
 
+// ===================== PROVAS =====================
+const PROVAS_DATA = [
+  {
+    id:'prov1',
+    titulo:'Prova ACE Santa Filomena',
+    banca:'Instituto Ação Bahia',
+    ano:2025,
+    edital:'Agente de Combate às Endemias – Santa Filomena/BA',
+    qs:[
+      // LÍNGUA PORTUGUESA (Q1–Q10)
+      {n:1,disc:"Língua Portuguesa",q:"Leia o trecho: 'O Agente de Combate às Endemias percorre diariamente os bairros em busca de criadouros do mosquito transmissor da dengue.' O sujeito da oração é:",ops:["os bairros","diariamente","O Agente de Combate às Endemias","do mosquito transmissor da dengue"],g:2,exp:"O sujeito é quem pratica a ação do verbo. 'O Agente de Combate às Endemias' é o sujeito simples, pois é quem 'percorre' os bairros."},
+      {n:2,disc:"Língua Portuguesa",q:"Assinale a alternativa em que a grafia está CORRETA de acordo com o Acordo Ortográfico vigente:",ops:["vôo de pássaro","idéia principal","questão sócio-econômica","frequência das visitas"],g:3,exp:"Pelo Acordo Ortográfico de 2009: 'voo' (sem acento), 'ideia' (sem acento) e 'socioeconômica' (sem hífen) são as grafias corretas. 'Frequência' está grafada corretamente."},
+      {n:3,disc:"Língua Portuguesa",q:"Assinale a alternativa com ERRO de concordância verbal:",ops:["Os agentes realizaram visitas domiciliares.","Faz três anos que o ACE atua no município.","Haviam muitos criadouros no imóvel.","A maioria dos imóveis foi vistoriada."],g:2,exp:"'Haver' no sentido de existir é impessoal (não tem sujeito) e deve ficar no singular: 'Havia muitos criadouros no imóvel'. O erro está na alternativa C."},
+      {n:4,disc:"Língua Portuguesa",q:"Na frase 'Os focos foram eliminados pelo agente', a voz verbal é:",ops:["Ativa","Reflexiva","Passiva sintética","Passiva analítica"],g:3,exp:"Voz passiva analítica: auxiliar 'foram' + particípio 'eliminados' + agente da passiva 'pelo agente'. A equivalente ativa seria: 'O agente eliminou os focos'."},
+      {n:5,disc:"Língua Portuguesa",q:"Em 'O ACE orientou os moradores sobre a prevenção da dengue', a palavra 'sobre' exerce a função de:",ops:["Advérbio","Preposição","Conjunção subordinativa","Adjetivo"],g:1,exp:"'Sobre' é preposição — palavra invariável que estabelece relação entre termos da oração. Neste caso, liga o verbo 'orientou' ao seu complemento nominal."},
+      {n:6,disc:"Língua Portuguesa",q:"Assinale a alternativa em que a pontuação está CORRETA:",ops:["O ACE visitou o imóvel, e encontrou criadouros.","Carlos agente veterano da equipe, recebeu elogio.","Paulo, supervisor da equipe, assinou o relatório.","O mosquito, que transmite a dengue está no bairro."],g:2,exp:"Em 'Paulo, supervisor da equipe, assinou o relatório', as vírgulas isolam corretamente o aposto explicativo 'supervisor da equipe'. Nas demais alternativas o uso da vírgula está incorreto."},
+      {n:7,disc:"Língua Portuguesa",q:"Qual das alternativas apresenta uma ORAÇÃO SUBORDINADA ADVERBIAL CONCESSIVA?",ops:["Ele saiu porque estava cansado.","Embora estivesse cansado, ele continuou a visita.","Ele saiu para descansar.","Ele saiu quando terminou o trabalho."],g:1,exp:"Oração concessiva expressa ideia contrária à principal sem impedi-la. 'Embora estivesse cansado' é introduzida pela conjunção concessiva 'embora'. A alternativa A é causal, C é final e D é temporal."},
+      {n:8,disc:"Língua Portuguesa",q:"Em qual alternativa há erro de REGÊNCIA VERBAL?",ops:["O ACE obedeceu ao protocolo de visitas.","Ele aspirou ao cargo de supervisor.","O agente assistiu ao treinamento.","O morador obedeceu o regulamento."],g:3,exp:"'Obedecer' é verbo transitivo indireto e exige preposição 'a': 'obedecer AO regulamento'. O correto seria 'O morador obedeceu ao regulamento'."},
+      {n:9,disc:"Língua Portuguesa",q:"O antônimo de 'benevolente' é:",ops:["Bondoso","Generoso","Malevolente","Tolerante"],g:2,exp:"'Benevolente' = que tem boa vontade/intenção. 'Malevolente' = que tem má intenção. O prefixo 'mal-' indica oposição a 'ben-' (bem). São antônimos perfeitos."},
+      {n:10,disc:"Língua Portuguesa",q:"A figura de linguagem em 'A dengue é um inimigo silencioso que se esconde em pequenos recipientes' é:",ops:["Hipérbole","Metonímia","Metáfora","Comparação"],g:2,exp:"Metáfora: identificação implícita entre 'dengue' e 'inimigo silencioso', sem o uso de conectivo comparativo ('como', 'tal qual'). Se usasse 'como um inimigo', seria comparação."},
+      // MATEMÁTICA (Q11–Q20)
+      {n:11,disc:"Matemática",q:"Um ACE visitou 180 imóveis em 5 dias. Mantendo o mesmo ritmo, quantos imóveis visitará em 8 dias?",ops:["252","270","288","300"],g:2,exp:"180 ÷ 5 = 36 imóveis/dia. 36 × 8 = 288 imóveis. Grandezas diretamente proporcionais: mais dias → mais imóveis."},
+      {n:12,disc:"Matemática",q:"Numa rua, 25% dos imóveis tinham criadouros. Se a rua tem 60 imóveis, quantos tinham criadouros?",ops:["12","15","18","20"],g:1,exp:"25% de 60 = 60 × 0,25 = 15 imóveis com criadouros. Ou: 10% de 60 = 6; 25% = 6 × 2,5 = 15."},
+      {n:13,disc:"Matemática",q:"Um ACE percorreu 2/5 do território pela manhã e 1/4 à tarde. Qual fração do território ainda falta cobrir?",ops:["3/20","7/20","9/20","11/20"],g:1,exp:"2/5 = 8/20; 1/4 = 5/20. Total percorrido: 8/20 + 5/20 = 13/20. Falta: 20/20 − 13/20 = 7/20 do território."},
+      {n:14,disc:"Matemática",q:"A área de um terreno retangular de 18 m × 7 m é:",ops:["50 m²","100 m²","126 m²","252 m²"],g:2,exp:"Área do retângulo = base × altura = 18 × 7 = 126 m²."},
+      {n:15,disc:"Matemática",q:"Se 4 agentes visitam 240 imóveis em 3 dias, quantos imóveis 6 agentes visitariam no mesmo período?",ops:["300","320","360","400"],g:2,exp:"4 agentes → 240 imóveis. 1 agente → 60 imóveis. 6 agentes → 60 × 6 = 360 imóveis. Grandezas diretamente proporcionais."},
+      {n:16,disc:"Matemática",q:"Uma solução larvicida cobre 300 m² por aplicação. Para cobrir 2.100 m², quantas aplicações são necessárias?",ops:["5","6","7","8"],g:2,exp:"2.100 ÷ 300 = 7 aplicações."},
+      {n:17,disc:"Matemática",q:"A taxa de incidência de dengue em uma cidade foi de 250 casos por 100.000 habitantes. Se a população é de 80.000 habitantes, quantos casos ocorreram?",ops:["150","175","200","250"],g:2,exp:"(250 ÷ 100.000) × 80.000 = 200 casos."},
+      {n:18,disc:"Matemática",q:"Simplifique a fração 36/48:",ops:["2/3","3/4","4/5","5/6"],g:1,exp:"MDC(36, 48) = 12. 36 ÷ 12 = 3; 48 ÷ 12 = 4. Resultado: 3/4."},
+      {n:19,disc:"Matemática",q:"Um depósito de larvicida tem 120 litros. Foram usados 35% do volume. Quantos litros restaram?",ops:["42 L","72 L","78 L","85 L"],g:2,exp:"35% de 120 = 42 litros usados. Restam: 120 − 42 = 78 litros."},
+      {n:20,disc:"Matemática",q:"Qual é o valor de 5² + 2³?",ops:["17","25","33","35"],g:2,exp:"5² = 25; 2³ = 8. 25 + 8 = 33."},
+      // SAÚDE PÚBLICA E SUS (Q21–Q30)
+      {n:21,disc:"Saúde Pública",q:"Qual princípio do SUS determina que o sistema deve atender a todos os cidadãos, independentemente de contribuição prévia?",ops:["Integralidade","Equidade","Universalidade","Descentralização"],g:2,exp:"Universalidade: o SUS atende a todos sem distinção, pois a saúde é um direito de todos garantido pela Constituição Federal de 1988 (art. 196)."},
+      {n:22,disc:"Saúde Pública",q:"A Lei 8.080/1990 (Lei Orgânica da Saúde) regulamenta:",ops:["Apenas os hospitais públicos federais","As condições para a promoção, proteção e recuperação da saúde, organizando o SUS","Apenas o pagamento dos servidores da saúde","Exclusivamente a Estratégia Saúde da Família"],g:1,exp:"A Lei 8.080/1990 dispõe sobre as condições para a promoção, proteção e recuperação da saúde e a organização e o funcionamento do SUS — é a Lei Orgânica da Saúde."},
+      {n:23,disc:"Saúde Pública",q:"O SINAN é o sistema de informação do SUS utilizado para:",ops:["Registrar internações hospitalares (AIH)","Controle do estoque de medicamentos","Notificações compulsórias de doenças e agravos","Pagamento de procedimentos ambulatoriais"],g:2,exp:"SINAN = Sistema de Informação de Agravos de Notificação. Registra casos de doenças de notificação compulsória como dengue, leptospirose, leishmaniose e doença de Chagas."},
+      {n:24,disc:"Saúde Pública",q:"Incidência e prevalência diferem porque:",ops:["São sinônimos na epidemiologia moderna","Incidência mede casos NOVOS em um período; prevalência mede total de casos existentes","Prevalência mede apenas doenças crônicas","Incidência é sempre maior que a prevalência"],g:1,exp:"Incidência: número de casos NOVOS em um período. Prevalência: total de casos existentes (novos + antigos) em um dado momento. São medidas epidemiológicas complementares."},
+      {n:25,disc:"Saúde Pública",q:"A Estratégia Saúde da Família (ESF) está inserida em qual nível de atenção do SUS?",ops:["Atenção terciária (alta complexidade)","Atenção secundária (média complexidade)","Atenção básica/primária","Assistência hospitalar de urgência"],g:2,exp:"A ESF é a principal estratégia da Atenção Básica/Primária, sendo a porta de entrada preferencial do SUS e a base para o cuidado longitudinal da saúde da população."},
+      {n:26,disc:"Saúde Pública",q:"A cadeia epidemiológica descreve:",ops:["O protocolo de atendimento hospitalar","A lista de doenças de notificação compulsória","A sequência: agente etiológico → mecanismo de transmissão → hospedeiro suscetível","As etapas do tratamento de doenças infecciosas"],g:2,exp:"A cadeia epidemiológica descreve o processo de transmissão: agente causador → fonte → via de transmissão → hospedeiro suscetível. Quebrar qualquer elo interrompe a transmissão."},
+      {n:27,disc:"Saúde Pública",q:"A Carta de Ottawa (1986) é o documento fundador da promoção da saúde no mundo. São campos de ação por ela definidos:",ops:["Apenas vacinação e saneamento básico","Elaboração de políticas saudáveis, criação de ambientes favoráveis, reforço da ação comunitária, desenvolvimento de habilidades pessoais e reorientação dos serviços de saúde","Exclusivamente a prevenção de doenças infecciosas","A integração dos serviços públicos e privados de saúde"],g:1,exp:"A Carta de Ottawa (1986) define 5 campos de ação da promoção da saúde: políticas saudáveis, ambientes favoráveis, ação comunitária, habilidades pessoais e reorientação dos serviços de saúde."},
+      {n:28,disc:"Saúde Pública",q:"O controle vetorial (eliminação de criadouros do Aedes aegypti) é classificado como qual nível de prevenção?",ops:["Prevenção primária","Prevenção secundária","Prevenção terciária","Reabilitação"],g:0,exp:"Prevenção primária: ações que atuam antes da doença se instalar, eliminando fatores de risco. O controle vetorial elimina o mosquito antes que a doença se transmita — é prevenção primária."},
+      {n:29,disc:"Saúde Pública",q:"O princípio da EQUIDADE no SUS significa:",ops:["Atender a todos da mesma forma, sem distinção","Tratar desigualmente os desiguais, priorizando quem mais necessita para reduzir iniquidades","Integrar todos os serviços de saúde sob uma única direção","Garantir atendimento apenas em hospitais públicos"],g:1,exp:"Equidade não é igualdade: é dar mais a quem mais precisa, reconhecendo as diferentes necessidades e vulnerabilidades de cada grupo, para reduzir desigualdades em saúde."},
+      {n:30,disc:"Saúde Pública",q:"A Constituição Federal de 1988 estabelece que a saúde é:",ops:["Um serviço restrito a quem contribuiu com a Previdência Social","Um direito de todos e dever do Estado, garantido mediante políticas sociais e econômicas","Um privilégio de quem tem convênio médico","Responsabilidade exclusiva dos municípios"],g:1,exp:"Conforme Art. 196 da CF/1988, 'a saúde é direito de todos e dever do Estado, garantido mediante políticas sociais e econômicas que visem à redução do risco de doença e de outros agravos'."},
+      // ENDEMIAS E DOENÇAS (Q31–Q45)
+      {n:31,disc:"Endemias",q:"Qual mosquito é o principal vetor da dengue, Zika e Chikungunya no Brasil?",ops:["Anopheles darlingi","Culex quinquefasciatus","Aedes aegypti","Lutzomyia longipalpis"],g:2,exp:"O Aedes aegypti é o principal vetor das três arboviroses no Brasil. Prefere ambientes urbanos e criadouros artificiais com água limpa e parada."},
+      {n:32,disc:"Endemias",q:"Os sintomas clássicos da dengue incluem:",ops:["Tosse, coriza e febre baixa","Febre alta súbita, cefaleia, dor retroorbital, mialgia e exantema","Artralgia intensa e prolongada como sintoma principal","Icterícia, insuficiência renal e hemorragia"],g:1,exp:"A dengue clássica apresenta febre alta súbita (38–40°C), cefaleia intensa, dor atrás dos olhos (retroorbital), dores musculares e articulares, e exantema (manchas na pele)."},
+      {n:33,disc:"Endemias",q:"A fase crítica da dengue, de maior risco de evolução grave, ocorre:",ops:["No início da febre (1º ao 3º dia)","Após a queda da febre (3º ao 6º dia)","Apenas após o 7º dia","A doença não apresenta fases"],g:1,exp:"A fase crítica coincide com a queda da febre (3º ao 6º dia). É quando pode ocorrer extravasamento de plasma, hemoconcentração e choque — principal causa de óbito por dengue."},
+      {n:34,disc:"Endemias",q:"O tratamento da dengue é:",ops:["Com antibióticos de largo espectro","Com antivirais específicos como oseltamivir","Sintomático: hidratação e analgésicos (evitar AAS e anti-inflamatórios)","Com corticoides em todos os casos"],g:2,exp:"Não há antiviral específico para dengue. O tratamento é sintomático: hidratação oral ou venosa e paracetamol. AAS e anti-inflamatórios são contraindicados pelo risco de hemorragia."},
+      {n:35,disc:"Endemias",q:"A principal complicação da infecção pelo Zika vírus em gestantes é:",ops:["Pré-eclâmpsia grave","Microcefalia e malformações do sistema nervoso central do feto","Diabetes gestacional","Parto prematuro sem sequelas neurológicas"],g:1,exp:"A síndrome congênita do Zika inclui microcefalia, calcificações cerebrais e outras malformações do SNC fetal, especialmente quando a infecção ocorre no primeiro trimestre."},
+      {n:36,disc:"Endemias",q:"Além da picada do mosquito, o Zika vírus pode ser transmitido por:",ops:["Contato com objetos contaminados","Via sexual, transfusão sanguínea e transmissão vertical (mãe para filho)","Apenas por alimentos contaminados","Transmissão respiratória por gotículas"],g:1,exp:"O Zika se diferencia das demais arboviroses por ter transmissão sexual comprovada, além da transmissão pelo mosquito, transfusão sanguínea e transmissão vertical da mãe para o feto."},
+      {n:37,disc:"Endemias",q:"O principal sintoma que diferencia a Chikungunya da dengue é:",ops:["Febre mais alta e prolongada","Artralgia intensa e persistente (pode durar meses ou anos)","Manchas hemorrágicas na pele","Maior taxa de mortalidade"],g:1,exp:"A artralgia (dor articular) intensa e que pode persistir por meses ou anos é a marca da Chikungunya. 'Chikungunya' significa 'aquele que se curva' pela dor articular intensa."},
+      {n:38,disc:"Endemias",q:"A malária é causada por:",ops:["Trypanosoma cruzi","Leishmania braziliensis","Leptospira interrogans","Plasmodium spp. (falciparum, vivax, malariae)"],g:3,exp:"A malária é causada por protozoários do gênero Plasmodium. No Brasil, as espécies mais prevalentes são P. vivax e P. falciparum — este último é o mais letal."},
+      {n:39,disc:"Endemias",q:"A malária é transmitida pela picada de:",ops:["Fêmea do Aedes aegypti","Triatoma infestans (barbeiro)","Fêmea do Anopheles (mosquito-prego)","Lutzomyia longipalpis (mosquito-palha)"],g:2,exp:"A malária é transmitida pela picada da fêmea do Anopheles (mosquito-prego). Apenas a fêmea se alimenta de sangue, pois necessita de proteínas para o desenvolvimento dos ovos."},
+      {n:40,disc:"Endemias",q:"A forma mais grave da malária, que pode causar malária cerebral, é causada pelo:",ops:["P. vivax","P. malariae","P. ovale","P. falciparum"],g:3,exp:"P. falciparum é o mais virulento, podendo causar malária cerebral, insuficiência renal aguda, anemia grave e morte se não tratada rapidamente."},
+      {n:41,disc:"Endemias",q:"O vetor da leishmaniose visceral no Brasil é:",ops:["Aedes aegypti","Anopheles darlingi","Lutzomyia longipalpis (flebotomíneo/mosquito-palha)","Triatoma infestans (barbeiro)"],g:2,exp:"O Lutzomyia longipalpis (flebotomíneo ou mosquito-palha) é o principal vetor da leishmaniose visceral no Brasil. É um mosquito pequeno, de voo silencioso, ativo ao entardecer."},
+      {n:42,disc:"Endemias",q:"A lesão cutânea característica da leishmaniose tegumentar americana é:",ops:["Vesículas com líquido amarelado","Manchas avermelhadas sem ulceração","Úlcera com bordas elevadas e bem delimitadas (aspecto de cratera de vulcão)","Nódulos subcutâneos dolorosos"],g:2,exp:"A úlcera leishmaniótica tem bordas bem delimitadas e elevadas (aspecto de cratera de vulcão), fundo granuloso, geralmente indolor. Localiza-se mais frequentemente em membros inferiores."},
+      {n:43,disc:"Endemias",q:"A leishmaniose visceral (calazar) se caracteriza por:",ops:["Úlceras exclusivamente na pele","Febre prolongada, hepatoesplenomegalia, anemia e emagrecimento","Artralgia intensa e rash cutâneo","Febre periódica com calafrios regulares"],g:1,exp:"O calazar apresenta: febre irregular e prolongada, hepatoesplenomegalia (baço muito aumentado), anemia, leucopenia e emagrecimento progressivo. É fatal se não tratado."},
+      {n:44,disc:"Endemias",q:"A transmissão vetorial da doença de Chagas ocorre por:",ops:["Picada direta do barbeiro que injeta o parasita","Contato com as fezes do barbeiro (Triatoma) contaminadas com Trypanosoma cruzi","Inalação de poeira contaminada","Contato com urina do barbeiro"],g:1,exp:"O barbeiro pica e defeca próximo ao local da picada. As fezes contêm o T. cruzi. Ao coçar o local, o hospedeiro introduz o parasita pela pele lesada ou mucosas."},
+      {n:45,disc:"Endemias",q:"A leptospirose é transmitida principalmente por:",ops:["Picada do mosquito Aedes aegypti","Transmissão de pessoa a pessoa por contato direto","Contato da pele ou mucosas com água/lama contaminada pela urina de ratos","Ingestão de carne de roedores"],g:2,exp:"A Leptospira penetra pela pele com lesões ou mucosas em contato com água, lama ou solo contaminados pela urina de ratos. É especialmente frequente em períodos de enchente."},
+      // VISITAS E FISCALIZAÇÃO (Q46–Q55)
+      {n:46,disc:"Visitas",q:"O principal objetivo da visita domiciliar do ACE é:",ops:["Vacinar os moradores contra a dengue","Eliminar criadouros do Aedes aegypti e orientar os moradores sobre prevenção","Realizar consultas médicas domiciliares","Distribuir medicamentos e larvicidas"],g:1,exp:"O ACE inspeciona imóveis em busca de recipientes com água parada que sirvam de criadouro para o Aedes aegypti, eliminando-os no ato e educando o morador sobre prevenção."},
+      {n:47,disc:"Visitas",q:"Qual tipo de recipiente é considerado o principal criadouro do Aedes aegypti no Brasil?",ops:["Calhas entupidas","Caixas d'água sem tampa","Pneus velhos","Vasos de flores com pires"],g:1,exp:"Caixas d'água sem tampa são o principal criadouro por armazenar grande volume de água limpa e parada — condição ideal para a oviposição do Aedes aegypti."},
+      {n:48,disc:"Visitas",q:"Quando um imóvel está fechado durante a visita do ACE, o agente deve:",ops:["Registrar como visitado normalmente e seguir em frente","Registrar como pendência no BAC e revisitar na próxima rodada","Pular o imóvel e não registrar","Acionar a polícia para forçar a entrada"],g:1,exp:"Imóveis fechados (classificados como 'F' no LIRAa) são registrados no BAC como pendência e devem ser revisitados na próxima rodada do ciclo para garantir cobertura completa do território."},
+      {n:49,disc:"Visitas",q:"Quando o morador recusa a entrada do ACE em seu imóvel, o agente deve:",ops:["Forçar a entrada com apoio policial imediato","Registrar a recusa no BAC, comunicar ao supervisor e buscar apoio jurídico se necessário","Abandonar a visita sem qualquer registro","Multar o morador no ato"],g:1,exp:"O ACE deve registrar a recusa no BAC como 'R', informar ao supervisor e, se necessário, buscar apoio jurídico para acesso compulsório ao imóvel. Não pode forçar a entrada por conta própria."},
+      {n:50,disc:"Visitas",q:"O LIRAa (Levantamento de Índice Rápido para Aedes aegypti) é realizado com qual periodicidade?",ops:["Mensal","Anual","Quadrimestral (3 vezes ao ano)","Semanal"],g:2,exp:"O LIRAa é realizado 3 vezes ao ano (quadrimestral), nos meses de fevereiro, maio/junho e outubro, para monitorar os índices de infestação do Aedes aegypti e orientar as ações de controle."},
+      {n:51,disc:"Visitas",q:"No LIRAa, o imóvel classificado como 'B' significa:",ops:["Imóvel vistoriado sem foco de Aedes","Imóvel vistoriado com foco de Aedes","Imóvel fechado na hora da visita","Imóvel com recusa do morador"],g:1,exp:"Classificação LIRAa: A = visitado SEM foco, B = visitado COM foco, F = fechado, R = recusa, T = terreno baldio. O índice de infestação é calculado com base nos imóveis 'B'."},
+      {n:52,disc:"Visitas",q:"O Boletim de Acompanhamento de Campo (BAC) é usado para:",ops:["Registrar apenas os imóveis com foco","Registrar todos os imóveis visitados, classificação, focos encontrados e ações realizadas","Solicitar materiais ao almoxarifado","Comunicar atestados e ausências ao supervisor"],g:1,exp:"O BAC é o instrumento de registro de campo do ACE, onde são anotados todos os imóveis visitados, sua classificação (A, B, F, R, T), focos encontrados e ações realizadas."},
+      {n:53,disc:"Visitas",q:"O ciclo operacional do LIRAa tem duração de:",ops:["30 dias","45 dias","60 dias","90 dias"],g:2,exp:"O ciclo operacional do LIRAa tem duração de 60 dias, sendo realizado 3 vezes ao ano. Cada ciclo abrange todo o território de responsabilidade do agente."},
+      {n:54,disc:"Visitas",q:"A estratificação de risco no trabalho do ACE serve para:",ops:["Definir quais agentes trabalham em cada área","Priorizar áreas com maior índice de infestação e risco epidemiológico para ações intensificadas","Calcular o salário dos agentes conforme a produtividade","Determinar o número de criadouros permitidos por imóvel"],g:1,exp:"A estratificação de risco classifica as áreas do município conforme o índice de infestação e histórico epidemiológico, permitindo priorizar recursos e intensificar ações nas áreas de maior risco."},
+      {n:55,disc:"Visitas",q:"Na visita domiciliar, ao encontrar um pneu com água no quintal, a conduta correta do ACE é:",ops:["Registrar e seguir para o próximo imóvel sem intervir","Eliminar o criadouro (esvaziar/virar o pneu) e orientar o morador sobre prevenção","Multar o morador imediatamente","Acionar a vigilância sanitária e aguardar autorização"],g:1,exp:"O ACE deve eliminar o criadouro no ato da visita (esvaziar, virar ou descartar o pneu) e educar o morador sobre como evitar o acúmulo de água parada. É parte da atribuição do cargo."},
+      // INFORMÁTICA (Q56–Q60)
+      {n:56,disc:"Informática",q:"No MS-Windows, a área de transferência armazena:",ops:["Arquivos permanentemente no disco rígido","Itens copiados (Ctrl+C) ou recortados (Ctrl+X) temporariamente para serem colados (Ctrl+V)","A configuração do sistema operacional","O histórico de navegação na internet"],g:1,exp:"A área de transferência (clipboard) guarda temporariamente o que foi copiado (Ctrl+C) ou recortado (Ctrl+X) para ser colado (Ctrl+V). O conteúdo é perdido ao desligar o computador ou ao copiar outro item."},
+      {n:57,disc:"Informática",q:"No MS-Word, qual recurso gera automaticamente o sumário com base nos estilos de título?",ops:["Inserir > Tabela","Referências > Sumário","Revisão > Ortografia e Gramática","Layout > Colunas"],g:1,exp:"Em Referências > Sumário, o Word gera automaticamente o índice baseado nos estilos de parágrafo Título 1, Título 2 etc. O sumário pode ser atualizado ao modificar o documento."},
+      {n:58,disc:"Informática",q:"No MS-Excel, a fórmula =SOMA(B2:B10) realiza:",ops:["A soma apenas de B2 e B10","A soma de todas as células de B2 até B10","A contagem de células numéricas no intervalo","O cálculo da média do intervalo"],g:1,exp:"O intervalo B2:B10 inclui todas as células de B2 até B10 (B2, B3, B4, B5, B6, B7, B8, B9 e B10), totalizando 9 células. A fórmula soma os valores de todas essas células."},
+      {n:59,disc:"Informática",q:"No MS-Excel, a função =SE() serve para:",ops:["Somar um intervalo de células","Executar um teste lógico e retornar valores distintos conforme o resultado (verdadeiro ou falso)","Contar células que contêm texto","Calcular a média aritmética de um intervalo"],g:1,exp:"=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso) avalia uma condição e retorna um de dois resultados possíveis. Exemplo: =SE(A1>=7;\"Aprovado\";\"Reprovado\")."},
+      {n:60,disc:"Informática",q:"O protocolo utilizado para o envio de e-mails entre servidores é:",ops:["HTTP (HyperText Transfer Protocol)","FTP (File Transfer Protocol)","SMTP (Simple Mail Transfer Protocol)","DNS (Domain Name System)"],g:2,exp:"SMTP (Simple Mail Transfer Protocol) é o protocolo padrão para envio de mensagens de e-mail entre servidores de correio eletrônico. POP3 e IMAP são usados para recebimento/acesso às mensagens."}
+    ]
+  }
+];
+
+let provaAtual = null;
+let provaRespostas = {};
+let provaCorrigida = false;
+
+function renderProvasLista(){
+  const lista = document.getElementById('provas-lista');
+  lista.innerHTML = PROVAS_DATA.map(p=>`
+    <div class="prova-card">
+      <div class="prova-card-info">
+        <h3>${p.titulo}</h3>
+        <p>${p.banca} · ${p.ano} · ${p.edital}</p>
+        <span class="badge-qtd">${p.qs.length} questões</span>
+      </div>
+      <button class="btn-iniciar" onclick="iniciarProva('${p.id}')">▶ Iniciar Prova</button>
+    </div>
+  `).join('');
+}
+
+function iniciarProva(id){
+  provaAtual = PROVAS_DATA.find(p=>p.id===id);
+  provaRespostas = {};
+  provaCorrigida = false;
+  document.getElementById('provas-lista').style.display='none';
+  document.getElementById('prova-ativa').classList.add('show');
+  document.getElementById('prova-titulo-ativo').textContent = provaAtual.titulo;
+  document.getElementById('prova-info-ativo').textContent = `${provaAtual.banca} · ${provaAtual.ano} · ${provaAtual.edital}`;
+  document.getElementById('prova-resultado-topo').classList.remove('show');
+  document.getElementById('btn-corrigir').style.display='block';
+  document.getElementById('prova-aviso').classList.remove('show');
+  renderTodasQuestoes();
+  window.scrollTo(0,0);
+}
+
+function renderTodasQuestoes(){
+  const container = document.getElementById('prova-questoes');
+  container.innerHTML = provaAtual.qs.map((q,idx)=>`
+    <div class="prova-questao-wrap" id="prova-wrap-${idx}">
+      <div class="prova-q-header">
+        <span class="prova-q-num">Q${q.n}</span>
+        <span class="prova-q-disc">${q.disc}</span>
+        <span class="prova-q-resultado" id="prova-res-${idx}"></span>
+      </div>
+      <div class="prova-q-enunciado">${q.q}</div>
+      <div class="prova-ops" id="prova-ops-${idx}">
+        ${q.ops.map((o,i)=>`
+          <button class="prova-op" id="prova-op-${idx}-${i}" onclick="marcarProva(${idx},${i})">
+            <span style="font-weight:700;min-width:18px">${String.fromCharCode(65+i)})</span>
+            <span>${o}</span>
+          </button>
+        `).join('')}
+      </div>
+      <div class="prova-exp" id="prova-exp-${idx}"></div>
+    </div>
+  `).join('');
+  atualizarProgressoProva();
+}
+
+function marcarProva(qIdx, opIdx){
+  if(provaCorrigida) return;
+  provaRespostas[qIdx] = opIdx;
+  // limpar seleção anterior
+  const opsDiv = document.getElementById(`prova-ops-${qIdx}`);
+  opsDiv.querySelectorAll('.prova-op').forEach(b=>b.classList.remove('selecionada'));
+  document.getElementById(`prova-op-${qIdx}-${opIdx}`).classList.add('selecionada');
+  atualizarProgressoProva();
+}
+
+function atualizarProgressoProva(){
+  const respondidas = Object.keys(provaRespostas).length;
+  const total = provaAtual.qs.length;
+  document.getElementById('prova-progresso').textContent = `${respondidas} de ${total} respondidas`;
+}
+
+function corrigirProva(){
+  const respondidas = Object.keys(provaRespostas).length;
+  const total = provaAtual.qs.length;
+  if(respondidas < total){
+    document.getElementById('prova-aviso').textContent = `⚠️ ${total - respondidas} questão(ões) sem resposta. Essas serão contadas como erros.`;
+    document.getElementById('prova-aviso').classList.add('show');
+  }
+  provaCorrigida = true;
+  let certas = 0;
+  provaAtual.qs.forEach((q, idx)=>{
+    const resp = provaRespostas[idx];
+    const wrap = document.getElementById(`prova-wrap-${idx}`);
+    const resLabel = document.getElementById(`prova-res-${idx}`);
+    const expDiv = document.getElementById(`prova-exp-${idx}`);
+    const opsDiv = document.getElementById(`prova-ops-${idx}`);
+    // desabilitar botões
+    opsDiv.querySelectorAll('.prova-op').forEach((b,i)=>{
+      b.setAttribute('disabled','');
+      b.classList.remove('selecionada');
+      if(i===q.g) b.classList.add('correta');
+      else if(i===resp) b.classList.add('errada');
+    });
+    // mostrar resultado
+    if(resp===q.g){
+      certas++;
+      wrap.classList.add('acertou');
+      resLabel.textContent='✓ Acertou';
+      resLabel.className='prova-q-resultado acertou';
+    } else {
+      wrap.classList.add('errou');
+      resLabel.textContent=`✗ Errou${resp===undefined?' (sem resposta)':''}`;
+      resLabel.className='prova-q-resultado errou';
+    }
+    // mostrar explicação sempre
+    expDiv.textContent = q.exp;
+    expDiv.classList.add('show');
+  });
+  const pct = Math.round(certas/total*100);
+  let msg = pct>=70 ? '🎉 Parabéns! Aproveitamento excelente!' : pct>=50 ? '📚 Continue estudando, você está evoluindo!' : '💪 Não desista! Revise os conteúdos e tente novamente.';
+  document.getElementById('prova-res-num').textContent = `${certas}/${total}`;
+  document.getElementById('prova-res-pct').textContent = `${pct}% de aproveitamento`;
+  document.getElementById('prova-res-msg').textContent = msg;
+  document.getElementById('prova-resultado-topo').classList.add('show');
+  document.getElementById('btn-corrigir').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+  salvarResultadoProva(certas, total);
+}
+
+function salvarResultadoProva(certas, total){
+  const dados = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+  dados.provaTotal = (dados.provaTotal||0)+1;
+  dados.provaCertas = (dados.provaCertas||0)+certas;
+  dados.provaQuestoes = (dados.provaQuestoes||0)+total;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
+}
+
+function voltarProvas(){
+  document.getElementById('prova-ativa').classList.remove('show');
+  document.getElementById('provas-lista').style.display='grid';
+  provaAtual=null; provaCorrigida=false; provaRespostas={};
+}
+
 // ===================== UTILS =====================
 function mudarTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('ativo'));
@@ -2050,6 +2337,7 @@ function mudarTab(id,el){
   document.querySelectorAll('.secao').forEach(s=>s.classList.remove('ativa'));
   document.getElementById('sec-'+id).classList.add('ativa');
   if(id==='relatorio') mostrarRelatorio();
+  if(id==='provas'){ voltarProvas(); }
 }
 
 function setSpeed(v, btn){
